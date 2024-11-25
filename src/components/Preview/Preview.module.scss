@@ -1,0 +1,12 @@
+@use '../../scss/variables' as *;
+
+.preview {
+  height: 2000px;
+  margin-top: 120.39px;
+
+  p {
+    font-size: 64px;
+    font-weight: bold;
+    color: $active-white;
+  }
+}

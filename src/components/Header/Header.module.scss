@@ -1,53 +1,96 @@
-@import '../../scss/variables';
+@use '../../scss/variables' as *;
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  color: $active-white;
   padding: 35px 0;
-  color: $dull-white;
-  font-weight: 600;
-}
-.logo {
-  max-width: 200px;
-  a {
-    display: flex;
-    align-items: center;
-    svg {
-      fill: $dull-white;
-      path {
-        fill: $dull-white;
-        stroke: $dull-white;
-        stroke-width: 2px;
+
+  &.fixed {
+    background-color: #fff;
+    color: $black;
+    padding: 15px 0;
+
+    .item a,
+    .langBtn {
+      color: $black;
+      transition: color 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        color: $active-black;
+      }
+    }
+
+    .logo a {
+      transition: transform 0.3s ease-in-out;
+
+      svg {
+        transition: all 0.3s ease-in-out;
+
+        g path,
+        g:last-child path {
+          fill: $black;
+        }
+      }
+    }
+
+    .active {
+      color: $active-black;
+
+      a {
+        color: $active-black;
       }
     }
   }
 }
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.logo {
+  max-width: 200px;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    svg {
+      scale: 0.8;
+      fill: $active-white;
+
+      path {
+        fill: $active-white;
+      }
+    }
+  }
+}
+
 .menu {
   display: flex;
 }
+
 .list {
   display: flex;
   gap: 20px;
   padding: 0;
   list-style: none;
 }
-.item {
-  a {
-    display: inline-block;
-    color: $dull-white;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
 
-    &:hover {
-      color: $white;
-      transform: scale(1.05);
-    }
-  }
-}
-.active {
-  a {
+.item a {
+  display: inline-block;
+  color: $active-white;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
     color: $white;
+    transform: scale(1.08);
   }
 }
 
@@ -57,6 +100,7 @@
   align-items: center;
   margin-left: 40px;
 }
+
 .langBtn {
   font-weight: 600;
   border: none;
@@ -66,8 +110,13 @@
 
   &:hover {
     color: #fff;
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 
   cursor: pointer;
+}
+
+.active,
+.active a {
+  color: $white;
 }
