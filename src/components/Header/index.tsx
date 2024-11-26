@@ -69,7 +69,7 @@ export default function Header(): React.ReactNode {
               <Hamburger headerIsFixed={headerIsFixed} />
             </button>
           </nav>
-          <div className={styles.lang}>
+          <div className={`${styles.lang} ${menuIsOpen ? styles.langHidden : ''}`}>
             <button
               className={`${styles.langBtn} ${activeLang === 'en' ? styles.active : ''}`}
               onClick={(e) => handleSelectLanguage(e)}>

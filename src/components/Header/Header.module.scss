@@ -38,6 +38,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   font-weight: 600;
 }
 .menu,
@@ -98,6 +99,30 @@
   color: $active-white;
   transition: all 0.3s ease-in;
 }
+@media (max-width: 425px) {
+  .lang {
+    position: absolute;
+    top: 94px;
+    right: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .langHidden {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .header {
+    &.fixed {
+      & .lang {
+        right: 30px;
+      }
+    }
+  }
+}
 
 @media (max-width: 768px) {
   .menu {
@@ -107,7 +132,7 @@
     flex-direction: column;
     gap: 10px;
     position: absolute;
-    top: 80px;
+    top: 65px;
     left: 10px;
     width: calc(100% - 20px);
     opacity: 0;
