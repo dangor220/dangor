@@ -7,18 +7,18 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: $active-white;
+  color: $transparent-white;
 }
 .image {
   width: 250px;
   margin-bottom: 55px;
   border-radius: 50%;
-  border: 4px solid $white;
+  border: 4px solid $active-white;
   filter: brightness(0.9);
 }
 
 .title {
-  color: $white;
+  color: $active-white;
   font-size: 64px;
   margin-bottom: 35px;
 }
@@ -42,7 +42,7 @@
 
   animation: arrowAction 3s ease-in-out infinite;
   a svg {
-    fill: $white;
+    fill: $active-white;
     width: 40px;
     height: 40px;
   }

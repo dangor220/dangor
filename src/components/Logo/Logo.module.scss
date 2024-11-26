@@ -1,0 +1,25 @@
+@use '../../scss/variables' as *;
+
+.logo {
+  display: flex;
+  align-items: center;
+  svg {
+    scale: 1;
+    fill: $transparent-white;
+    path {
+      fill: $transparent-white;
+    }
+  }
+}
+
+.logoBlack {
+  transition: transform 0.3s ease-in-out;
+
+  svg {
+    transition: all 0.3s ease-in-out;
+    g path,
+    g:last-child path {
+      fill: $black;
+    }
+  }
+}

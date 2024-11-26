@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import styles from './Header.module.scss';
 import Logo from '../Logo';
 import Hamburger from '../Hamburger';
+
+import styles from './Header.module.scss';
 
 export default function Header(): React.ReactNode {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
@@ -13,7 +14,7 @@ export default function Header(): React.ReactNode {
   const [activeItem, setActiveItem] = useState<number>(0);
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -43,23 +44,16 @@ export default function Header(): React.ReactNode {
     }
   };
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+    setMenuIsOpen((prev) => !prev);
   };
 
   return (
     <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`}>
       <div className={`${styles.wrapper} container`}>
-        <div className={styles.logo}>
-          <a href="#">
-            <Logo />
-          </a>
-        </div>
+        <Logo headerIsFixed={headerIsFixed} />
         <div className={styles.menu}>
           <nav className={styles.nav}>
-            <button className={styles.burger} onClick={toggleMenu}>
-              <Hamburger headerIsFixed={headerIsFixed} />
-            </button>
-            <ul className={`${styles.list} ${isMenuOpen ? styles.menuOpen : ''}`}>
+            <ul className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`}>
               {navList.map((item, index) => (
                 <li
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
@@ -71,6 +65,9 @@ export default function Header(): React.ReactNode {
                 </li>
               ))}
             </ul>
+            <button className={styles.burger} onClick={toggleMenu}>
+              <Hamburger headerIsFixed={headerIsFixed} />
+            </button>
           </nav>
           <div className={styles.lang}>
             <button

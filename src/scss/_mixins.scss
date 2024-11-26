@@ -1,0 +1,8 @@
+@use './variables' as *;
+
+@mixin linkHover {
+  &:hover {
+    color: $active-white;
+    transform: scale(1.08);
+  }
+}

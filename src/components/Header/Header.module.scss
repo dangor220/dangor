@@ -1,52 +1,35 @@
 @use '../../scss/variables' as *;
+@use '../../scss/mixins' as *;
 
 .header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   transition: all 0.3s ease-in-out;
-  color: $active-white;
   padding: 35px 0;
   z-index: 1000;
 
   &.fixed {
     background-color: #fff;
-    color: $black;
     padding: 15px 0;
 
     .item a,
-    .langBtn {
-      color: $black;
-      transition: color 0.3s ease, transform 0.3s ease;
-
-      &:hover {
-        color: $active-black;
-      }
-    }
+    .langBtn,
     .separator {
       color: $black;
     }
-
-    .logo a {
-      transition: transform 0.3s ease-in-out;
-
-      svg {
-        transition: all 0.3s ease-in-out;
-
-        g path,
-        g:last-child path {
-          fill: $black;
-        }
+    .item a,
+    .langBtn {
+      transition: color 0.3s ease, transform 0.3s ease;
+      &:hover {
+        color: $active-green;
       }
     }
-
-    .active {
-      color: $active-black;
+    .active,
+    .active a {
+      color: $active-green;
       transition: all 0.3s ease-in;
-      a {
-        color: $active-black;
-        transition: all 0.3s ease-in;
-      }
     }
   }
 }
@@ -57,91 +40,74 @@
   align-items: center;
   font-weight: 600;
 }
-
-.logo {
-  max-width: 200px;
-
-  a {
-    display: flex;
-    align-items: center;
-
-    svg {
-      scale: 1;
-      fill: $active-white;
-
-      path {
-        fill: $active-white;
-      }
-    }
-  }
-}
-
-.menu {
+.menu,
+.nav,
+.list,
+.lang {
   display: flex;
 }
-.burger {
-  display: none;
-  background-color: transparent;
-  border: none;
-  color: $active-white;
-  font-size: 30px;
+.menu {
+  gap: 40px;
+}
+.nav {
+  align-items: center;
 }
 .list {
-  display: flex;
   gap: 20px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
-.item a {
-  display: inline-block;
-  color: $active-white;
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
+.item {
+  a {
+    display: inline-block;
+    color: $transparent-white;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
 
-  &:hover {
-    color: $white;
-    transform: scale(1.08);
+    @include linkHover;
   }
 }
-
 .lang {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 40px;
 }
-
 .langBtn {
   font-weight: 600;
   border: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.71);
+  padding: 0;
+  color: $transparent-white;
   transition: color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    color: #fff;
-    transform: scale(1.08);
-  }
-
   cursor: pointer;
-}
 
+  @include linkHover;
+}
+.separator {
+  margin: 0 5px;
+}
+.burger {
+  display: none;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: $transparent-white;
+}
 .active,
 .active a {
-  color: $white;
+  color: $active-white;
   transition: all 0.3s ease-in;
 }
 
 @media (max-width: 768px) {
-  .lang {
-    order: -1;
-    margin-left: 0;
-    margin-right: 10px;
+  .menu {
+    gap: 25px;
   }
   .list {
     flex-direction: column;
+    gap: 10px;
     position: absolute;
-    top: 100px;
+    top: 80px;
     left: 10px;
     width: calc(100% - 20px);
     opacity: 0;
@@ -153,30 +119,40 @@
       rgba(0, 0, 0, 0.7) 60%,
       rgba(0, 0, 0, 0.9) 100%
     );
-    margin: 0;
-    padding: 20px 0;
     transition: all 0.3s ease-in-out;
   }
-  .item a {
-    color: $active-white;
-    padding: 10px 30px;
+  .item {
+    a {
+      color: $transparent-white;
+      padding: 10px 30px;
+      &:hover {
+        color: $transparent-white;
+        transform: scale(1);
+      }
+    }
 
-    &:hover {
-      color: $white;
+    &:first-child {
+      margin-top: 20px;
+    }
+    &:last-child {
+      margin-bottom: 20px;
     }
   }
-  .active,
-  .active a {
-    color: $white;
+  .lang {
+    order: -1;
   }
   .burger {
     display: flex;
   }
+  .active,
+  .active a {
+    color: $active-white;
+  }
+
   .menuOpen {
     &.list {
       opacity: 1;
       visibility: visible;
-      margin: 0;
       transition: all 0.3s ease-in-out;
     }
   }
@@ -184,23 +160,13 @@
   .header {
     &.fixed {
       & .list {
-        top: 66.5px;
         left: 0;
         width: 100%;
-        background: linear-gradient(to bottom, $white, $white);
+        background: linear-gradient(to bottom, $active-white, $active-white);
         transition: all 0.3s ease-out;
       }
       .burger {
         color: $black;
-      }
-      .menuOpen {
-        &.list {
-          background: linear-gradient(to bottom, $white, $white);
-          top: 66.5px;
-          left: 0;
-          width: 100%;
-          transition: all 0.3s ease-in;
-        }
       }
     }
   }
