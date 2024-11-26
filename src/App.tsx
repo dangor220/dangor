@@ -9,7 +9,6 @@ import Preview from './components/Preview';
 export default function App(): React.ReactNode {
   return (
     <>
-      <div className="background"></div>
       <Header />
       <Preview />
     </>
