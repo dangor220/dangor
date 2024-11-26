@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import styles from './Preview.module.scss';
 import author from '../../assets/images/author/author.jpg';
 
-export default function Preview() {
-  const [t, i18n] = useTranslation();
-  const subtitleText = [t('whoIAm'), t('goal'), t('suggest')];
+export default function Preview(): React.ReactNode {
+  const [t] = useTranslation();
+  const subtitleText: string[] = [t('whoIAm'), t('goal'), t('suggest')];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
