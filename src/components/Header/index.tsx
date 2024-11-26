@@ -5,6 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import styles from './Header.module.scss';
 import Logo from '../Logo';
+import Hamburger from '../Hamburger';
 
 export default function Header(): React.ReactNode {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
@@ -12,6 +13,7 @@ export default function Header(): React.ReactNode {
   const [activeItem, setActiveItem] = useState<number>(0);
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -40,6 +42,9 @@ export default function Header(): React.ReactNode {
       setActiveLang(selectLang);
     }
   };
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   return (
     <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`}>
@@ -51,7 +56,10 @@ export default function Header(): React.ReactNode {
         </div>
         <div className={styles.menu}>
           <nav className={styles.nav}>
-            <ul className={styles.list}>
+            <button className={styles.burger} onClick={toggleMenu}>
+              <Hamburger headerIsFixed={headerIsFixed} />
+            </button>
+            <ul className={`${styles.list} ${isMenuOpen ? styles.menuOpen : ''}`}>
               {navList.map((item, index) => (
                 <li
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}

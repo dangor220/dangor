@@ -7,5 +7,10 @@ body {
 .container {
   max-width: 1170px;
   margin: 0 auto;
+  padding: 0 10px;
   color: #ffffffb5;
+
+  @media (max-width: 768px) {
+    padding: 0 30px;
+  }
 }

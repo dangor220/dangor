@@ -23,6 +23,9 @@
         color: $active-black;
       }
     }
+    .separator {
+      color: $black;
+    }
 
     .logo a {
       transition: transform 0.3s ease-in-out;
@@ -39,9 +42,10 @@
 
     .active {
       color: $active-black;
-
+      transition: all 0.3s ease-in;
       a {
         color: $active-black;
+        transition: all 0.3s ease-in;
       }
     }
   }
@@ -62,7 +66,7 @@
     align-items: center;
 
     svg {
-      scale: 0.8;
+      scale: 1;
       fill: $active-white;
 
       path {
@@ -75,14 +79,19 @@
 .menu {
   display: flex;
 }
-
+.burger {
+  display: none;
+  background-color: transparent;
+  border: none;
+  color: $active-white;
+  font-size: 30px;
+}
 .list {
   display: flex;
   gap: 20px;
   padding: 0;
   list-style: none;
 }
-
 .item a {
   display: inline-block;
   color: $active-white;
@@ -120,4 +129,79 @@
 .active,
 .active a {
   color: $white;
+  transition: all 0.3s ease-in;
+}
+
+@media (max-width: 768px) {
+  .lang {
+    order: -1;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  .list {
+    flex-direction: column;
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    width: calc(100% - 20px);
+    opacity: 0;
+    visibility: hidden;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.3) 20%,
+      rgba(0, 0, 0, 0.7) 60%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+    margin: 0;
+    padding: 20px 0;
+    transition: all 0.3s ease-in-out;
+  }
+  .item a {
+    color: $active-white;
+    padding: 10px 30px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+  .active,
+  .active a {
+    color: $white;
+  }
+  .burger {
+    display: flex;
+  }
+  .menuOpen {
+    &.list {
+      opacity: 1;
+      visibility: visible;
+      margin: 0;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .header {
+    &.fixed {
+      & .list {
+        top: 66.5px;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, $white, $white);
+        transition: all 0.3s ease-out;
+      }
+      .burger {
+        color: $black;
+      }
+      .menuOpen {
+        &.list {
+          background: linear-gradient(to bottom, $white, $white);
+          top: 66.5px;
+          left: 0;
+          width: 100%;
+          transition: all 0.3s ease-in;
+        }
+      }
+    }
+  }
 }
