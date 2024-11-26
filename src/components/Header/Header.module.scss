@@ -7,6 +7,7 @@
   transition: all 0.3s ease-in-out;
   color: $active-white;
   padding: 35px 0;
+  z-index: 1000;
 
   &.fixed {
     background-color: #fff;
