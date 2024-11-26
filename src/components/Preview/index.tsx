@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './Preview.module.scss';
 
 export default function Preview() {
