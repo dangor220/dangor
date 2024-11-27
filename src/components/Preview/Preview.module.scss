@@ -87,6 +87,7 @@
 .subtitle {
   max-width: 800px;
   opacity: 0;
+  -webkit-transition: opacity 1s ease;
   transition: opacity 1s ease;
   font-size: 32px;
   text-align: center;
@@ -117,6 +118,7 @@
 
 .subtitle.visible {
   opacity: 1;
+  -webkit-transition: opacity 1s ease;
   transition: opacity 1s ease;
 }
 
