@@ -16,7 +16,7 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % subtitleText.length);
         setIsVisible(true);
-      }, 1000);
+      }, 1500);
     }, 4500);
 
     return () => clearInterval(interval);
