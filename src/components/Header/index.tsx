@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -20,6 +20,21 @@ export default function Header({
   const [activeItem, setActiveItem] = useState<number>(0);
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
+
+  const navigationPanel = useRef<HTMLUListElement | null>(null);
+
+  const clickOutsideNav = (e: MouseEvent) => {
+    if (navigationPanel.current && !navigationPanel.current.contains(e.target as Node)) {
+      setMenuIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOutsideNav);
+    return () => {
+      document.removeEventListener('mousedown', clickOutsideNav);
+    };
+  }, []);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -51,6 +66,10 @@ export default function Header({
   const toggleMenu = () => {
     setMenuIsOpen((prev) => !prev);
   };
+  const handleNavItemClick = (index: number) => {
+    setActiveItem(index);
+    setMenuIsOpen(false);
+  };
 
   return (
     <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`}>
@@ -58,12 +77,14 @@ export default function Header({
         <Logo headerIsFixed={headerIsFixed} />
         <div className={styles.menu}>
           <nav className={styles.nav}>
-            <ul className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`}>
+            <ul
+              className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`}
+              ref={navigationPanel}>
               {navList.map((item, index) => (
                 <li
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
                   key={uuidv4()}
-                  onClick={() => setActiveItem(index)}>
+                  onClick={() => handleNavItemClick(index)}>
                   <a className={styles.link} href="#">
                     {t(item)}
                   </a>
@@ -71,7 +92,7 @@ export default function Header({
               ))}
             </ul>
             <button className={styles.burger} onClick={toggleMenu}>
-              <Hamburger headerIsFixed={headerIsFixed} />
+              <Hamburger headerIsFixed={headerIsFixed} menuIsOpen={menuIsOpen} />
             </button>
           </nav>
           <div className={`${styles.lang} ${menuIsOpen ? styles.langHidden : ''}`}>
