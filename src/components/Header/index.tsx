@@ -21,18 +21,23 @@ export default function Header({
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
 
-  const navigationPanel = useRef<HTMLUListElement | null>(null);
+  const menuRef = useRef<HTMLUListElement | null>(null);
+  const burgerRef = useRef<HTMLButtonElement | null>(null);
 
-  const clickOutsideNav = (e: MouseEvent) => {
-    if (navigationPanel.current && !navigationPanel.current.contains(e.target as Node)) {
+  const handleClickMenuOutside = (e: MouseEvent) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(e.target as Node) &&
+      burgerRef.current &&
+      !burgerRef.current.contains(e.target as Node)
+    ) {
       setMenuIsOpen(false);
     }
   };
-
   useEffect(() => {
-    document.addEventListener('mousedown', clickOutsideNav);
+    document.addEventListener('mousedown', handleClickMenuOutside);
     return () => {
-      document.removeEventListener('mousedown', clickOutsideNav);
+      document.removeEventListener('mousedown', handleClickMenuOutside);
     };
   }, []);
 
@@ -77,9 +82,7 @@ export default function Header({
         <Logo headerIsFixed={headerIsFixed} />
         <div className={styles.menu}>
           <nav className={styles.nav}>
-            <ul
-              className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`}
-              ref={navigationPanel}>
+            <ul className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`} ref={menuRef}>
               {navList.map((item, index) => (
                 <li
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
@@ -91,7 +94,7 @@ export default function Header({
                 </li>
               ))}
             </ul>
-            <button className={styles.burger} onClick={toggleMenu}>
+            <button className={styles.burger} onClick={toggleMenu} ref={burgerRef}>
               <Hamburger headerIsFixed={headerIsFixed} menuIsOpen={menuIsOpen} />
             </button>
           </nav>
