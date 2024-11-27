@@ -8,13 +8,18 @@ import Hamburger from '../Hamburger';
 
 import styles from './Header.module.scss';
 
-export default function Header(): React.ReactNode {
+export default function Header({
+  menuIsOpen,
+  setMenuIsOpen,
+}: {
+  menuIsOpen: boolean;
+  setMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}): React.ReactNode {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
   const [t, i18n] = useTranslation();
   const [activeItem, setActiveItem] = useState<number>(0);
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
-  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './Preview.module.scss';
 import author from '../../assets/images/author/author.jpg';
 
-export default function Preview(): React.ReactNode {
+export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.ReactNode {
   const [t] = useTranslation();
   const subtitleText: string[] = [t('whoIAm'), t('goal'), t('suggest')];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,8 +24,14 @@ export default function Preview(): React.ReactNode {
 
   return (
     <div className={styles.preview}>
-      <img className={styles.image} src={author} alt="Danil Gordeev" />
-      <div className={styles.title}>{t('welcome')}</div>
+      <img
+        className={`${styles.image} ${menuIsOpen ? styles.imageHidden : ''}`}
+        src={author}
+        alt="Danil Gordeev"
+      />
+      <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>
+        {t('welcome')}
+      </div>
       <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
         {subtitleText[currentIndex]}
       </div>

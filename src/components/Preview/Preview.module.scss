@@ -9,18 +9,78 @@
   height: 100vh;
   color: $transparent-white;
 }
+
 .image {
   width: 250px;
   margin-bottom: 55px;
   border-radius: 50%;
   border: 4px solid $active-white;
   filter: brightness(0.9);
+  transition: opacity 0.3s ease-in-out;
+
+  // max-width
+  @media (max-width: 768px) {
+    width: 200px;
+    border-width: 3px;
+    margin-bottom: 35px;
+  }
+
+  @media (max-width: 425px) {
+    width: 150px;
+    border-width: 2px;
+    margin-bottom: 25px;
+  }
+
+  // max-height
+
+  @media (max-height: 710px) and (max-width: 768px) {
+    width: 180px;
+    margin-bottom: 15px;
+  }
+  @media (max-height: 710px) and (max-width: 425px) {
+    width: 150px;
+    margin-bottom: 15px;
+  }
+  @media (max-height: 568px) and (max-width: 768px) {
+    display: none;
+  }
+  @media (max-height: 600px) and (min-width: 768px) {
+    display: none;
+  }
+}
+.imageHidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .title {
-  color: $active-white;
-  font-size: 64px;
   margin-bottom: 35px;
+  font-size: 64px;
+  text-align: center;
+  color: $active-white;
+  transition: opacity 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    font-size: 46px;
+    margin-bottom: 25px;
+    padding: 0 30px;
+  }
+  @media (max-width: 425px) {
+    font-size: 33px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+  }
+
+  @media (max-height: 368px) and (max-width: 768px) {
+    margin-bottom: 10px;
+    font-size: 35px;
+  }
+}
+.titleHidden {
+  @media (max-height: 710px) {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
 }
 
 .subtitle {
@@ -30,6 +90,28 @@
   font-size: 32px;
   text-align: center;
   line-height: 45px;
+
+  @media (max-width: 768px) {
+    max-width: 600px;
+    height: 150px;
+    font-size: 23px;
+    line-height: 40px;
+    padding: 0 30px;
+  }
+  @media (max-width: 425px) {
+    padding: 0 15px;
+  }
+
+  // max-height
+  @media (max-height: 710px) {
+    height: 100px;
+  }
+
+  @media (max-height: 368px) and (max-width: 768px) {
+    font-size: 20px;
+    line-height: 35px;
+    height: 80px;
+  }
 }
 
 .subtitle.visible {
@@ -45,6 +127,20 @@
     fill: $active-white;
     width: 40px;
     height: 40px;
+
+    @media (max-width: 768px) {
+      width: 30px;
+      height: 30px;
+    }
+    @media (max-width: 425px) {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-height: 368px) and (max-width: 768px) {
+      width: 25px;
+      height: 25px;
+    }
   }
 }
 
