@@ -88,8 +88,8 @@
   max-width: 800px;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all 1.5s ease;
+  transition: all 1.5s ease;
   font-size: 32px;
   text-align: center;
   line-height: 45px;
@@ -120,8 +120,8 @@
 .subtitle.visible {
   opacity: 1;
   visibility: visible;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all 1.5s ease;
+  transition: all 1.5s ease;
 }
 
 .arrow {
