@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Background from './components/Background';
 import Header from './components/Header';
 import Preview from './components/Preview';
+import About from './components/About';
 
 import 'normalize.css';
 import './scss/app.scss';
@@ -15,6 +16,7 @@ export default function App(): React.ReactNode {
     <>
       <Header menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
       <Preview menuIsOpen={menuIsOpen} />
+      <About />
       <Background />
     </>
   );

@@ -13,6 +13,11 @@
   &.fixed {
     background-color: #fff;
     padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    .menuOpen {
+      border-bottom: 1px solid #f0f0f0;
+    }
 
     .item a,
     .langBtn,
@@ -88,6 +93,7 @@
   @include linkHover;
 }
 .separator {
+  color: $transparent-white;
   margin: 0 5px;
 }
 .burger {
@@ -99,7 +105,7 @@
 }
 .active,
 .active a {
-  color: $active-white;
+  color: $active;
   transition: all 0.3s ease-in;
 }
 @media (max-width: 425px) {
@@ -154,7 +160,7 @@
       color: $transparent-white;
       padding: 10px 30px;
       &:hover {
-        color: $active-white;
+        color: $active;
         transform: scale(1);
       }
     }
@@ -174,7 +180,7 @@
   }
   .active,
   .active a {
-    color: $active-white;
+    color: $active;
   }
 
   .menuOpen {
@@ -190,7 +196,7 @@
       & .list {
         left: 0;
         width: 100%;
-        background: linear-gradient(to bottom, $active-white, $active-white);
+        background: linear-gradient(to bottom, $active, $active);
         transition: all 0.3s ease-out;
       }
       .burger {

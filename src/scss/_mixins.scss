@@ -2,7 +2,7 @@
 
 @mixin linkHover {
   &:hover {
-    color: $active-white;
+    color: $active;
     transform: scale(1.08);
   }
 }

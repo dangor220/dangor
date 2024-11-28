@@ -88,7 +88,7 @@ export default function Header({
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
                   key={uuidv4()}
                   onClick={() => handleNavItemClick(index)}>
-                  <a className={styles.link} href="#">
+                  <a className={styles.link} href={`#${item}`}>
                     {t(item)}
                   </a>
                 </li>
