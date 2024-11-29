@@ -21,6 +21,7 @@ export default function Header({
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
 
+  const headerRef = useRef<HTMLUListElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
 
@@ -34,18 +35,30 @@ export default function Header({
       setMenuIsOpen(false);
     }
   };
-  useEffect(() => {
-    const scrollTop = window.scrollY;
-    setHeaderIsFixed(scrollTop > 90);
-    document.addEventListener('mousedown', handleClickMenuOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickMenuOutside);
-    };
-  }, []);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
+
     setHeaderIsFixed(scrollTop > 90);
+  }, []);
+
+  useEffect(() => {
+    if (headerRef.current && window.scrollY > 90) {
+      headerRef.current.style.transition = 'none';
+      headerRef.current.style.opacity = '0';
+    }
+    const timer = setTimeout(() => {
+      if (headerRef.current) {
+        headerRef.current.style.transition = '';
+        headerRef.current.style.opacity = '1';
+      }
+    }, 200);
+    handleScroll();
+    document.addEventListener('mousedown', handleClickMenuOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickMenuOutside);
+      clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -79,7 +92,7 @@ export default function Header({
   };
 
   return (
-    <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`}>
+    <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`} ref={headerRef}>
       <div className={`${styles.wrapper} container`}>
         <Logo headerIsFixed={headerIsFixed} />
         <div className={styles.menu}>
