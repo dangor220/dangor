@@ -88,8 +88,7 @@ export default function Header({
   const toggleMenu = () => {
     setMenuIsOpen((prev) => !prev);
   };
-  const handleNavItemClick = (index: number) => {
-    // setActiveItem(index);
+  const handleNavItemClick = () => {
     setMenuIsOpen(false);
   };
 
@@ -104,7 +103,7 @@ export default function Header({
                 <li
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
                   key={uuidv4()}
-                  onClick={() => handleNavItemClick(index)}>
+                  onClick={() => handleNavItemClick()}>
                   <a className={styles.link} href={`#${item}`}>
                     {t(item)}
                   </a>
