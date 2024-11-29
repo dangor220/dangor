@@ -1,0 +1,132 @@
+import { useEffect, useRef, useState } from 'react';
+
+// TODO handler for mobile and scroll handler with change currentBlock
+
+export default function useAnchorHandlers() {
+  const [anchorCoords, setAnchorCoords] = useState<number[]>([]);
+  const [anchorActive, setAnchorActive] = useState(false);
+  const [currentBlock, setCurrentBlock] = useState(0);
+
+  const scrollTimeoutRef = useRef<number | null>(null);
+  const [isInitialScroll, setIsInitialScroll] = useState(true);
+
+  useEffect(() => {
+    const anchorData = [...document.querySelectorAll('[data-anchor]')];
+    const anchorCoordsRelativeScroll = anchorData.map(
+      (item) => item.getBoundingClientRect().top + window.scrollY,
+    );
+    setAnchorCoords(anchorCoordsRelativeScroll);
+
+    const centerX = document.documentElement.clientWidth / 2;
+    const centerY = document.documentElement.clientHeight / 2;
+
+    const elem = document.elementFromPoint(centerX, centerY);
+
+    if (elem) {
+      const closest = anchorCoordsRelativeScroll.reduce((prev, curr) => {
+        const num = elem.getBoundingClientRect().top + window.scrollY;
+        return Math.abs(curr - num) < Math.abs(prev - num) ? curr : prev;
+      });
+      setCurrentBlock(anchorCoordsRelativeScroll.indexOf(closest));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isInitialScroll && anchorCoords.length) {
+      window.scrollTo({
+        top: anchorCoords[currentBlock],
+        behavior: 'smooth',
+      });
+
+      setTimeout(() => setIsInitialScroll(false), 300);
+    }
+  }, [anchorCoords, currentBlock, isInitialScroll]);
+
+  useEffect(() => {
+    const handleMoveDown = () => {
+      setAnchorActive(true);
+      window.scrollTo({
+        top: anchorCoords[currentBlock + 1],
+        behavior: 'smooth',
+      });
+      setCurrentBlock((prev) => prev + 1);
+
+      setTimeout(() => setAnchorActive(false), 300);
+    };
+
+    const handleMoveUp = () => {
+      setAnchorActive(true);
+      window.scrollTo({
+        top: anchorCoords[currentBlock - 1],
+        behavior: 'smooth',
+      });
+      setCurrentBlock((prev) => prev - 1);
+      setTimeout(() => setAnchorActive(false), 300);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (anchorActive) return;
+      if (event.key === 'ArrowDown' && currentBlock + 1 < anchorCoords.length) {
+        handleMoveDown();
+      }
+      if (event.key === 'ArrowUp' && currentBlock - 1 >= 0) {
+        handleMoveUp();
+      }
+    };
+
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      if (anchorActive) return;
+
+      if (event.deltaY > 0 && currentBlock + 1 < anchorCoords.length) {
+        handleMoveDown();
+      }
+      if (event.deltaY < 0 && currentBlock - 1 >= 0) {
+        handleMoveUp();
+      }
+    };
+
+    const handleScroll = () => {
+      if (isInitialScroll) return;
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (anchorCoords.length) {
+          const centerX = document.documentElement.clientWidth / 2;
+          const centerY = document.documentElement.clientHeight / 2;
+
+          const elem = document.elementFromPoint(centerX, centerY);
+
+          if (elem) {
+            const closest = anchorCoords.reduce((prev, curr) => {
+              const num = elem.getBoundingClientRect().top + window.scrollY;
+              return Math.abs(curr - num) < Math.abs(prev - num) ? curr : prev;
+            });
+            setCurrentBlock(anchorCoords.indexOf(closest));
+          }
+        }
+      }, 150);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('scroll', handleScroll);
+
+    return () => {
+      document.removeEventListener('keyup', handleKeyUp);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentBlock, anchorCoords, anchorActive, isInitialScroll]);
+}

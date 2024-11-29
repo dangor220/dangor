@@ -1,5 +1,6 @@
 import './i18n/i18n';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useAnchorHandlers from './hooks/useAnchorHandlers';
 
 import Background from './components/Background';
 import Header from './components/Header';
@@ -9,102 +10,10 @@ import About from './components/About';
 import 'normalize.css';
 import './scss/app.scss';
 
-// TODO handler for mobile and scroll handler with change currentBlock
-
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const [anchorChords, setAnchorChords] = useState<number[]>([]);
-  const [currentBlock, setCurrentBlock] = useState(0);
-  const [anchorActive, setAnchorActive] = useState(false);
 
-  useEffect(() => {
-    const anchorData = [...document.querySelectorAll('[data-anchor]')];
-    const anchorChords = anchorData.map((item) => item.getBoundingClientRect().top);
-    const anchorChordsByScroll = anchorChords.map((item) => item + window.scrollY);
-
-    const centerX = document.documentElement.clientWidth / 2;
-    const centerY = document.documentElement.clientHeight / 2;
-
-    const elem = document.elementFromPoint(centerX, centerY);
-
-    if (elem) {
-      const closest = anchorChords.reduce((prev, curr) => {
-        const num = elem.getBoundingClientRect().top;
-        return Math.abs(curr - num) < Math.abs(prev - num) ? curr : prev;
-      });
-      setCurrentBlock(anchorChords.indexOf(closest));
-    }
-
-    setAnchorChords(anchorChordsByScroll);
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: anchorChords[currentBlock],
-      behavior: 'smooth',
-    });
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        event.preventDefault();
-      }
-    };
-    const handleKey = (event: KeyboardEvent) => {
-      if (anchorActive) return;
-      if (event.key === 'ArrowDown' && currentBlock + 1 < anchorChords.length) {
-        setAnchorActive(true);
-        window.scrollTo({
-          top: anchorChords[currentBlock + 1],
-          behavior: 'smooth',
-        });
-        setCurrentBlock((prev) => prev + 1);
-
-        setTimeout(() => setAnchorActive(false), 500);
-      }
-      if (event.key === 'ArrowUp' && currentBlock - 1 >= 0) {
-        setAnchorActive(true);
-        window.scrollTo({
-          top: anchorChords[currentBlock - 1],
-          behavior: 'smooth',
-        });
-        setCurrentBlock((prev) => prev - 1);
-        setTimeout(() => setAnchorActive(false), 500);
-      }
-    };
-
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      if (anchorActive) return;
-
-      if (event.deltaY > 0 && currentBlock + 1 < anchorChords.length) {
-        setAnchorActive(true);
-        window.scrollTo({
-          top: anchorChords[currentBlock + 1],
-          behavior: 'smooth',
-        });
-        setCurrentBlock((prev) => prev + 1);
-
-        setTimeout(() => setAnchorActive(false), 500);
-      }
-      if (event.deltaY < 0 && currentBlock - 1 >= 0) {
-        setAnchorActive(true);
-        window.scrollTo({
-          top: anchorChords[currentBlock - 1],
-          behavior: 'smooth',
-        });
-        setCurrentBlock((prev) => prev - 1);
-        setTimeout(() => setAnchorActive(false), 500);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKey);
-    document.addEventListener('wheel', handleWheel, { passive: false });
-    return () => {
-      document.removeEventListener('keyup', handleKey);
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('wheel', handleWheel);
-    };
-  }, [currentBlock, anchorChords, anchorActive]);
+  useAnchorHandlers();
 
   return (
     <>

@@ -35,6 +35,8 @@ export default function Header({
     }
   };
   useEffect(() => {
+    const scrollTop = window.scrollY;
+    setHeaderIsFixed(scrollTop > 90);
     document.addEventListener('mousedown', handleClickMenuOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickMenuOutside);
