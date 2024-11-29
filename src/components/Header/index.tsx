@@ -7,6 +7,7 @@ import Logo from '../Logo';
 import Hamburger from '../Hamburger';
 
 import styles from './Header.module.scss';
+import useActiveSection from '../../hooks/useActiveSection';
 
 export default function Header({
   menuIsOpen,
@@ -17,13 +18,14 @@ export default function Header({
 }): React.ReactNode {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
   const [t, i18n] = useTranslation();
-  const [activeItem, setActiveItem] = useState<number>(0);
   const [activeLang, setActiveLang] = useState<string | undefined>('');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
 
   const headerRef = useRef<HTMLUListElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
+
+  const activeItem = useActiveSection(navList);
 
   const handleClickMenuOutside = (e: MouseEvent) => {
     if (
@@ -87,7 +89,7 @@ export default function Header({
     setMenuIsOpen((prev) => !prev);
   };
   const handleNavItemClick = (index: number) => {
-    setActiveItem(index);
+    // setActiveItem(index);
     setMenuIsOpen(false);
   };
 

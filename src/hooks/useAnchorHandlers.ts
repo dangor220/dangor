@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-// TODO handler for mobile and scroll handler with change currentBlock
+// TODO handler for mobile
 
 export default function useAnchorHandlers() {
   const [anchorCoords, setAnchorCoords] = useState<number[]>([]);
@@ -17,18 +17,12 @@ export default function useAnchorHandlers() {
     );
     setAnchorCoords(anchorCoordsRelativeScroll);
 
-    const centerX = document.documentElement.clientWidth / 2;
-    const centerY = document.documentElement.clientHeight / 2;
+    const closest = anchorCoordsRelativeScroll.reduce((prev, curr) => {
+      const scroll = window.scrollY;
+      return Math.abs(curr - scroll) < Math.abs(prev - scroll) ? curr : prev;
+    });
 
-    const elem = document.elementFromPoint(centerX, centerY);
-
-    if (elem) {
-      const closest = anchorCoordsRelativeScroll.reduce((prev, curr) => {
-        const num = elem.getBoundingClientRect().top + window.scrollY;
-        return Math.abs(curr - num) < Math.abs(prev - num) ? curr : prev;
-      });
-      setCurrentBlock(anchorCoordsRelativeScroll.indexOf(closest));
-    }
+    setCurrentBlock(anchorCoordsRelativeScroll.indexOf(closest));
   }, []);
 
   useEffect(() => {
@@ -101,18 +95,11 @@ export default function useAnchorHandlers() {
 
       scrollTimeoutRef.current = setTimeout(() => {
         if (anchorCoords.length) {
-          const centerX = document.documentElement.clientWidth / 2;
-          const centerY = document.documentElement.clientHeight / 2;
-
-          const elem = document.elementFromPoint(centerX, centerY);
-
-          if (elem) {
-            const closest = anchorCoords.reduce((prev, curr) => {
-              const num = elem.getBoundingClientRect().top + window.scrollY;
-              return Math.abs(curr - num) < Math.abs(prev - num) ? curr : prev;
-            });
-            setCurrentBlock(anchorCoords.indexOf(closest));
-          }
+          const closest = anchorCoords.reduce((prev, curr) => {
+            const scroll = window.scrollY;
+            return Math.abs(curr - scroll) < Math.abs(prev - scroll) ? curr : prev;
+          });
+          setCurrentBlock(anchorCoords.indexOf(closest));
         }
       }, 150);
     };
