@@ -30,7 +30,7 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
         alt="Danil Gordeev"
       />
       <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>
-        {t('welcome')} {t('name')}
+        {t('welcome')}
       </div>
       <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
         {subtitleText[currentIndex]}
