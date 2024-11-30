@@ -29,14 +29,12 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
         src={author}
         alt="Danil Gordeev"
       />
-      <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>
-        {t('welcome')}
-      </div>
+      <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>{t('name')}</div>
       <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
         {subtitleText[currentIndex]}
       </div>
       <div className={styles.arrow}>
-        <a href="#">
+        <a href="#about">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#000000"
