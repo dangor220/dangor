@@ -7,6 +7,7 @@ export default function useAnchorHandlers() {
   const [anchorActive, setAnchorActive] = useState(false);
   const [currentBlock, setCurrentBlock] = useState(0);
 
+  const mobileStartY = useRef(0);
   const scrollTimeoutRef = useRef<number | null>(null);
   const [isInitialScroll, setIsInitialScroll] = useState(true);
 
@@ -86,6 +87,26 @@ export default function useAnchorHandlers() {
       }
     };
 
+    const handleTouchStart = (event: TouchEvent) => {
+      mobileStartY.current = event.touches[0].clientY;
+    };
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+
+      if (anchorActive) return;
+
+      const currentY = event.touches[0].clientY;
+      const delta = mobileStartY.current - currentY;
+
+      if (delta > 0 && currentBlock + 1 < anchorCoords.length) {
+        handleMoveDown();
+      }
+      if (delta < 0 && currentBlock - 1 >= 0) {
+        handleMoveUp();
+      }
+      mobileStartY.current = currentY;
+    };
+
     const handleScroll = () => {
       if (isInitialScroll) return;
 
@@ -108,12 +129,16 @@ export default function useAnchorHandlers() {
     document.addEventListener('keyup', handleKeyUp);
     document.addEventListener('wheel', handleWheel, { passive: false });
     document.addEventListener('scroll', handleScroll);
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
       document.removeEventListener('keyup', handleKeyUp);
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('wheel', handleWheel);
       document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
     };
   }, [currentBlock, anchorCoords, anchorActive, isInitialScroll]);
 }
