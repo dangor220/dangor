@@ -14,9 +14,10 @@
   flex-direction: column;
   justify-content: center;
   position: sticky;
-  top: 66px;
+  top: 0;
   left: 0;
   flex: 45%;
+  padding-top: 66px;
   height: calc(100vh - 66px);
 
   @media (max-width: 768px) {
@@ -40,4 +41,20 @@
   height: calc(100vh - 66px);
   padding-top: 66px;
   overflow: hidden;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.content {
+  display: flex;
+}
+.description {
+  flex: 5;
+}
+.links {
+  flex: 1;
 }

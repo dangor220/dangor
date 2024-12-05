@@ -10,5 +10,17 @@
     "suggest": "Let’s bring your ideas to life and achieve great results together!",
     "firstExperience": "My first experience in application development was related to creating a browser extension aimed at simplifying the management of my university's schedule. The extension automated the process of updating data and facilitated the identification of instructors' locations, which significantly streamlined the process of obtaining timely information. Immersing myself in development, accomplishing set goals, and striving to create useful applications became key milestones in shaping my professional path.",
     "education": "I earned a Bachelor’s degree in Applied Informatics and a Master’s degree in E-Learning and Digital Platforms from Pskov State University. As part of my academic pursuits, I was involved in publishing activities during my postgraduate studies at Moscow Financial and Law University.",
-    "goals": "I am committed to continuously improving my skills and expanding my knowledge in the field of development. My goal is not only to be a valuable and reliable team member but also to contribute to the creation of innovative solutions. I actively seek opportunities to exchange experiences with professionals to grow and stay aligned with the latest trends in modern development."
+    "goals": "I am committed to continuously improving my skills and expanding my knowledge in the field of development. My goal is not only to be a valuable and reliable team member but also to contribute to the creation of innovative solutions. I actively seek opportunities to exchange experiences with professionals to grow and stay aligned with the latest trends in modern development.",
+    "articleTitle_1": "Динамическое программирование для эффективного обучения: максимизация результатов через оптимальное распределение времени",
+    "articleDescription_1": "Представлен метод динамического программирования, позволяющий решить задачу оптимального распределения времени между занятиями с целью максимизации уровня освоения материала. При этом предполагается, что уровень освоения занятия пропорционален затраченному времени на него, и скорость освоения следующего занятия обратно пропорциональна уровню освоения предыдущего. Сформулирована постановка задачи, описана математическая модель динамического программирования, определено рекуррентное соотношение Беллмана и представлен программный код модели динамического программирования, реализующий функции условной и безусловной оптимизации. Последовательный вызов функций при заданных аргументах позволил получить управляющие последовательности, переводящие управляемую систему в состояние, при котором результат управления максимален.",
+    "articleTitle_2": "Применение технологии искусственного интеллекта для улучшения качества образования",
+    "articleDescription_2": "",
+    "articleTitle_3": "Современные подходы обеспечения информационной безопасности веб-приложений",
+    "articleDescription_3": "",
+    "articleTitle_4": "Роль искусственного интеллекта в информационной безопасности",
+    "articleDescription_4": "",
+    "articleTitle_5": "Обзор стека MERN для разработки образовательной платформы",
+    "articleDescription_5": "",
+    "articleTitle_6": "Формирование практических навыков у учащихся технических направлений при изучении веб-программирования",
+    "articleDescription_6": ""
   }

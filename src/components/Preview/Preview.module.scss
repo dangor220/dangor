@@ -126,28 +126,32 @@
 
 .arrow {
   position: absolute;
-  bottom: 30px;
+  bottom: 0;
 
   -webkit-animation: arrowAction 3s ease-in-out infinite;
 
   animation: arrowAction 3s ease-in-out infinite;
-  a svg {
-    fill: $active;
-    width: 40px;
-    height: 40px;
+  a {
+    display: block;
+    padding: 20px;
+    svg {
+      fill: $active;
+      width: 40px;
+      height: 40px;
 
-    @media (max-width: 768px) {
-      width: 30px;
-      height: 30px;
-    }
-    @media (max-width: 425px) {
-      width: 20px;
-      height: 20px;
-    }
+      @media (max-width: 768px) {
+        width: 30px;
+        height: 30px;
+      }
+      @media (max-width: 425px) {
+        width: 20px;
+        height: 20px;
+      }
 
-    @media (max-height: 368px) and (max-width: 768px) {
-      width: 25px;
-      height: 25px;
+      @media (max-height: 368px) and (max-width: 768px) {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }
