@@ -1,25 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './About.module.scss';
 
 export default function About(): React.ReactNode {
+  const articles: string[] = [];
+  const [t] = useTranslation();
   return (
     <div className={styles.about} id="about" data-anchor="about">
       <div className={`${styles.wrapper} container`}>
         <div className={styles.info}>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias error necessitatibus
-            est, ea maxime maiores fugiat similique alias quis deserunt? Dolorem suscipit quam modi
-            in consequatur cupiditate error amet quibusdam? Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit.
-          </p>
-          <p>
-            Molestias error necessitatibus est, ea maxime maiores fugiat similique alias quis
-            deserunt? Dolorem suscipit quam modi in consequatur cupiditate error amet quibusdam?
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias error necessitatibus
-            est, ea maxime maiores fugiat similique alias quis deserunt? Dolorem suscipit quam modi
-            in consequatur cupiditate error amet quibusdam?
-          </p>
+          <p>{t('firstExperience')}</p>
+          <p>{t('education')}</p>
+          <p>{t('goals')}</p>
         </div>
         <ul className={styles.articles}>
           <li className={styles.article}>

@@ -16,7 +16,7 @@
   position: sticky;
   top: 66px;
   left: 0;
-  flex: 40%;
+  flex: 45%;
   height: calc(100vh - 66px);
 
   @media (max-width: 768px) {
@@ -28,19 +28,16 @@
 .articles {
   display: flex;
   flex-direction: column;
-  flex: 60%;
+  flex: 55%;
   margin: 0;
-
-  @media (max-width: 768px) {
-    padding-top: 81px;
-  }
+  padding: 0;
 }
 
 .article {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // height: calc(100vh - 66px);
-  height: 100vh;
+  height: calc(100vh - 66px);
+  padding-top: 66px;
   overflow: hidden;
 }
