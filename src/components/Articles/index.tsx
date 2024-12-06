@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import styles from './About.module.scss';
+import styles from './Articles.module.scss';
 import { useTranslation } from 'react-i18next';
 
 type article = {
@@ -12,7 +12,7 @@ type article = {
   certificate?: string;
 };
 
-export default function Articles(): React.ReactNode {
+export default function Articles({ setPopup }): React.ReactNode {
   const [t] = useTranslation();
 
   const articles: article[] = [
@@ -52,20 +52,31 @@ export default function Articles(): React.ReactNode {
       certificate: '',
     },
   ];
+
+  const handleImageClick = () => {
+    setPopup(true);
+  };
+
   return (
     <>
-      {articles.map((article, index) => (
-        <li
-          className={styles.article}
-          key={uuidv4()}
-          {...(index !== 0 ? { 'data-anchor': true } : {})}>
-          <div className={styles.title}>{t(article.title)}</div>
-          <div className={styles.content}>
-            <div className={styles.description}>{t(article.description)}</div>
-            <div className={styles.links}>text</div>
-          </div>
-        </li>
-      ))}
+      <ul className={styles.articles}>
+        {articles.map((article, index) => (
+          <li
+            className={styles.article}
+            key={uuidv4()}
+            {...(index !== 0 ? { 'data-anchor': true } : {})}>
+            <div className={styles.title}>{t(article.title)}</div>
+            <div className={styles.content}>
+              <div className={styles.description}>{t(article.description)}</div>
+              <div className={styles.links}>
+                <div onClick={handleImageClick}>image</div>
+                <div>yout</div>
+                <div>article</div>
+              </div>
+            </div>
+          </li>
+        ))}{' '}
+      </ul>
     </>
   );
 }

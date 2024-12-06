@@ -1,6 +1,7 @@
 @use '../../scss/variables' as *;
 
 .about {
+  position: relative;
   color: $black;
   background-color: $white;
 }
@@ -24,37 +25,4 @@
     top: 81px;
     height: calc(100vh - 81px);
   }
-}
-
-.articles {
-  display: flex;
-  flex-direction: column;
-  flex: 55%;
-  margin: 0;
-  padding: 0;
-}
-
-.article {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: calc(100vh - 66px);
-  padding-top: 66px;
-  overflow: hidden;
-}
-
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-}
-.content {
-  display: flex;
-}
-.description {
-  flex: 5;
-}
-.links {
-  flex: 1;
 }
