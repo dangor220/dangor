@@ -1,7 +1,24 @@
+@use './variables' as *;
 @import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
 
 * {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107, 107, 107, 0.512) rgba(0, 0, 0, 0.906);
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.906);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(107, 107, 107, 0.512);
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.906);
 }
 body {
   font-family: Montserrat, sans-serif;
@@ -14,6 +31,7 @@ body {
     font-size: 16px;
   }
 }
+
 .container {
   max-width: 1170px;
   margin: 0 auto;

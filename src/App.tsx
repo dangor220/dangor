@@ -12,14 +12,15 @@ import './scss/app.scss';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [popup, setPopup] = useState(false);
 
-  useAnchorHandlers();
+  useAnchorHandlers(popup);
 
   return (
     <>
       <Header menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
       <Preview menuIsOpen={menuIsOpen} />
-      <About />
+      <About popup={popup} setPopup={setPopup} />
       <div id="skills" data-anchor>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, numquam temporibus.
         Distinctio fugiat, unde ipsa sequi culpa sapiente cum rerum dignissimos minima repellendus

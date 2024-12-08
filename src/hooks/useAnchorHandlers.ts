@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // TODO handler for mobile
 
-export default function useAnchorHandlers() {
+export default function useAnchorHandlers(popup) {
   const [anchorCoords, setAnchorCoords] = useState<number[]>([]);
   const [anchorActive, setAnchorActive] = useState(false);
   const [currentBlock, setCurrentBlock] = useState(0);
@@ -38,6 +38,19 @@ export default function useAnchorHandlers() {
   }, [anchorCoords, currentBlock, isInitialScroll]);
 
   useEffect(() => {
+    if (popup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [popup]);
+
+  useEffect(() => {
+    if (popup) return;
     const handleMoveDown = () => {
       setAnchorActive(true);
       window.scrollTo({
@@ -140,5 +153,5 @@ export default function useAnchorHandlers() {
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [currentBlock, anchorCoords, anchorActive, isInitialScroll]);
+  }, [currentBlock, anchorCoords, anchorActive, isInitialScroll, popup]);
 }

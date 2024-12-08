@@ -4,7 +4,7 @@ import styles from './Logo.module.scss';
 
 export default function Logo({ headerIsFixed }: { headerIsFixed: boolean }): React.ReactNode {
   return (
-    <a className={`${styles.logo} ${headerIsFixed ? styles.logoBlack : ''}`} href="#">
+    <a className={`${styles.logo} ${headerIsFixed ? styles.logoBlack : ''}`} href="#home">
       <svg xmlns="http://www.w3.org/2000/svg" height="35px" width="150px" version="1.1">
         <g id="title" transform="translate(0, 0)">
           <path
