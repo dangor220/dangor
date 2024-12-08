@@ -20,7 +20,7 @@ export default function App(): React.ReactNode {
       <Header menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
       <Preview menuIsOpen={menuIsOpen} />
       <About />
-      <div id="skills" data-anchor="skills">
+      <div id="skills" data-anchor>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, numquam temporibus.
         Distinctio fugiat, unde ipsa sequi culpa sapiente cum rerum dignissimos minima repellendus
         quia? Quam, id! Iure velit est dicta! Suscipit perspiciatis dolore neque voluptate, repellat
@@ -87,7 +87,7 @@ export default function App(): React.ReactNode {
       </div>
       <br />
       <br />
-      <div id="projects" data-anchor="projects">
+      <div id="projects" data-anchor>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, numquam temporibus.
         Distinctio fugiat, unde ipsa sequi culpa sapiente cum rerum dignissimos minima repellendus
         quia? Quam, id! Iure velit est dicta! Suscipit perspiciatis dolore neque voluptate, repellat
@@ -167,7 +167,7 @@ export default function App(): React.ReactNode {
       </div>
       <br />
       <br />
-      <div id="contact" data-anchor="projects">
+      <div id="contact" data-anchor>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, numquam temporibus.
         Distinctio fugiat, unde ipsa sequi culpa sapiente cum rerum dignissimos minima repellendus
         quia? Quam, id! Iure velit est dicta! Suscipit perspiciatis dolore neque voluptate, repellat

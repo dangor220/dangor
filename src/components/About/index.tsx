@@ -7,17 +7,18 @@ import Popup from '../Popup';
 
 export default function About(): React.ReactNode {
   const [popup, setPopup] = useState(false);
+  const [popupData, setPopupData] = useState();
   const [t] = useTranslation();
   return (
-    <div className={styles.about} id="about" data-anchor="about">
-      {popup && <Popup />}
+    <div className={styles.about} id="about" data-anchor>
+      {popup && <Popup dataFile={popupData} />}
       <div className={`${styles.wrapper} container`}>
         <div className={styles.info}>
           <p>{t('firstExperience')}</p>
           <p>{t('education')}</p>
           <p>{t('goals')}</p>
         </div>
-        <Articles setPopup={setPopup} />
+        <Articles setPopup={setPopup} setPopupData={setPopupData} />
       </div>
     </div>
   );

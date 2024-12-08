@@ -23,7 +23,7 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
   }, [subtitleText.length]);
 
   return (
-    <div className={styles.preview} id="home" data-anchor="preview">
+    <div className={styles.preview} id="home" data-anchor>
       <img
         className={`${styles.image} ${menuIsOpen ? styles.imageHidden : ''}`}
         src={author}

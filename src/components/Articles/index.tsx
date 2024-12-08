@@ -4,57 +4,104 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './Articles.module.scss';
 import { useTranslation } from 'react-i18next';
 
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import SchoolIcon from '@mui/icons-material/School';
+import LinkIcon from '@mui/icons-material/Link';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
+import roleAI from '../../assets/articles/articlesPDF/role_ai.pdf';
+import stackMern from '../../assets/articles/articlesPDF/stack_mern.pdf';
+import informationSecurity from '../../assets/articles/articlesPDF/modern_approaches_information_security.pdf';
+import dynamicProgramming from '../../assets/articles/articlesPDF/dynamic_programming.pdf';
+import applicationAI from '../../assets/articles/articlesPDF/application_ai_technology.pdf';
+import developmentSkills from '../../assets/articles/articlesPDF/development_skills.pdf';
+
+import developmentSkillsCertificate from '../../assets/articles/certificates/MUIV.pdf';
+import stackMernCertificate from '../../assets/articles/certificates/MFUA.pdf';
+import dynamicProgrammingCertificate from '../../assets/articles/certificates/NSCF.pdf';
+import applicationAICertificate from '../../assets/articles/certificates/SIBFU.pdf';
+
+import sibfuQualification from '../../assets/articles/qualification/SIBFU.pdf';
+
 type article = {
   title: string;
+  subtitle: string;
+  info: string;
   description: string;
-  open?: string;
-  presentation?: string;
+  githubLink?: string;
+  youtubeLink?: string;
+  libraryLink?: string;
+  articlePDF?: string;
   certificate?: string;
+  qualification?: string;
 };
 
-export default function Articles({ setPopup }): React.ReactNode {
+export default function Articles({ setPopup, setPopupData }): React.ReactNode {
   const [t] = useTranslation();
 
   const articles: article[] = [
     {
-      title: 'articleTitle_1',
-      description: 'articleDescription_1',
-      open: '',
-      presentation: '',
-      certificate: '',
+      title: 'dynamicProgramming',
+      subtitle: 'location_1',
+      info: 'date_1',
+      description: 'dynamicProgrammingDescription',
+      githubLink: 'https://github.com/dangor220/dynamic-programming',
+      youtubeLink: 'https://www.youtube.com/watch?v=8SOLa45m8fk&t',
+      libraryLink: 'https://2023.nscf.ru/nauchno-prakticheskaya-konferenciya/tezisy-dokladov/',
+      articlePDF: dynamicProgramming,
+      certificate: dynamicProgrammingCertificate,
     },
     {
-      title: 'articleTitle_2',
-      description: 'articleDescription_2',
-      open: '',
-      presentation: '',
-      certificate: '',
+      title: 'applicationAI',
+      subtitle: 'location_2',
+      info: 'date_2',
+      description: 'applicationAIDescription',
+      libraryLink: 'https://elibrary.ru/item.asp?id=54778520',
+      articlePDF: applicationAI,
+      certificate: applicationAICertificate,
+      qualification: sibfuQualification,
     },
     {
-      title: 'articleTitle_3',
-      description: 'articleDescription_3',
-      open: '',
-      presentation: '',
-      certificate: '',
+      title: 'informationSecurity',
+      subtitle: 'location_3',
+      info: 'date_3',
+      description: 'informationSecurityDescription',
+      libraryLink: 'https://elibrary.ru/item.asp?id=65636243',
+      articlePDF: informationSecurity,
     },
     {
-      title: 'articleTitle_4',
-      description: 'articleDescription_4',
-      open: '',
-      presentation: '',
-      certificate: '',
+      title: 'roleAI',
+      subtitle: 'location_4',
+      info: 'date_4',
+      description: 'roleAIDescription',
+      libraryLink: 'https://elibrary.ru/item.asp?id=59718633',
+      articlePDF: roleAI,
     },
     {
-      title: 'articleTitle_5',
-      description: 'articleDescription_5',
-      open: '',
-      presentation: '',
-      certificate: '',
+      title: 'stackMern',
+      subtitle: 'location_5',
+      info: 'date_5',
+      description: 'stackMernDescription',
+      libraryLink: 'https://elibrary.ru/item.asp?id=60386336',
+      articlePDF: stackMern,
+      certificate: stackMernCertificate,
+    },
+    {
+      title: 'developmentSkills',
+      subtitle: 'location_6',
+      info: 'date_6',
+      description: 'developmentSkillsDescription',
+      libraryLink: 'https://elibrary.ru/item.asp?id=50271544',
+      articlePDF: developmentSkills,
+      certificate: developmentSkillsCertificate,
     },
   ];
 
-  const handleImageClick = () => {
+  const handleOpenPDF = (data) => {
     setPopup(true);
+    setPopupData(data);
   };
 
   return (
@@ -66,12 +113,58 @@ export default function Articles({ setPopup }): React.ReactNode {
             key={uuidv4()}
             {...(index !== 0 ? { 'data-anchor': true } : {})}>
             <div className={styles.title}>{t(article.title)}</div>
+            <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
               <div className={styles.description}>{t(article.description)}</div>
-              <div className={styles.links}>
-                <div onClick={handleImageClick}>image</div>
-                <div>yout</div>
-                <div>article</div>
+              <div className={styles.resources}>
+                {article.youtubeLink && (
+                  <button className={styles.icon}>
+                    <a href={article.youtubeLink} target="_blank">
+                      <YouTubeIcon />
+                    </a>
+                  </button>
+                )}
+                {article.articlePDF && (
+                  <button
+                    className={styles.icon}
+                    onClick={() => {
+                      handleOpenPDF(article.articlePDF);
+                    }}>
+                    <PictureAsPdfIcon />
+                  </button>
+                )}
+                {article.certificate && (
+                  <button
+                    className={styles.icon}
+                    onClick={() => {
+                      handleOpenPDF(article.certificate);
+                    }}>
+                    <EmojiEventsIcon />
+                  </button>
+                )}
+                {article.qualification && (
+                  <button
+                    className={styles.icon}
+                    onClick={() => {
+                      handleOpenPDF(article.qualification);
+                    }}>
+                    <SchoolIcon />
+                  </button>
+                )}
+                {article.githubLink && (
+                  <button className={styles.icon}>
+                    <a href={article.githubLink} target="_blank">
+                      <GitHubIcon />
+                    </a>
+                  </button>
+                )}
+                {article.libraryLink && (
+                  <button className={styles.icon}>
+                    <a href={article.libraryLink} target="_blank">
+                      <LinkIcon />
+                    </a>
+                  </button>
+                )}
               </div>
             </div>
           </li>

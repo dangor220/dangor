@@ -1,3 +1,5 @@
+@use '../../scss/variables' as *;
+
 .articles {
   display: flex;
   flex-direction: column;
@@ -16,15 +18,43 @@
 .title {
   font-size: 20px;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+.subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: italic;
+  color: $transparent-black;
+  margin-bottom: 10px;
 }
 .content {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .description {
   flex: 5;
+  margin-bottom: 10px;
 }
-.links {
+.resources {
+  display: flex;
+  gap: 20px;
   flex: 1;
+}
+.icon {
+  border: none;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+
+  cursor: pointer;
+  svg {
+    font-size: 40px;
+    color: $transparent-black;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $active-green;
+      transform: scale(1.05);
+    }
+  }
 }
