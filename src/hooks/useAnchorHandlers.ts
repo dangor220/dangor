@@ -55,21 +55,25 @@ export default function useAnchorHandlers(popup: boolean) {
     mobileScrollY.current = event.touches[0].clientY;
   };
 
-  const handleTouchMove = useCallback((event: TouchEvent) => {
-    event.preventDefault();
+  const handleDebouncedTouchMove = debounce((event) => {
     const currentScroll = event.touches[0].clientY;
-    mobileScrollYDiff.current = mobileScrollY.current - currentScroll;
-    mobileScrollY.current = currentScroll;
-  }, []);
 
-  const handleTouchEnd = useCallback(() => {
-    if (mobileScrollYDiff.current < 0) {
-      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-    }
-    if (mobileScrollYDiff.current > 0) {
+    if (mobileScrollY.current - currentScroll > 40) {
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
-  }, [coords.length]);
+
+    if (mobileScrollY.current - currentScroll < 40) {
+      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
+    }
+  }, 200);
+
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      event.preventDefault();
+      handleDebouncedTouchMove(event);
+    },
+    [handleDebouncedTouchMove],
+  );
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -118,7 +122,6 @@ export default function useAnchorHandlers(popup: boolean) {
   useEffect(() => {
     document.addEventListener('touchstart', handleTouchStart, { passive: false });
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd, { passive: false });
     document.addEventListener('wheel', handleWheel, { passive: false });
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
@@ -133,17 +136,8 @@ export default function useAnchorHandlers(popup: boolean) {
       document.removeEventListener('scroll', handleScroll);
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
       document.removeEventListener('click', handleClick);
       window.removeEventListener('resize', handleResize);
     };
-  }, [
-    coords,
-    handleWheel,
-    handleKeyDown,
-    handleKeyUp,
-    handleScroll,
-    handleTouchMove,
-    handleTouchEnd,
-  ]);
+  }, [coords, handleWheel, handleKeyDown, handleKeyUp, handleScroll, handleTouchMove]);
 }
