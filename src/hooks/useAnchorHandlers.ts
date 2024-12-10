@@ -6,7 +6,6 @@ export default function useAnchorHandlers(popup: boolean) {
   const [clickLink, setClickLink] = useState<boolean>(false);
   const hasRun = useRef<boolean>(false);
   const mobileScrollY = useRef<number>(0);
-  const mobileScrollYDiff = useRef<number>(0);
 
   useEffect(() => {
     const anchorData = [...document.querySelectorAll('[data-anchor]')];
