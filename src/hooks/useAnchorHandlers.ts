@@ -5,6 +5,7 @@ export default function useAnchorHandlers(popup: boolean) {
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [clickLink, setClickLink] = useState<boolean>(false);
   const hasRun = useRef<boolean>(false);
+  const isScrollDisabled = useRef<boolean>(false);
   const mobileScrollY = useRef<number>(0);
 
   useEffect(() => {
@@ -50,6 +51,8 @@ export default function useAnchorHandlers(popup: boolean) {
       event.preventDefault();
       if (popup) return;
 
+      disableScrollHandling();
+
       if (event.deltaY > 0) {
         setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
       } else {
@@ -79,6 +82,7 @@ export default function useAnchorHandlers(popup: boolean) {
     (event: TouchEvent) => {
       event.preventDefault();
       if (popup) return;
+      disableScrollHandling();
       handleDebouncedTouchMove(event);
     },
     [handleDebouncedTouchMove, popup],
@@ -91,6 +95,7 @@ export default function useAnchorHandlers(popup: boolean) {
   }, []);
   const handleKeyUp = debounce((event: KeyboardEvent) => {
     if (popup) return;
+    disableScrollHandling();
     if (event.key === 'ArrowDown') {
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
@@ -100,20 +105,36 @@ export default function useAnchorHandlers(popup: boolean) {
   }, 200);
 
   const handleScroll = debounce(() => {
-    if (!coords.length) return;
+    if (!coords.length || isScrollDisabled.current) return;
 
-    const closest = coords.reduce((prev, curr) => {
-      const currentScroll = window.scrollY;
-      return Math.abs(curr - currentScroll) < Math.abs(prev - currentScroll) ? curr : prev;
-    });
+    const currentScroll = window.scrollY;
+
+    const closestBlockIndex = coords.reduce((prevIndex, _, currIndex) => {
+      return Math.abs(coords[currIndex] - currentScroll) <
+        Math.abs(coords[prevIndex] - currentScroll)
+        ? currIndex
+        : prevIndex;
+    }, 0);
 
     if (clickLink) {
-      setCurrentBlock(coords.indexOf(closest));
+      setCurrentBlock(coords.indexOf(closestBlockIndex));
       setClickLink(false);
     }
 
-    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
+    if (currentBlock !== closestBlockIndex) {
+      setCurrentBlock(closestBlockIndex);
+      sessionStorage.setItem('userView', JSON.stringify(closestBlockIndex));
+    }
+
+    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closestBlockIndex)));
   }, 300);
+
+  const disableScrollHandling = () => {
+    isScrollDisabled.current = true;
+    setTimeout(() => {
+      isScrollDisabled.current = false;
+    }, 500);
+  };
 
   const handleClick = (event: MouseEvent) => {
     if ((event.target as HTMLElement).closest('A')) {
