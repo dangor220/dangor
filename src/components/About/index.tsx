@@ -5,8 +5,13 @@ import styles from './About.module.scss';
 import Articles from '../Articles';
 import Popup from '../Popup';
 
-export default function About({ popup, setPopup }): React.ReactNode {
-  const [popupData, setPopupData] = useState();
+type popupType = {
+  popup: boolean;
+  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function About({ popup, setPopup }: popupType): React.ReactNode {
+  const [popupData, setPopupData] = useState<string | undefined>('');
   const [t] = useTranslation();
   return (
     <div className={styles.about} id="about" data-anchor>

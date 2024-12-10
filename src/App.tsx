@@ -12,7 +12,7 @@ import './scss/app.scss';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const [popup, setPopup] = useState(false);
+  const [popup, setPopup] = useState<boolean>(false);
 
   useAnchorHandlers(popup);
 

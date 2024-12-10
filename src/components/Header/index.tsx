@@ -27,16 +27,19 @@ export default function Header({
 
   const activeItem = useActiveSection(navList);
 
-  const handleClickMenuOutside = (e: MouseEvent) => {
-    if (
-      menuRef.current &&
-      !menuRef.current.contains(e.target as Node) &&
-      burgerRef.current &&
-      !burgerRef.current.contains(e.target as Node)
-    ) {
-      setMenuIsOpen(false);
-    }
-  };
+  const handleClickMenuOutside = useCallback(
+    (e: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node) &&
+        burgerRef.current &&
+        !burgerRef.current.contains(e.target as Node)
+      ) {
+        setMenuIsOpen(false);
+      }
+    },
+    [setMenuIsOpen],
+  );
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -61,7 +64,7 @@ export default function Header({
       document.removeEventListener('mousedown', handleClickMenuOutside);
       clearTimeout(timer);
     };
-  }, []);
+  }, [handleClickMenuOutside, handleScroll]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

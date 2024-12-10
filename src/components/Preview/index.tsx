@@ -25,11 +25,11 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
   return (
     <div className={styles.preview} id="home" data-anchor>
       <div className={styles.author}>
-        {/* <img
+        <img
           className={`${styles.image} ${menuIsOpen ? styles.imageHidden : ''}`}
           src={author}
           alt="Danil Gordeev"
-        /> */}
+        />
       </div>
 
       <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>{t('name')}</div>

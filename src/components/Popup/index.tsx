@@ -13,16 +13,21 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-export default function Popup({ dataFile, setPopup }): React.ReactNode {
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const reader = useRef();
+type popupData = {
+  dataFile: string | undefined;
+  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
+export default function Popup({ dataFile, setPopup }: popupData): React.ReactNode {
+  const [numPages, setNumPages] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const reader = useRef<HTMLDivElement>(null);
+
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setPageNumber(1);
   };
-  const changePage = (offset) => {
+  const changePage = (offset: number) => {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
   };
   const previousPage = () => {
@@ -34,7 +39,7 @@ export default function Popup({ dataFile, setPopup }): React.ReactNode {
   const handleClosePopup = () => {
     setPopup(false);
   };
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
     if (reader.current && !reader.current.contains(event.target as Node)) {
       setPopup(false);
     }

@@ -38,7 +38,12 @@ type article = {
   qualification?: string;
 };
 
-export default function Articles({ setPopup, setPopupData }): React.ReactNode {
+type popupType = {
+  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
+};
+
+export default function Articles({ setPopup, setPopupData }: popupType): React.ReactNode {
   const [t] = useTranslation();
 
   const articles: article[] = [
@@ -99,7 +104,7 @@ export default function Articles({ setPopup, setPopupData }): React.ReactNode {
     },
   ];
 
-  const handleOpenPDF = (data) => {
+  const handleOpenPDF = (data: string | undefined) => {
     setPopup(true);
     setPopupData(data);
   };
