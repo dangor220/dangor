@@ -9,6 +9,9 @@
   display: flex;
   gap: 50px;
   position: relative;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 .info {
   display: flex;
@@ -24,5 +27,6 @@
   @media (max-width: 768px) {
     top: 81px;
     height: calc(100vh - 81px);
+    position: static;
   }
 }

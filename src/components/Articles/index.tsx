@@ -104,6 +104,8 @@ export default function Articles({ setPopup, setPopupData }): React.ReactNode {
     setPopupData(data);
   };
 
+  const clientWidth = window.innerWidth;
+
   return (
     <>
       <ul className={styles.articles}>
@@ -111,7 +113,11 @@ export default function Articles({ setPopup, setPopupData }): React.ReactNode {
           <li
             className={styles.article}
             key={uuidv4()}
-            {...(index !== 0 ? { 'data-anchor': true } : {})}>
+            {...(clientWidth <= 768
+              ? { 'data-anchor': true }
+              : index !== 0
+              ? { 'data-anchor': true }
+              : {})}>
             <div className={styles.title}>{t(article.title)}</div>
             <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
