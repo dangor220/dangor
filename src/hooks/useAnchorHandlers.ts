@@ -40,6 +40,7 @@ export default function useAnchorHandlers(popup: boolean) {
   const handleWheel = useCallback(
     (event: WheelEvent) => {
       event.preventDefault();
+      if (popup) return;
 
       if (event.deltaY > 0) {
         setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
@@ -47,7 +48,7 @@ export default function useAnchorHandlers(popup: boolean) {
         setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
       }
     },
-    [coords.length],
+    [coords.length, popup],
   );
 
   const handleTouchStart = (event: TouchEvent) => {
@@ -69,9 +70,10 @@ export default function useAnchorHandlers(popup: boolean) {
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
       event.preventDefault();
+      if (popup) return;
       handleDebouncedTouchMove(event);
     },
-    [handleDebouncedTouchMove],
+    [handleDebouncedTouchMove, popup],
   );
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
@@ -80,6 +82,7 @@ export default function useAnchorHandlers(popup: boolean) {
     }
   }, []);
   const handleKeyUp = debounce((event: KeyboardEvent) => {
+    if (popup) return;
     if (event.key === 'ArrowDown') {
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
