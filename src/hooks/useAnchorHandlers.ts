@@ -17,25 +17,17 @@ export default function useAnchorHandlers(popup: boolean) {
 
     if (!hasRun.current) {
       setCurrentBlock(Number(sessionStorage.getItem('userView')));
-
-      window.scrollTo({
-        top: anchorCoords[Number(sessionStorage.getItem('userView'))],
-        behavior: 'smooth',
-      });
-
       hasRun.current = true;
     }
   }, []);
 
   useEffect(() => {
     if (popup) return;
-    if (coords.length > 0) {
-      window.scrollTo({
-        top: coords[currentBlock],
-        behavior: 'smooth',
-      });
-      sessionStorage.setItem('userView', JSON.stringify(currentBlock));
-    }
+    window.scrollTo({
+      top: coords[currentBlock],
+      behavior: 'auto',
+    });
+    sessionStorage.setItem('userView', JSON.stringify(currentBlock));
   }, [coords, currentBlock, popup]);
 
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
