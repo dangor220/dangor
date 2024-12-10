@@ -15,7 +15,7 @@ export default function useAnchorHandlers(popup: boolean) {
     setCoors(anchorCoords);
 
     if (!hasRun.current) {
-      setCurrentBlock(Number(localStorage.getItem('userView')));
+      setCurrentBlock(Number(sessionStorage.getItem('userView')));
       hasRun.current = true;
     }
   }, []);
@@ -26,7 +26,7 @@ export default function useAnchorHandlers(popup: boolean) {
       top: coords[currentBlock],
       behavior: 'auto',
     });
-    localStorage.setItem('userView', JSON.stringify(currentBlock));
+    sessionStorage.setItem('userView', JSON.stringify(currentBlock));
   }, [coords, currentBlock, popup]);
 
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
@@ -104,7 +104,7 @@ export default function useAnchorHandlers(popup: boolean) {
       setClickLink(false);
     }
 
-    localStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
+    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
   }, 300);
 
   const handleClick = (event: MouseEvent) => {
