@@ -5,7 +5,6 @@ export default function useAnchorHandlers(popup: boolean) {
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [clickLink, setClickLink] = useState<boolean>(false);
   const hasRun = useRef<boolean>(false);
-  const isScrollDisabled = useRef<boolean>(false);
   const mobileScrollY = useRef<number>(0);
 
   useEffect(() => {
@@ -17,17 +16,23 @@ export default function useAnchorHandlers(popup: boolean) {
 
     if (!hasRun.current) {
       setCurrentBlock(Number(sessionStorage.getItem('userView')));
+      window.scrollTo({
+        top: anchorCoords[Number(sessionStorage.getItem('userView'))],
+        behavior: 'smooth',
+      });
       hasRun.current = true;
     }
   }, []);
 
   useEffect(() => {
     if (popup) return;
-    window.scrollTo({
-      top: coords[currentBlock],
-      behavior: 'auto',
-    });
-    sessionStorage.setItem('userView', JSON.stringify(currentBlock));
+    if (coords.length > 0) {
+      window.scrollTo({
+        top: coords[currentBlock],
+        behavior: 'smooth',
+      });
+      sessionStorage.setItem('userView', JSON.stringify(currentBlock));
+    }
   }, [coords, currentBlock, popup]);
 
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
@@ -42,8 +47,6 @@ export default function useAnchorHandlers(popup: boolean) {
     (event: WheelEvent) => {
       event.preventDefault();
       if (popup) return;
-
-      disableScrollHandling();
 
       if (event.deltaY > 0) {
         setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
@@ -74,7 +77,6 @@ export default function useAnchorHandlers(popup: boolean) {
     (event: TouchEvent) => {
       event.preventDefault();
       if (popup) return;
-      disableScrollHandling();
       handleDebouncedTouchMove(event);
     },
     [handleDebouncedTouchMove, popup],
@@ -87,7 +89,6 @@ export default function useAnchorHandlers(popup: boolean) {
   }, []);
   const handleKeyUp = debounce((event: KeyboardEvent) => {
     if (popup) return;
-    disableScrollHandling();
     if (event.key === 'ArrowDown') {
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
@@ -97,36 +98,20 @@ export default function useAnchorHandlers(popup: boolean) {
   }, 200);
 
   const handleScroll = debounce(() => {
-    if (!coords.length || isScrollDisabled.current) return;
+    if (!coords.length) return;
 
-    const currentScroll = window.scrollY;
-
-    const closestBlockIndex = coords.reduce((prevIndex, _, currIndex) => {
-      return Math.abs(coords[currIndex] - currentScroll) <
-        Math.abs(coords[prevIndex] - currentScroll)
-        ? currIndex
-        : prevIndex;
-    }, 0);
+    const closest = coords.reduce((prev, curr) => {
+      const currentScroll = window.scrollY;
+      return Math.abs(curr - currentScroll) < Math.abs(prev - currentScroll) ? curr : prev;
+    });
 
     if (clickLink) {
-      setCurrentBlock(coords.indexOf(closestBlockIndex));
+      setCurrentBlock(coords.indexOf(closest));
       setClickLink(false);
     }
 
-    if (currentBlock !== closestBlockIndex) {
-      setCurrentBlock(closestBlockIndex);
-      sessionStorage.setItem('userView', JSON.stringify(closestBlockIndex));
-    }
-
-    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closestBlockIndex)));
+    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
   }, 300);
-
-  const disableScrollHandling = () => {
-    isScrollDisabled.current = true;
-    setTimeout(() => {
-      isScrollDisabled.current = false;
-    }, 500);
-  };
 
   const handleClick = (event: MouseEvent) => {
     if ((event.target as HTMLElement).closest('A')) {
