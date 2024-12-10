@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Articles.module.scss';
@@ -45,6 +45,7 @@ type popupType = {
 
 export default function Articles({ setPopup, setPopupData }: popupType): React.ReactNode {
   const [t] = useTranslation();
+  const [clientWidth, setClientWidth] = useState(window.innerWidth);
 
   const articles: article[] = [
     {
@@ -109,7 +110,17 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
     setPopupData(data);
   };
 
-  const clientWidth = window.innerWidth;
+  const handleResize = () => {
+    setClientWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -118,11 +129,7 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
           <li
             className={styles.article}
             key={uuidv4()}
-            {...(clientWidth <= 768
-              ? { 'data-anchor': true }
-              : index !== 0
-              ? { 'data-anchor': true }
-              : {})}>
+            {...(clientWidth <= 768 || index !== 0 ? { 'data-anchor': true } : {})}>
             <div className={styles.title}>{t(article.title)}</div>
             <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
@@ -130,7 +137,7 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
               <div className={styles.resources}>
                 {article.youtubeLink && (
                   <button className={styles.icon}>
-                    <a href={article.youtubeLink} target="_blank">
+                    <a href={article.youtubeLink} target="_blank" rel="noopener noreferrer">
                       <YouTubeIcon />
                     </a>
                   </button>
@@ -164,14 +171,14 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
                 )}
                 {article.githubLink && (
                   <button className={styles.icon}>
-                    <a href={article.githubLink} target="_blank">
+                    <a href={article.githubLink} target="_blank" rel="noopener noreferrer">
                       <GitHubIcon />
                     </a>
                   </button>
                 )}
                 {article.libraryLink && (
                   <button className={styles.icon}>
-                    <a href={article.libraryLink} target="_blank">
+                    <a href={article.libraryLink} target="_blank" rel="noopener noreferrer">
                       <LinkIcon />
                     </a>
                   </button>
