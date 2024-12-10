@@ -3,8 +3,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export default function useAnchorHandlers() {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState(0);
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const hasRun = useRef(false);
+  const mobileScrollY = useRef(0);
+  const mobileScrollYDiff = useRef(0);
 
   useEffect(() => {
     const anchorData = [...document.querySelectorAll('[data-anchor]')];
@@ -20,17 +21,20 @@ export default function useAnchorHandlers() {
   }, []);
 
   useEffect(() => {
-    if (isInitialLoading) {
-      window.scrollTo({
-        top: coords[currentBlock],
-        behavior: 'auto',
-      });
-    } else {
-      window.scrollTo(0, coords[currentBlock]);
-      setIsInitialLoading(false);
-    }
+    window.scrollTo({
+      top: coords[currentBlock],
+      behavior: 'auto',
+    });
     localStorage.setItem('userView', JSON.stringify(currentBlock));
-  }, [coords, currentBlock, isInitialLoading]);
+  }, [coords, currentBlock]);
+
+  const debounce = (func, wait) => {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  };
 
   const handleWheel = useCallback(
     (event: WheelEvent) => {
@@ -45,34 +49,80 @@ export default function useAnchorHandlers() {
     [coords.length],
   );
 
+  const handleTouchStart = (event: TouchEvent) => {
+    mobileScrollY.current = event.touches[0].clientY;
+  };
+
+  const handleTouchMove = useCallback((event: TouchEvent) => {
+    event.preventDefault();
+    const currentScroll = event.touches[0].clientY;
+    mobileScrollYDiff.current = mobileScrollY.current - currentScroll;
+    mobileScrollY.current = currentScroll;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (mobileScrollYDiff.current < 0) {
+      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
+    }
+    if (mobileScrollYDiff.current > 0) {
+      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
+    }
+  }, [coords.length]);
+
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
     }
   }, []);
-  const handleKeyUp = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === 'ArrowDown') {
-        setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
-      }
-      if (event.key === 'ArrowUp') {
-        setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-      }
-    },
-    [coords.length],
-  );
+  const handleKeyUp = debounce((event: KeyboardEvent) => {
+    if (event.key === 'ArrowDown') {
+      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
+    }
+    if (event.key === 'ArrowUp') {
+      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
+    }
+  }, 200);
+
+  const handleScroll = debounce(() => {
+    if (!coords.length) return;
+
+    console.log(true);
+
+    const closest = coords.reduce((prev, curr) => {
+      const currentScroll = window.scrollY;
+      return Math.abs(curr - currentScroll) < Math.abs(prev - currentScroll) ? curr : prev;
+    });
+
+    localStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
+  }, 300);
 
   useEffect(() => {
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: false });
     document.addEventListener('wheel', handleWheel, { passive: false });
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener('scroll', handleScroll);
 
     return () => {
       document.removeEventListener('wheel', handleWheel);
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
+      document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [coords, handleWheel, handleKeyDown, handleKeyUp]);
+  }, [
+    coords,
+    handleWheel,
+    handleKeyDown,
+    handleKeyUp,
+    handleScroll,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
 }
 
 // import { useEffect, useRef, useState } from 'react';
