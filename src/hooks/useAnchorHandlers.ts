@@ -107,6 +107,14 @@ export default function useAnchorHandlers(popup: boolean) {
     }
   };
 
+  const handleResize = () => {
+    const anchorData = [...document.querySelectorAll('[data-anchor]')];
+    const anchorCoords = anchorData.map(
+      (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
+    );
+    setCoors(anchorCoords);
+  };
+
   useEffect(() => {
     document.addEventListener('touchstart', handleTouchStart, { passive: false });
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -116,6 +124,7 @@ export default function useAnchorHandlers(popup: boolean) {
     document.addEventListener('keyup', handleKeyUp);
     document.addEventListener('scroll', handleScroll);
     document.addEventListener('click', handleClick);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       document.removeEventListener('wheel', handleWheel);
@@ -126,6 +135,7 @@ export default function useAnchorHandlers(popup: boolean) {
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
       document.removeEventListener('click', handleClick);
+      window.removeEventListener('resize', handleResize);
     };
   }, [
     coords,
