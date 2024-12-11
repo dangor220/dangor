@@ -12,24 +12,20 @@
   backdrop-filter: blur(2px);
   z-index: 1000;
 }
+
 .reader {
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  max-width: 900px;
-  // padding: 0 30px;
-}
-.viewer {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  overflow: auto;
-  padding: 0 16px;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: calc(100vh / 2);
+  margin: 0 40px;
+  background-color: transparent;
 }
+
 .menu {
   display: flex;
   justify-content: center;
@@ -59,17 +55,25 @@
 .close {
   position: absolute;
   top: -7px;
-  right: -25px;
+  right: -40px;
   cursor: pointer;
   svg {
     fill: $transparent-white;
     font-size: 40px;
     transition: all 0.2s ease-in-out;
+
+    @media (max-width: 468px) {
+      font-size: 35px;
+    }
   }
   &:hover {
     svg {
       fill: $active-green;
     }
+  }
+  @media (max-width: 468px) {
+    top: -35px;
+    right: -7px;
   }
 }
 

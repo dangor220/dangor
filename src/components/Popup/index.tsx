@@ -1,6 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import useResizeObserver from 'use-resize-observer';
 
 import styles from './Popup.module.scss';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -27,8 +26,6 @@ export default function Popup({ dataFile, setPopup }: popupData): React.ReactNod
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const reader = useRef<HTMLDivElement>(null);
 
-  const { ref, width = 1 } = useResizeObserver<HTMLDivElement>();
-
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setPageNumber(1);
@@ -51,7 +48,6 @@ export default function Popup({ dataFile, setPopup }: popupData): React.ReactNod
       setPopup(false);
     }
   };
-
   const options = useMemo(
     () => ({
       cMapUrl: '/cmaps/',
@@ -77,29 +73,33 @@ export default function Popup({ dataFile, setPopup }: popupData): React.ReactNod
   return (
     <div className={styles.popup} onClick={handleClickOutside}>
       <div className={styles.reader} ref={reader}>
-        <div className={styles.viewer} ref={ref}>
-          <Document
+        <Document
+          className={styles.document}
+          loading={<LoadingPDF />}
+          noData={<LoadingPDF />}
+          file={dataFile}
+          options={options}
+          onLoadSuccess={onDocumentLoadSuccess}>
+          <Page
+            className={styles.page}
+            pageNumber={pageNumber}
             loading={<LoadingPDF />}
-            noData={<LoadingPDF />}
-            file={dataFile}
-            options={options}
-            onLoadSuccess={onDocumentLoadSuccess}>
-            <Page pageNumber={pageNumber} width={width || undefined} loading={<LoadingPDF />} />
-          </Document>
-          <div className={isLoad ? styles.menu : styles.disabled}>
-            <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
-              <UndoIcon />
-            </button>
-            <p>
-              {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
-            </p>
-            <button type="button" disabled={pageNumber >= numPages} onClick={nextPage}>
-              <RedoIcon />
-            </button>
-          </div>{' '}
-          <div className={isLoad ? styles.close : styles.disabled} onClick={handleClosePopup}>
-            <CloseIcon />
-          </div>
+            width={reader.current?.getBoundingClientRect().width || undefined}
+          />
+        </Document>
+        <div className={isLoad ? styles.menu : styles.disabled}>
+          <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
+            <UndoIcon />
+          </button>
+          <p>
+            {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
+          </p>
+          <button type="button" disabled={pageNumber >= numPages} onClick={nextPage}>
+            <RedoIcon />
+          </button>
+        </div>{' '}
+        <div className={isLoad ? styles.close : styles.disabled} onClick={handleClosePopup}>
+          <CloseIcon />
         </div>
       </div>
     </div>
