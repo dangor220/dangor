@@ -30,11 +30,26 @@ export default function useAnchorHandlers(popup: boolean) {
 
   useEffect(() => {
     if (isAnim) {
-      window.scrollTo({
-        top: getCoords(),
-        behavior: 'smooth',
-      });
-      setIsAnim(false);
+      const start = window.scrollY;
+      const end = getCoords();
+      const duration = 150;
+      const startTime = performance.now();
+
+      const animateScroll = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const scrollTo = start + (end - start) * progress;
+
+        window.scrollTo(0, scrollTo);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        } else {
+          setIsAnim(false);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
     }
   }, [isAnim, getCoords]);
 
