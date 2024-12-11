@@ -21,8 +21,9 @@
   align-items: center;
 
   width: 100%;
-  max-width: calc(100vh / 2);
-  margin: 0 40px;
+  // max-width: calc(100vh / 2);
+  max-width: calc(100vh * 0.6);
+  margin: 20px 40px;
   background-color: transparent;
 }
 
