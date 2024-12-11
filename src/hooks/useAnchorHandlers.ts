@@ -3,9 +3,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export default function useAnchorHandlers(popup: boolean) {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
-  const [clickLink, setClickLink] = useState<boolean>(false);
+  const [isAnim, setIsAnim] = useState<boolean>(false);
   const hasRun = useRef<boolean>(false);
   const mobileScrollY = useRef<number>(0);
+
+  const getCoords = useCallback(() => {
+    return coords[currentBlock];
+  }, [coords, currentBlock]);
 
   useEffect(() => {
     const anchorData = [...document.querySelectorAll('[data-anchor]')];
@@ -25,15 +29,14 @@ export default function useAnchorHandlers(popup: boolean) {
   }, []);
 
   useEffect(() => {
-    if (popup) return;
-    if (coords.length > 0) {
+    if (isAnim) {
       window.scrollTo({
-        top: coords[currentBlock],
+        top: getCoords(),
         behavior: 'smooth',
       });
-      sessionStorage.setItem('userView', JSON.stringify(currentBlock));
+      setIsAnim(false);
     }
-  }, [coords, currentBlock, popup]);
+  }, [isAnim, getCoords]);
 
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
     let timeout: NodeJS.Timeout;
@@ -43,43 +46,51 @@ export default function useAnchorHandlers(popup: boolean) {
     };
   };
 
+  const handleDebounceWheel = debounce((event: WheelEvent) => {
+    if (popup || isAnim) return;
+
+    if (event.deltaY > 0) {
+      setIsAnim(true);
+      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
+    } else {
+      setIsAnim(true);
+      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
+    }
+  }, 300);
+
   const handleWheel = useCallback(
     (event: WheelEvent) => {
       event.preventDefault();
-      if (popup) return;
-
-      if (event.deltaY > 0) {
-        setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
-      } else {
-        setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-      }
+      handleDebounceWheel(event);
     },
-    [coords.length, popup],
+    [handleDebounceWheel],
   );
 
   const handleTouchStart = (event: TouchEvent) => {
     mobileScrollY.current = event.touches[0].clientY;
   };
 
-  const handleDebouncedTouchMove = debounce((event) => {
+  const handleDebouncedTouchMove = debounce((event: TouchEvent) => {
+    if (popup || isAnim) return;
     const currentScroll = event.touches[0].clientY;
 
     if (mobileScrollY.current - currentScroll > 40) {
+      setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
 
     if (mobileScrollY.current - currentScroll < 40) {
+      setIsAnim(true);
       setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
     }
-  }, 200);
+  }, 300);
 
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
       event.preventDefault();
-      if (popup) return;
       handleDebouncedTouchMove(event);
     },
-    [handleDebouncedTouchMove, popup],
+    [handleDebouncedTouchMove],
   );
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
@@ -87,37 +98,43 @@ export default function useAnchorHandlers(popup: boolean) {
       event.preventDefault();
     }
   }, []);
-  const handleKeyUp = debounce((event: KeyboardEvent) => {
-    if (popup) return;
+
+  const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
+    if (popup || isAnim) return;
+
     if (event.key === 'ArrowDown') {
+      setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
     if (event.key === 'ArrowUp') {
+      setIsAnim(true);
       setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
     }
-  }, 200);
+  }, 300);
 
-  const handleScroll = debounce(() => {
+  const handleKeyUp = useCallback(
+    (event: KeyboardEvent) => {
+      handleDebouncedKeyUp(event);
+    },
+    [handleDebouncedKeyUp],
+  );
+
+  const handleDebouncedScroll = debounce(() => {
     if (!coords.length) return;
 
     const closest = coords.reduce((prev, curr) => {
       const currentScroll = window.scrollY;
       return Math.abs(curr - currentScroll) < Math.abs(prev - currentScroll) ? curr : prev;
     });
-
-    if (clickLink) {
+    if (!isAnim) {
       setCurrentBlock(coords.indexOf(closest));
-      setClickLink(false);
+      sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
     }
-
-    sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
   }, 300);
 
-  const handleClick = (event: MouseEvent) => {
-    if ((event.target as HTMLElement).closest('A')) {
-      setClickLink(true);
-    }
-  };
+  const handleScroll = useCallback(() => {
+    handleDebouncedScroll();
+  }, [handleDebouncedScroll]);
 
   const handleResize = () => {
     const anchorData = [...document.querySelectorAll('[data-anchor]')];
@@ -134,7 +151,6 @@ export default function useAnchorHandlers(popup: boolean) {
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
     document.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClick);
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -144,7 +160,6 @@ export default function useAnchorHandlers(popup: boolean) {
       document.removeEventListener('scroll', handleScroll);
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('click', handleClick);
       window.removeEventListener('resize', handleResize);
     };
   }, [coords, handleWheel, handleKeyDown, handleKeyUp, handleScroll, handleTouchMove]);
