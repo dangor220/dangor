@@ -8,6 +8,7 @@ import Hamburger from '../Hamburger';
 
 import styles from './Header.module.scss';
 import useActiveSection from '../../hooks/useActiveSection';
+import handleLinkClick from '../../utils/clickToLinkBehavior';
 
 export default function Header({
   menuIsOpen,
@@ -107,7 +108,7 @@ export default function Header({
                   className={`${styles.item} ${activeItem === index ? styles.active : ''}`}
                   key={uuidv4()}
                   onClick={() => handleNavItemClick()}>
-                  <a className={styles.link} href={`#${item}`}>
+                  <a className={styles.link} href={`#${item}`} onClick={handleLinkClick}>
                     {t(item)}
                   </a>
                 </li>

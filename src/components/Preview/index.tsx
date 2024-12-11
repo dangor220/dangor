@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './Preview.module.scss';
 import author from '../../assets/images/author/author.jpg';
+import handleLinkClick from '../../utils/clickToLinkBehavior';
 
 export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.ReactNode {
   const [t] = useTranslation();
@@ -37,7 +38,7 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
         {subtitleText[currentIndex]}
       </div>
       <div className={styles.arrow}>
-        <a href="#about">
+        <a href="#about" onClick={handleLinkClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#000000"

@@ -1,10 +1,14 @@
 import React from 'react';
 
 import styles from './Logo.module.scss';
+import handleLinkClick from '../../utils/clickToLinkBehavior';
 
 export default function Logo({ headerIsFixed }: { headerIsFixed: boolean }): React.ReactNode {
   return (
-    <a className={`${styles.logo} ${headerIsFixed ? styles.logoBlack : ''}`} href="#home">
+    <a
+      className={`${styles.logo} ${headerIsFixed ? styles.logoBlack : ''}`}
+      href="#home"
+      onClick={handleLinkClick}>
       <svg xmlns="http://www.w3.org/2000/svg" height="35px" width="150px" version="1.1">
         <g id="title" transform="translate(0, 0)">
           <path
