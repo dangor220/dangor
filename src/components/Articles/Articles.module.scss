@@ -6,19 +6,32 @@
   flex: 55%;
   margin: 0;
   padding: 0;
+
+  @media (max-width: 768px) {
+    flex: 100%;
+  }
 }
 .article {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 66px);
-  padding-top: 66px;
+  height: calc(100vh - $header-fixed);
+  padding-top: $header-fixed;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding-top: calc($header-fixed * 2);
+    justify-content: start;
+  }
 }
 .title {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
+  @media (max-width: 768px) {
+    font-size: 17px;
+    line-height: 1.4;
+  }
 }
 .subtitle {
   font-size: 16px;
@@ -26,25 +39,50 @@
   font-style: italic;
   color: $transparent-black;
   margin-bottom: 10px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
 }
 .content {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @media (max-width: 768px) {
+    font-size: 15px;
+    gap: 0px;
+  }
 }
 .description {
   flex: 5;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+
+  p {
+    margin: 0;
+  }
+}
+.readMore {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  color: $black;
 }
 .resources {
   display: flex;
   gap: 20px;
   flex: 1;
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 }
 .icon {
   border: none;
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 
   cursor: pointer;
   svg {
@@ -55,6 +93,10 @@
     &:hover {
       color: $active-green;
       transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      font-size: 35px;
     }
   }
 }

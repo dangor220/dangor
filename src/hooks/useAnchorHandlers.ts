@@ -32,7 +32,7 @@ export default function useAnchorHandlers(popup: boolean) {
     if (isAnim) {
       const start = window.scrollY;
       const end = getCoords();
-      const duration = 150;
+      const duration = 0;
       const startTime = performance.now();
 
       const animateScroll = (currentTime: number) => {

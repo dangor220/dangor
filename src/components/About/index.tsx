@@ -8,21 +8,38 @@ import Popup from '../Popup';
 type popupType = {
   popup: boolean;
   setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  clientWidth: number;
+  clientHeight: number;
 };
 
-export default function About({ popup, setPopup }: popupType): React.ReactNode {
+export default function About({
+  popup,
+  setPopup,
+  clientWidth,
+  clientHeight,
+}: popupType): React.ReactNode {
   const [popupData, setPopupData] = useState<string | undefined>('');
   const [t] = useTranslation();
+
   return (
     <div className={styles.about} id="about" data-anchor>
       {popup && <Popup dataFile={popupData} setPopup={setPopup} />}
       <div className={`${styles.wrapper} container`}>
         <div className={styles.info}>
           <p>{t('firstExperience')}</p>
-          <p>{t('education')}</p>
-          <p>{t('goals')}</p>
+          <p {...(clientHeight <= 884 && clientWidth <= 768 ? { 'data-anchor': true } : {})}>
+            {t('education')}
+          </p>
+          <p {...(clientHeight <= 884 && clientWidth <= 768 ? { 'data-anchor': true } : {})}>
+            {t('goals')}
+          </p>
         </div>
-        <Articles setPopup={setPopup} setPopupData={setPopupData} />
+        <Articles
+          setPopup={setPopup}
+          setPopupData={setPopupData}
+          clientWidth={clientWidth}
+          clientHeight={clientHeight}
+        />
       </div>
     </div>
   );

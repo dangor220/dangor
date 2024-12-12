@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Articles.module.scss';
@@ -41,11 +41,17 @@ type article = {
 type popupType = {
   setPopup: React.Dispatch<React.SetStateAction<boolean>>;
   setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
+  clientWidth: number;
+  clientHeight: number;
 };
 
-export default function Articles({ setPopup, setPopupData }: popupType): React.ReactNode {
+export default function Articles({
+  setPopup,
+  setPopupData,
+  clientWidth,
+  clientHeight,
+}: popupType): React.ReactNode {
   const [t] = useTranslation();
-  const [clientWidth, setClientWidth] = useState(window.innerWidth);
 
   const articles: article[] = [
     {
@@ -110,17 +116,35 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
     setPopupData(data);
   };
 
-  const handleResize = () => {
-    setClientWidth(window.innerWidth);
+  const renderDescription = (article: article) => {
+    const description = t(article.description);
+    const maxSymbols = clientHeight / 2;
+
+    if (description.length > maxSymbols && clientWidth <= 768) {
+      let shortDescription = description.substring(0, maxSymbols);
+
+      if (shortDescription[shortDescription.length - 1] === '.') {
+        shortDescription += '.. ';
+      } else {
+        shortDescription += '... ';
+      }
+
+      return (
+        <p>
+          {shortDescription}{' '}
+          <a
+            onClick={() => {
+              handleOpenPDF(article.articlePDF);
+            }}
+            className={styles.readMore}>
+            читать полностью
+          </a>
+        </p>
+      );
+    }
+
+    return description;
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <>
@@ -133,7 +157,7 @@ export default function Articles({ setPopup, setPopupData }: popupType): React.R
             <div className={styles.title}>{t(article.title)}</div>
             <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
-              <div className={styles.description}>{t(article.description)}</div>
+              <div className={styles.description}>{renderDescription(article)}</div>
               <div className={styles.resources}>
                 {article.youtubeLink && (
                   <button className={styles.icon}>
