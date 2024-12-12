@@ -25,6 +25,9 @@
   max-width: calc(100dvh * 0.6);
   margin: 20px 40px;
   background-color: transparent;
+  @media (max-width: 425px) {
+    margin: 10px 15px;
+  }
 }
 
 .menu {
