@@ -22,11 +22,11 @@
   left: 0;
   flex: 45%;
   padding-top: $header-fixed;
-  height: calc(100vh - $header-fixed);
+  height: calc(100dvh - $header-fixed);
 
   @media (max-width: 768px) {
     top: $header-fixed;
-    height: calc(100vh - $header-fixed);
+    height: calc(100dvh - $header-fixed);
     flex: auto;
     position: static;
   }
@@ -41,9 +41,9 @@
     p {
       display: flex;
       justify-content: center;
-      align-items: start;
-      padding-top: calc($header-fixed * 2);
-      height: calc(100vh - $header-fixed);
+      align-items: center;
+      padding-top: $header-fixed;
+      height: calc(100dvh - $header-fixed);
       margin: 0;
     }
   }
