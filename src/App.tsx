@@ -10,6 +10,7 @@ import About from './components/About';
 import 'normalize.css';
 import './scss/app.scss';
 import Skills from './components/Skills';
+import Projects from './components/Projects';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -43,6 +44,7 @@ export default function App(): React.ReactNode {
         clientHeight={clientHeight}
       />
       <Skills />
+      <Projects />
       <Background />
     </>
   );

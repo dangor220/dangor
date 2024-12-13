@@ -1,0 +1,12 @@
+@use '../../scss/variables' as *;
+
+.projects {
+  height: calc(100dvh - $header-fixed);
+  background-color: $white;
+}
+
+.wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}

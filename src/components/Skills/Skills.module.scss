@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: $header-fixed;
   height: calc(100dvh - $header-fixed);
   color: $transparent-black;
 }
