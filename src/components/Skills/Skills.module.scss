@@ -1,0 +1,95 @@
+@use '../../scss/variables' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100dvh - $header-fixed);
+  color: $transparent-black;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 30px;
+  padding: 0;
+
+  @media (max-width: 568px) {
+    gap: 15px;
+  }
+  @media (max-width: 768px) {
+    justify-content: space-evenly;
+  }
+}
+.item {
+  display: flex;
+  align-items: center;
+  width: calc((100%) / 5);
+  min-height: 54px;
+  min-width: 151px;
+  font-size: calc(10px + 5 * (100dvw / 1190));
+  font-weight: bold;
+
+  background-color: $transparent-white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+
+  svg {
+    font-size: calc(24px + 16 * (100dvw / 1170));
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+
+    @media (max-width: 375px) {
+      font-size: calc(24px + 26 * (100dvw / 369));
+      margin-right: 0;
+    }
+  }
+
+  &:hover {
+    color: $white;
+    background-color: #f9f9f918;
+    backdrop-filter: blur(2px);
+  }
+
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}):hover svg {
+      @if $i == 1 {
+        fill: #d35c33;
+      } @else if $i == 2 {
+        color: #3570b2;
+      } @else if $i == 3 {
+        color: #c06f98;
+      } @else if $i == 4 {
+        fill: #eddc68;
+      } @else if $i == 5 {
+        color: #df6643;
+      } @else if $i == 6 {
+        color: #86d7f8;
+      } @else if $i == 7 {
+        color: #7455b9;
+      } @else if $i == 8 {
+        color: #4a7bc4;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: calc((100%) / 3);
+  }
+  @media (max-width: 425px) {
+    padding: 0 5px;
+  }
+  @media (max-width: 375px) {
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    min-height: auto;
+    min-width: auto;
+    .hidden {
+      display: none;
+    }
+  }
+}

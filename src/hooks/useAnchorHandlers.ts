@@ -75,6 +75,7 @@ export default function useAnchorHandlers(popup: boolean) {
 
   const handleWheel = useCallback(
     (event: WheelEvent) => {
+      if (event.ctrlKey) return;
       event.preventDefault();
       handleDebounceWheel(event);
     },
