@@ -137,7 +137,7 @@ export default function Articles({
               handleOpenPDF(article.articlePDF);
             }}
             className={styles.readMore}>
-            читать полностью
+            {t('readMore')}
           </a>
         </p>
       );

@@ -80,11 +80,11 @@
   border: none;
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+
   @media (max-width: 768px) {
     padding: 0;
   }
-
-  cursor: pointer;
   svg {
     font-size: 40px;
     color: $transparent-black;
