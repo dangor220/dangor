@@ -32,10 +32,12 @@
   font-size: calc(10px + 5 * (100dvw / 1190));
   font-weight: bold;
 
-  background-color: $transparent-white;
+  color: $white;
+  background-color: #f9f9f918;
+  backdrop-filter: blur(2px);
   padding: 10px 10px;
   border-radius: 10px;
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   svg {
     font-size: calc(24px + 16 * (100dvw / 1170));
@@ -49,13 +51,12 @@
   }
 
   &:hover {
-    color: $white;
-    background-color: #f9f9f918;
-    backdrop-filter: blur(2px);
+    cursor: pointer;
+    transform: scale(1.05);
   }
 
   @for $i from 1 through 8 {
-    &:nth-child(#{$i}):hover svg {
+    &:nth-child(#{$i}) svg {
       @if $i == 1 {
         fill: #d35c33;
       } @else if $i == 2 {

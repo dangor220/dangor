@@ -12,3 +12,9 @@
   backdrop-filter: blur(2px);
   z-index: 1000;
 }
+
+.iframe {
+  width: 90dvw;
+  height: calc(100dvh - $header-fixed);
+  border: none;
+}

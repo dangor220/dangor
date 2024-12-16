@@ -31,9 +31,8 @@ export default function Popup({ dataFile, popup, setPopup }: popupData): React.R
       {popup === 'project' && (
         <div ref={content}>
           <iframe
-            src="https://dangor220.github.io/audio-player/"
-            width="500px"
-            height="500px"></iframe>
+            className={styles.iframe}
+            src="https://dangor220.github.io/audio-player/"></iframe>
         </div>
       )}
     </div>
