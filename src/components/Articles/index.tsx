@@ -39,7 +39,7 @@ type article = {
 };
 
 type popupType = {
-  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  setPopup: React.Dispatch<React.SetStateAction<string>>;
   setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
   clientWidth: number;
   clientHeight: number;
@@ -112,7 +112,7 @@ export default function Articles({
   ];
 
   const handleOpenPDF = (data: string | undefined) => {
-    setPopup(true);
+    setPopup('pdfReader');
     setPopupData(data);
   };
 

@@ -14,7 +14,7 @@ import Projects from './components/Projects';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const [popup, setPopup] = useState<boolean>(false);
+  const [popup, setPopup] = useState<string>('hidden');
   const [clientWidth, setClientWidth] = useState(window.innerWidth);
   const [clientHeight, setClientHeight] = useState(window.innerHeight);
 
@@ -44,7 +44,7 @@ export default function App(): React.ReactNode {
         clientHeight={clientHeight}
       />
       <Skills />
-      <Projects />
+      <Projects popup={popup} setPopup={setPopup} />
       <Background />
     </>
   );

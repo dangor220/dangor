@@ -1,15 +1,22 @@
 import React from 'react';
 
 import styles from './Projects.module.scss';
+import Popup from '../Popup';
 
-export default function Projects(): React.ReactNode {
+type popupType = {
+  popup: string;
+  setPopup: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function Projects({ popup, setPopup }: popupType): React.ReactNode {
+  const handleClick = () => {
+    setPopup('project');
+  };
   return (
     <div className={styles.projects} id="projects" data-anchor>
       <div className={`${styles.wrapper} container`}>
-        <iframe
-          src="https://dangor220.github.io/audio-player/"
-          width="500px"
-          height="500px"></iframe>
+        {popup === 'project' && <Popup popup={popup} setPopup={setPopup} />}
+        <div onClick={handleClick}>click</div>
       </div>
     </div>
   );

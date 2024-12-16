@@ -6,25 +6,36 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import PDFReader from '../PDFReader';
 
 type popupData = {
-  dataFile: string | undefined;
-  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  popup: string;
+  setPopup: React.Dispatch<React.SetStateAction<string>>;
+  dataFile?: string | undefined;
 };
 
-export default function Popup({ dataFile, setPopup }: popupData): React.ReactNode {
-  const reader = useRef<HTMLDivElement>(null);
+export default function Popup({ dataFile, popup, setPopup }: popupData): React.ReactNode {
+  const content = useRef<HTMLDivElement>(null);
 
   const handleClosePopup = () => {
-    setPopup(false);
+    setPopup('hidden');
   };
   const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (reader.current && !reader.current.contains(event.target as Node)) {
-      setPopup(false);
+    if (content.current && !content.current.contains(event.target as Node)) {
+      setPopup('hidden');
     }
   };
 
   return (
     <div className={styles.popup} onClick={handleClickOutside}>
-      <PDFReader dataFile={dataFile} reader={reader} handleClosePopup={handleClosePopup} />
+      {popup === 'pdfReader' && (
+        <PDFReader dataFile={dataFile} reader={content} handleClosePopup={handleClosePopup} />
+      )}
+      {popup === 'project' && (
+        <div ref={content}>
+          <iframe
+            src="https://dangor220.github.io/audio-player/"
+            width="500px"
+            height="500px"></iframe>
+        </div>
+      )}
     </div>
   );
 }

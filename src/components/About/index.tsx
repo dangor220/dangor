@@ -6,8 +6,8 @@ import Articles from '../Articles';
 import Popup from '../Popup';
 
 type popupType = {
-  popup: boolean;
-  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  popup: string;
+  setPopup: React.Dispatch<React.SetStateAction<string>>;
   clientWidth: number;
   clientHeight: number;
 };
@@ -23,7 +23,7 @@ export default function About({
 
   return (
     <div className={styles.about} id="about" data-anchor>
-      {popup && <Popup dataFile={popupData} setPopup={setPopup} />}
+      {popup === 'pdfReader' && <Popup dataFile={popupData} popup={popup} setPopup={setPopup} />}
       <div className={`${styles.wrapper} container`}>
         <div className={styles.info}>
           <p>{t('firstExperience')}</p>

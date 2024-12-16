@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useAnchorHandlers(popup: boolean) {
+export default function useAnchorHandlers(popup: string) {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [isAnim, setIsAnim] = useState<boolean>(false);
@@ -62,7 +62,7 @@ export default function useAnchorHandlers(popup: boolean) {
   };
 
   const handleDebounceWheel = debounce((event: WheelEvent) => {
-    if (popup || isAnim) return;
+    if (popup !== 'hidden' || isAnim) return;
 
     if (event.deltaY > 0) {
       setIsAnim(true);
@@ -87,7 +87,7 @@ export default function useAnchorHandlers(popup: boolean) {
   };
 
   const handleDebouncedTouchMove = debounce((event: TouchEvent) => {
-    if (popup || isAnim) return;
+    if (popup !== 'hidden' || isAnim) return;
     const currentScroll = event.touches[0].clientY;
 
     if (mobileScrollY.current - currentScroll > 40) {
@@ -116,7 +116,7 @@ export default function useAnchorHandlers(popup: boolean) {
   }, []);
 
   const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
-    if (popup || isAnim) return;
+    if (popup !== 'hidden' || isAnim) return;
 
     if (event.key === 'ArrowDown') {
       setIsAnim(true);
