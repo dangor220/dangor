@@ -9,9 +9,10 @@ type popupData = {
   popup: string;
   setPopup: React.Dispatch<React.SetStateAction<string>>;
   dataFile?: string | undefined;
+  link?: string;
 };
 
-export default function Popup({ dataFile, popup, setPopup }: popupData): React.ReactNode {
+export default function Popup({ dataFile, popup, setPopup, link }: popupData): React.ReactNode {
   const content = useRef<HTMLDivElement>(null);
 
   const handleClosePopup = () => {
@@ -30,9 +31,7 @@ export default function Popup({ dataFile, popup, setPopup }: popupData): React.R
       )}
       {popup === 'project' && (
         <div ref={content}>
-          <iframe
-            className={styles.iframe}
-            src="https://dangor220.github.io/audio-player/"></iframe>
+          <iframe className={styles.iframe} src={link}></iframe>
         </div>
       )}
     </div>

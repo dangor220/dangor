@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Projects.module.scss';
 import Popup from '../Popup';
 
-import jsplayer from '../../assets/images/projects/preview/JSPlayer.jpg';
+import jsplayer from '../../assets/images/projects/preview/JSPlayer.png';
+import reactpizza from '../../assets/images/projects/preview/react-pizza.png';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -35,23 +36,47 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
       github: 'https://github.com/dangor220/audio-player',
       stack: ['HTML', 'CSS', 'JavaScript'],
     },
+    {
+      title: 'React Pizza',
+      description:
+        'This website, Pizza Store, is an online service for ordering pizzas. It features a modern, minimalist design with a user-friendly interface. On the main page, users can browse a catalog of various pizzas with filters by category (e.g., meat, vegetarian, spicy, etc.). There is also an option to sort by popularity.',
+      image: reactpizza,
+      link: 'https://dangor220.github.io/react-pizza',
+      github: 'https://github.com/dangor220/react-pizza',
+      stack: [
+        'React',
+        'Redux Toolkit',
+        'React Router',
+        'TypeScript',
+        'CSS Modules',
+        'SCSS',
+        'AXIOS',
+      ],
+    },
   ];
 
-  const handleClickProject = () => {
+  const [link, setLink] = useState('');
+
+  const handleClickProject = (link: string) => {
     setPopup('project');
+    setLink(link);
   };
   return (
     <div className={styles.projects} id="projects" data-anchor>
-      <div className={`${styles.wrapper} container`}>
-        {popup === 'project' && <Popup popup={popup} setPopup={setPopup} />}
+      <div className={`${styles.wrapper}`}>
+        {popup === 'project' && <Popup popup={popup} setPopup={setPopup} link={link} />}
         {projects.map(({ title, description, image, link, github, stack }, index) => (
           <div
             className={styles.project}
             key={uuidv4()}
             data-tech={stack}
             {...(index !== 0 ? { 'data-anchor': true } : {})}>
-            <div className={`${styles.preview}`} onClick={handleClickProject}>
-              <img className={`${styles.image} ${styles.animate}`} src={image} alt={title} />
+            <div
+              className={`${styles.preview}`}
+              onClick={() => {
+                handleClickProject(link);
+              }}>
+              <img className={styles.image} src={image} alt={title} />
             </div>
             <div className={styles.info}>
               <div className={styles.title}>{title}</div>

@@ -100,7 +100,7 @@ export default function Header({
     <header
       className={`${styles.header} ${headerIsFixed && activeItem !== 2 ? styles.fixed : ''}`}
       ref={headerRef}>
-      <div className={`${styles.wrapper} container`}>
+      <div className={`${styles.wrapper} ${activeItem === 3 ? styles.isProject : 'container'}`}>
         <Logo headerIsFixed={headerIsFixed} activeItem={activeItem} />
         <div className={styles.menu}>
           <nav className={styles.nav}>
@@ -117,7 +117,11 @@ export default function Header({
               ))}
             </ul>
             <button className={styles.burger} onClick={toggleMenu} ref={burgerRef}>
-              <Hamburger headerIsFixed={headerIsFixed} menuIsOpen={menuIsOpen} />
+              <Hamburger
+                headerIsFixed={headerIsFixed}
+                menuIsOpen={menuIsOpen}
+                activeItem={activeItem}
+              />
             </button>
           </nav>
           <div className={`${styles.lang} ${menuIsOpen ? styles.langHidden : ''}`}>
