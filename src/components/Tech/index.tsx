@@ -55,6 +55,7 @@ export default function Tech({ data, styles, isSkills }: stackTypes): React.Reac
     const targetElementsStack = targetElements.filter((element) =>
       element.getAttribute('data-tech')?.toLowerCase()?.split(',').includes(targetId),
     );
+    console.log(targetId);
 
     const randomProject =
       targetElementsStack[Math.floor(Math.random() * targetElementsStack.length)];
