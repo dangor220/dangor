@@ -35,6 +35,24 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
       github: 'https://github.com/dangor220/audio-player',
       stack: ['HTML', 'CSS', 'JavaScript'],
     },
+    {
+      title: '2',
+      description:
+        'During the training, I became interested in the process of implementing my own audio player. As a result, a small project was written which I plan to rewrite with a fresh look and new technologies.',
+      image: jsplayer,
+      link: 'https://dangor220.github.io/audio-player/',
+      github: 'https://github.com/dangor220/audio-player',
+      stack: ['HTML', 'CSS'],
+    },
+    {
+      title: '3',
+      description:
+        'During the training, I became interested in the process of implementing my own audio player. As a result, a small project was written which I plan to rewrite with a fresh look and new technologies.',
+      image: jsplayer,
+      link: 'https://dangor220.github.io/audio-player/',
+      github: 'https://github.com/dangor220/audio-player',
+      stack: ['HTML', 'CSS', 'JavaScript'],
+    },
   ];
 
   const handleClickProject = () => {
@@ -48,6 +66,7 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
           <div
             className={styles.project}
             key={uuidv4()}
+            data-tech={stack}
             {...(index !== 0 ? { 'data-anchor': true } : {})}>
             <div className={`${styles.preview}`} onClick={handleClickProject}>
               <img className={`${styles.image} ${styles.animate}`} src={image} alt={title} />

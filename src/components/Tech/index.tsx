@@ -10,6 +10,7 @@ import { BsFiletypeScss } from 'react-icons/bs';
 type stackTypes = {
   data: string[];
   styles: CSSModuleClasses;
+  isSkills?: boolean;
 };
 
 type techTypes = {
@@ -18,7 +19,7 @@ type techTypes = {
 };
 type technologiesTypes = techTypes[];
 
-export default function Tech({ data, styles }: stackTypes): React.ReactNode {
+export default function Tech({ data, styles, isSkills }: stackTypes): React.ReactNode {
   let technologies: technologiesTypes = [
     { tech: 'HTML', image: <FaHtml5 /> },
     { tech: 'CSS', image: <TbBrandCss3 /> },
@@ -43,12 +44,44 @@ export default function Tech({ data, styles }: stackTypes): React.ReactNode {
     technologies = newTech;
   }
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+    event.preventDefault();
+    const targetId = event.currentTarget.getAttribute('href')?.substring(1);
+
+    if (!targetId) return;
+
+    const targetElements = [...document.querySelectorAll('[data-tech]')];
+
+    const targetElementsStack = targetElements.filter((element) =>
+      element.getAttribute('data-tech')?.toLowerCase()?.split(',').includes(targetId),
+    );
+
+    const randomProject =
+      targetElementsStack[Math.floor(Math.random() * targetElementsStack.length)];
+
+    if (randomProject) {
+      randomProject.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <ul className={styles.list}>
       {technologies.map(({ tech, image }) => (
         <li className={styles.item} key={uuidv4()}>
-          {image}
-          <span className={styles.hidden}>{tech}</span>
+          {isSkills ? (
+            <a
+              className={styles.techLink}
+              href={`#${tech.toLowerCase()}`}
+              onClick={handleLinkClick}>
+              {image}
+              <span className={styles.hidden}>{tech}</span>
+            </a>
+          ) : (
+            <>
+              {image}
+              <span className={styles.hidden}>{tech}</span>
+            </>
+          )}
         </li>
       ))}
     </ul>
