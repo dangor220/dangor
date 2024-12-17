@@ -3,10 +3,16 @@ import React from 'react';
 import styles from './Logo.module.scss';
 import handleLinkClick from '../../utils/clickToLinkBehavior';
 
-export default function Logo({ headerIsFixed }: { headerIsFixed: boolean }): React.ReactNode {
+export default function Logo({
+  headerIsFixed,
+  activeItem,
+}: {
+  headerIsFixed: boolean;
+  activeItem: number | undefined;
+}): React.ReactNode {
   return (
     <a
-      className={`${styles.logo} ${headerIsFixed ? styles.logoBlack : ''}`}
+      className={`${styles.logo} ${headerIsFixed && activeItem !== 2 ? styles.logoBlack : ''}`}
       href="#home"
       onClick={handleLinkClick}>
       <svg xmlns="http://www.w3.org/2000/svg" height="35px" width="150px" version="1.1">

@@ -97,9 +97,11 @@ export default function Header({
   };
 
   return (
-    <header className={`${styles.header} ${headerIsFixed ? styles.fixed : ''}`} ref={headerRef}>
+    <header
+      className={`${styles.header} ${headerIsFixed && activeItem !== 2 ? styles.fixed : ''}`}
+      ref={headerRef}>
       <div className={`${styles.wrapper} container`}>
-        <Logo headerIsFixed={headerIsFixed} />
+        <Logo headerIsFixed={headerIsFixed} activeItem={activeItem} />
         <div className={styles.menu}>
           <nav className={styles.nav}>
             <ul className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`} ref={menuRef}>
