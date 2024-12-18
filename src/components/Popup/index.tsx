@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 
 import styles from './Popup.module.scss';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
 import PDFReader from '../PDFReader';
 
 type popupData = {
