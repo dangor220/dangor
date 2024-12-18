@@ -18,7 +18,7 @@ export default function About({
   clientWidth,
   clientHeight,
 }: popupType): React.ReactNode {
-  const [popupData, setPopupData] = useState<string>('');
+  const [popupData, setPopupData] = useState<string | undefined>('');
   const [t] = useTranslation();
 
   return (

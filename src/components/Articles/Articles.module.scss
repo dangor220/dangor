@@ -18,11 +18,6 @@
   height: calc(100dvh - $header-fixed);
   padding-top: $header-fixed;
   overflow: hidden;
-
-  // @media (max-width: 768px) {
-  //   padding-top: calc($header-fixed * 2);
-  //   justify-content: start;
-  // }
 }
 .title {
   font-size: 20px;
