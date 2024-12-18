@@ -1,6 +1,8 @@
 import './i18n/i18n';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useAnchorHandlers from './hooks/useAnchorHandlers';
+
+import getScrollbarWidth from './utils/getScrollbarWidth';
 
 import Background from './components/Background';
 import Header from './components/Header';
@@ -18,6 +20,8 @@ export default function App(): React.ReactNode {
   const [clientWidth, setClientWidth] = useState(window.innerWidth);
   const [clientHeight, setClientHeight] = useState(window.innerHeight);
 
+  const headerRef = useRef<HTMLDivElement | null>(null);
+
   useAnchorHandlers(popup);
 
   const handleResize = () => {
@@ -33,9 +37,26 @@ export default function App(): React.ReactNode {
     };
   }, []);
 
+  useEffect(() => {
+    const scrollbarWidth = getScrollbarWidth();
+    if (!headerRef.current) return;
+
+    if (popup !== 'hidden') {
+      document.body.style.cssText = 'overflow: hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+      const headerWidth = headerRef.current.getBoundingClientRect().width - scrollbarWidth;
+
+      headerRef.current.style.width = `${headerWidth}px`;
+    } else {
+      document.body.style.cssText = 'overflow: auto';
+      headerRef.current.style.width = `100%`;
+    }
+  }, [popup]);
+
   return (
     <>
-      <Header menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
+      <Header ref={headerRef} menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
       <Preview menuIsOpen={menuIsOpen} />
       <About
         popup={popup}

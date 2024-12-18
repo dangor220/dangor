@@ -62,8 +62,6 @@ export default function useAnchorHandlers(popup: string) {
   };
 
   const handleDebounceWheel = debounce((event: WheelEvent) => {
-    if (popup !== 'hidden' || isAnim) return;
-
     if (event.deltaY > 0) {
       setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
@@ -75,11 +73,12 @@ export default function useAnchorHandlers(popup: string) {
 
   const handleWheel = useCallback(
     (event: WheelEvent) => {
+      if (popup !== 'hidden' || isAnim) return;
       if (event.ctrlKey) return;
       event.preventDefault();
       handleDebounceWheel(event);
     },
-    [handleDebounceWheel],
+    [handleDebounceWheel, popup, isAnim],
   );
 
   const handleTouchStart = (event: TouchEvent) => {
@@ -87,7 +86,6 @@ export default function useAnchorHandlers(popup: string) {
   };
 
   const handleDebouncedTouchMove = debounce((event: TouchEvent) => {
-    if (popup !== 'hidden' || isAnim) return;
     const currentScroll = event.touches[0].clientY;
 
     if (mobileScrollY.current - currentScroll > 40) {
@@ -103,21 +101,24 @@ export default function useAnchorHandlers(popup: string) {
 
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
+      if (popup !== 'hidden' || isAnim) return;
       event.preventDefault();
       handleDebouncedTouchMove(event);
     },
-    [handleDebouncedTouchMove],
+    [handleDebouncedTouchMove, popup, isAnim],
   );
 
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault();
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        if (popup !== 'hidden' || isAnim) return;
+        event.preventDefault();
+      }
+    },
+    [popup, isAnim],
+  );
 
   const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
-    if (popup !== 'hidden' || isAnim) return;
-
     if (event.key === 'ArrowDown') {
       setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
@@ -130,9 +131,10 @@ export default function useAnchorHandlers(popup: string) {
 
   const handleKeyUp = useCallback(
     (event: KeyboardEvent) => {
+      if (popup !== 'hidden' || isAnim) return;
       handleDebouncedKeyUp(event);
     },
-    [handleDebouncedKeyUp],
+    [handleDebouncedKeyUp, popup, isAnim],
   );
 
   const handleDebouncedScroll = debounce(() => {

@@ -15,7 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 type PDFReaderTypes = {
-  dataFile: string | undefined;
+  dataFile: string;
   reader: React.RefObject<HTMLDivElement>;
   handleClosePopup: () => void;
 };

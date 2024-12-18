@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -10,19 +10,17 @@ import styles from './Header.module.scss';
 import useActiveSection from '../../hooks/useActiveSection';
 import handleLinkClick from '../../utils/clickToLinkBehavior';
 
-export default function Header({
-  menuIsOpen,
-  setMenuIsOpen,
-}: {
+interface HeaderProps {
   menuIsOpen: boolean;
   setMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}): React.ReactNode {
+}
+
+const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsOpen }, ref) => {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
   const [t, i18n] = useTranslation();
-  const [activeLang, setActiveLang] = useState<string | undefined>('');
+  const [activeLang, setActiveLang] = useState<string | undefined>('en');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
 
-  const headerRef = useRef<HTMLUListElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
 
@@ -44,21 +42,11 @@ export default function Header({
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
-
     setHeaderIsFixed(scrollTop > 90);
   }, []);
 
   useEffect(() => {
-    if (headerRef.current && window.scrollY > 90) {
-      headerRef.current.style.transition = 'none';
-      headerRef.current.style.opacity = '0';
-    }
-    const timer = setTimeout(() => {
-      if (headerRef.current) {
-        headerRef.current.style.transition = '';
-        headerRef.current.style.opacity = '1';
-      }
-    }, 200);
+    const timer = setTimeout(() => {}, 200);
     handleScroll();
     document.addEventListener('mousedown', handleClickMenuOutside);
     return () => {
@@ -82,6 +70,7 @@ export default function Header({
   const switchLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
+
   const handleSelectLanguage = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectLang = (e.target as HTMLButtonElement).textContent;
     if (selectLang) {
@@ -89,9 +78,11 @@ export default function Header({
       setActiveLang(selectLang);
     }
   };
+
   const toggleMenu = () => {
     setMenuIsOpen((prev) => !prev);
   };
+
   const handleNavItemClick = () => {
     setMenuIsOpen(false);
   };
@@ -99,7 +90,7 @@ export default function Header({
   return (
     <header
       className={`${styles.header} ${headerIsFixed && activeItem !== 2 ? styles.fixed : ''}`}
-      ref={headerRef}>
+      ref={ref as React.Ref<HTMLDivElement>}>
       <div className={`${styles.wrapper} ${activeItem === 3 ? styles.isProject : 'container'}`}>
         <Logo headerIsFixed={headerIsFixed} activeItem={activeItem} />
         <div className={styles.menu}>
@@ -141,4 +132,6 @@ export default function Header({
       </div>
     </header>
   );
-}
+});
+
+export default Header;
