@@ -2,9 +2,15 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { FaReact, FaGitAlt, FaHtml5 } from 'react-icons/fa';
-import { SiRedux } from 'react-icons/si';
 import { TbBrandCss3 } from 'react-icons/tb';
-import { SiJavascript, SiTypescript } from 'react-icons/si';
+import {
+  SiRedux,
+  SiJavascript,
+  SiTypescript,
+  SiReactrouter,
+  SiCssmodules,
+  SiAxios,
+} from 'react-icons/si';
 import { BsFiletypeScss } from 'react-icons/bs';
 
 type stackTypes = {
@@ -21,14 +27,17 @@ type technologiesTypes = techTypes[];
 
 export default function Tech({ data, styles, isSkills }: stackTypes): React.ReactNode {
   let technologies: technologiesTypes = [
-    { tech: 'HTML', image: <FaHtml5 /> },
-    { tech: 'CSS', image: <TbBrandCss3 /> },
-    { tech: 'SCSS', image: <BsFiletypeScss /> },
-    { tech: 'JavaScript', image: <SiJavascript /> },
-    { tech: 'Git', image: <FaGitAlt /> },
-    { tech: 'React', image: <FaReact /> },
-    { tech: 'Redux Toolkit', image: <SiRedux /> },
-    { tech: 'TypeScript', image: <SiTypescript /> },
+    { tech: 'HTML', image: <FaHtml5 fill="#d35c33" /> },
+    { tech: 'CSS', image: <TbBrandCss3 color="#3570b2" /> },
+    { tech: 'SCSS', image: <BsFiletypeScss color="#c06f98" /> },
+    { tech: 'CSS Modules', image: <SiCssmodules color="#fff" /> },
+    { tech: 'JavaScript', image: <SiJavascript fill="#eddc68" /> },
+    { tech: 'AXIOS', image: <SiAxios fill="#5232dd" /> },
+    { tech: 'Git', image: <FaGitAlt color="#df6643" /> },
+    { tech: 'React', image: <FaReact color="#86d7f8" /> },
+    { tech: 'Redux Toolkit', image: <SiRedux color="#7455b9" /> },
+    { tech: 'React Router', image: <SiReactrouter color="#c03121" /> },
+    { tech: 'TypeScript', image: <SiTypescript color="#4a7bc4" /> },
   ];
 
   if (data) {
@@ -55,7 +64,6 @@ export default function Tech({ data, styles, isSkills }: stackTypes): React.Reac
     const targetElementsStack = targetElements.filter((element) =>
       element.getAttribute('data-tech')?.toLowerCase()?.split(',').includes(targetId),
     );
-    console.log(targetId);
 
     const randomProject =
       targetElementsStack[Math.floor(Math.random() * targetElementsStack.length)];

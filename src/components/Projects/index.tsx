@@ -63,8 +63,8 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
   };
   return (
     <div className={styles.projects} id="projects" data-anchor>
+      {popup === 'project' && <Popup popup={popup} setPopup={setPopup} link={link} />}
       <div className={`${styles.wrapper}`}>
-        {popup === 'project' && <Popup popup={popup} setPopup={setPopup} link={link} />}
         {projects.map(({ title, description, image, link, github, stack }, index) => (
           <div
             className={styles.project}

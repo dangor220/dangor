@@ -9,7 +9,7 @@ export default function Hamburger({
 }: {
   headerIsFixed: boolean;
   menuIsOpen: boolean;
-  activeItem: number;
+  activeItem: number | undefined;
 }): React.ReactNode {
   return (
     <svg

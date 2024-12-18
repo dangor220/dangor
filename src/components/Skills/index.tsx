@@ -8,10 +8,13 @@ export default function Skills(): React.ReactNode {
     'HTML',
     'CSS',
     'SCSS',
+    'CSS Modules',
     'JavaScript',
+    'AXIOS',
     'Git',
     'React',
     'Redux Toolkit',
+    'React Router',
     'TypeScript',
   ];
 

@@ -120,7 +120,7 @@ export default function Articles({
     const description = t(article.description);
     const maxSymbols = clientHeight / 2;
 
-    if (description.length > maxSymbols && clientWidth <= 768) {
+    if (description.length > maxSymbols && (clientWidth <= 768 || clientHeight <= 690)) {
       let shortDescription = description.substring(0, maxSymbols);
 
       if (shortDescription[shortDescription.length - 1] === '.') {
