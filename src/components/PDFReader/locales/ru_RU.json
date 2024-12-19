@@ -1,0 +1,114 @@
+{
+    "attachment": {
+      "clickToDownload": "Нажмите, чтобы скачать",
+      "noAttachment": "Нет вложений"
+    },
+    "bookmark": {
+      "noBookmark": "Нет закладок"
+    },
+    "core": {
+      "askingPassword": {
+        "requirePasswordToOpen": "Для открытия документа требуется пароль",
+        "submit": "Отправить"
+      },
+      "wrongPassword": {
+        "submit": "Отправить",
+        "tryAgain": "Неверный пароль. Пожалуйста, попробуйте снова"
+      },
+      "pageLabel": "Страница {{pageIndex}}"
+    },
+    "defaultLayout": {
+      "attachment": "Вложения",
+      "bookmark": "Закладки",
+      "thumbnail": "Миниатюра"
+    },
+    "download": {
+      "download": "Скачать"
+    },
+    "drop": {
+      "dragDropFile": "Перетащите PDF-документ сюда"
+    },
+    "fullScreen": {
+      "enterFullScreen": "Полноэкранный режим",
+      "exitFullScreen": "Выйти из полноэкранного режима"
+    },
+    "localeSwitcher": {
+      "switchLocale": "Переключить язык"
+    },
+    "open": {
+      "openFile": "Открыть файл"
+    },
+    "pageNavigation": {
+      "enterPageNumber": "Введите номер страницы",
+      "goToFirstPage": "Первая страница",
+      "goToLastPage": "Последняя страница",
+      "goToNextPage": "Следующая страница",
+      "goToPreviousPage": "Предыдущая страница"
+    },
+    "print": {
+      "cancel": "Отмена",
+      "preparingDocument": "Подготовка документа ...",
+      "print": "Печать"
+    },
+    "properties": {
+      "author": "Автор",
+      "close": "Закрыть",
+      "creationDate": "Дата создания",
+      "creator": "Создатель",
+      "fileName": "Имя файла",
+      "fileSize": "Размер файла",
+      "keywords": "Ключевые слова",
+      "modificationDate": "Дата изменения",
+      "pageCount": "Количество страниц",
+      "pdfProducer": "Производитель PDF",
+      "pdfVersion": "Версия PDF",
+      "showProperties": "Показать свойства",
+      "subject": "Тема",
+      "title": "Название"
+    },
+    "rotate": {
+      "rotateBackward": "Повернуть против часовой стрелки",
+      "rotateForward": "Повернуть по часовой стрелке"
+    },
+    "scrollMode": {
+      "horizontalScrolling": "Горизонтальная прокрутка",
+      "verticalScrolling": "Вертикальная прокрутка",
+      "wrappedScrolling": "Прокрутка с переносом",
+      "pageScrolling": "Прокрутка по страницам",
+      "singlePage": "Одна страница",
+      "dualPage": "Две страницы",
+      "dualPageCover": "Две страницы с обложкой"
+    },
+    "search": {
+      "close": "Закрыть",
+      "enterToSearch": "Поиск...",
+      "matchCase": "С учетом регистра",
+      "nextMatch": "Следующее совпадение",
+      "previousMatch": "Предыдущее совпадение",
+      "search": "Поиск",
+      "wholeWords": "Целые слова"
+    },
+    "selectionMode": {
+      "handTool": "Ручной инструмент",
+      "textSelectionTool": "Инструмент выделения текста"
+    },
+    "theme": {
+      "switchDarkTheme": "Переключиться на темную тему",
+      "switchLightTheme": "Переключиться на светлую тему"
+    },
+    "thumbnail": {
+      "thumbnailLabel": "Миниатюра страницы {{pageIndex}}"
+    },
+    "toolbar": {
+      "moreActions": "Дополнительные действия"
+    },
+    "zoom": {
+      "actualSize": "Фактический размер",
+      "pageFit": "По размеру страницы",
+      "pageWidth": "По ширине страницы",
+      "zoomDocument": "Увеличить документ",
+      "zoomIn": "Приблизить",
+      "zoomOut": "Отдалить"
+    }
+  }
+  

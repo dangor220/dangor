@@ -11,7 +11,7 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 import styles from './PDFReader.module.scss';
-import ru_RU from '@react-pdf-viewer/locales/lib/ru_RU.json';
+import ru_RU from './locales/ru_RU.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { useTranslation } from 'react-i18next';
 
