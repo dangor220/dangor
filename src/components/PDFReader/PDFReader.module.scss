@@ -1,5 +1,10 @@
 @use '../../scss/variables' as *;
 
+:global(.rpv-core__menu-divider) {
+  border-bottom: none;
+  margin: 0;
+}
+
 .reader {
   position: relative;
   display: flex;
