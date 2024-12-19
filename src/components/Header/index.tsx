@@ -64,11 +64,16 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
 
   useEffect(() => {
     const currentLang = i18n.use(LanguageDetector).resolvedLanguage;
+    const pageLang = document.documentElement.lang;
+    if (pageLang && currentLang) {
+      document.documentElement.lang = currentLang;
+    }
     setActiveLang(currentLang);
   }, [i18n]);
 
   const switchLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
+    document.documentElement.lang = lang;
   };
 
   const handleSelectLanguage = (e: React.MouseEvent<HTMLButtonElement>) => {
