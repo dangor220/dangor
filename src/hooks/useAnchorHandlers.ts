@@ -154,13 +154,24 @@ export default function useAnchorHandlers(popup: string) {
     handleDebouncedScroll();
   }, [handleDebouncedScroll]);
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     const anchorData = [...document.querySelectorAll('[data-anchor]')];
     const anchorCoords = anchorData.map(
       (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
     );
+    window.scrollTo({
+      top: anchorCoords[currentBlock],
+      behavior: 'instant',
+    });
     setCoors(anchorCoords);
-  };
+  }, [currentBlock]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [coords, handleResize]);
 
   useEffect(() => {
     document.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -169,7 +180,6 @@ export default function useAnchorHandlers(popup: string) {
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
     document.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
 
     return () => {
       document.removeEventListener('wheel', handleWheel);
@@ -178,7 +188,6 @@ export default function useAnchorHandlers(popup: string) {
       document.removeEventListener('scroll', handleScroll);
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('resize', handleResize);
     };
   }, [coords, handleWheel, handleKeyDown, handleKeyUp, handleScroll, handleTouchMove]);
 }
