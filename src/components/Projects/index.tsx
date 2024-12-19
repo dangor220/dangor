@@ -34,7 +34,7 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
       image: jsplayer,
       link: 'https://dangor220.github.io/audio-player/',
       github: 'https://github.com/dangor220/audio-player',
-      stack: ['HTML', 'CSS', 'JavaScript'],
+      stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
     },
     {
       title: 'React Pizza',
@@ -51,6 +51,7 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
         'CSS Modules',
         'SCSS',
         'AXIOS',
+        'Git',
       ],
     },
   ];

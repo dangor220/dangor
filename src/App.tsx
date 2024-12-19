@@ -2,8 +2,6 @@ import './i18n/i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import useAnchorHandlers from './hooks/useAnchorHandlers';
 
-import getScrollbarWidth from './utils/getScrollbarWidth';
-
 import Background from './components/Background';
 import Header from './components/Header';
 import Preview from './components/Preview';
@@ -38,18 +36,26 @@ export default function App(): React.ReactNode {
   }, []);
 
   useEffect(() => {
-    const scrollbarWidth = getScrollbarWidth();
-    if (!headerRef.current) return;
+    const hasScrollbar = () => {
+      return document.body.scrollHeight > window.innerHeight;
+    };
+
+    if (!headerRef.current || !hasScrollbar()) {
+      document.body.style.cssText = '';
+      return;
+    }
 
     if (popup !== 'hidden') {
-      document.body.style.cssText = 'overflow: hidden';
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
 
       const headerWidth = headerRef.current.getBoundingClientRect().width - scrollbarWidth;
-
       headerRef.current.style.width = `${headerWidth}px`;
     } else {
-      document.body.style.cssText = 'overflow: auto';
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
       headerRef.current.style.width = `100%`;
     }
   }, [popup]);
