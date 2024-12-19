@@ -5,6 +5,19 @@
   margin: 0;
 }
 
+:global(.rpv-toolbar__center .rpv-core__display--hidden) {
+  @media (max-width: 639px) {
+    display: flex;
+  }
+}
+:global(.rpv-core__menu-item-label--ltr) {
+  @media (max-width: 400px) {
+    padding: 0;
+  }
+  @media (max-width: 375px) {
+    font-size: 13px;
+  }
+}
 .reader {
   position: relative;
   display: flex;
