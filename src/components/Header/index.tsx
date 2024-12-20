@@ -94,7 +94,9 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
 
   return (
     <header
-      className={`${styles.header} ${headerIsFixed && activeItem !== 2 ? styles.fixed : ''}`}
+      className={`${styles.header} ${
+        headerIsFixed && activeItem !== 2 ? styles.fixed : ''
+      } loadAnimation shortTimeAnimation delayAnimation`}
       ref={ref as React.Ref<HTMLDivElement>}>
       <div className={`${styles.wrapper} ${activeItem === 3 ? styles.isProject : 'container'}`}>
         <Logo headerIsFixed={headerIsFixed} activeItem={activeItem} />

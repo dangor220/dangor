@@ -25,7 +25,7 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
 
   return (
     <div className={styles.preview} id="home" data-anchor>
-      <div className={styles.author}>
+      <div className={`${styles.author} loadAnimation shortTimeAnimation delayAnimation`}>
         <img
           className={`${styles.image} ${menuIsOpen ? styles.imageHidden : ''}`}
           src={author}
@@ -33,12 +33,18 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
         />
       </div>
 
-      <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>{t('name')}</div>
-      <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
-        {subtitleText[currentIndex]}
+      <div className={`${styles.info} loadAnimation shortTimeAnimation delayAnimation`}>
+        <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>{t('name')}</div>
+        <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
+          {subtitleText[currentIndex]}
+        </div>
       </div>
+
       <div className={styles.arrow}>
-        <a href="#about" onClick={handleLinkClick}>
+        <a
+          className={`loadAnimation shortTimeAnimation delayAnimation`}
+          href="#about"
+          onClick={handleLinkClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#000000"

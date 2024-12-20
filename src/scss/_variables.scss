@@ -11,3 +11,12 @@ $header-main: 100px;
 $header-fixed: 66px;
 // $header-main-device: 50px;
 // $header-fixed-device: 25px;
+
+$animation-durations: (
+  'shortTimeAnimation': 0.8s,
+  'mediumTimeAnimation': 1.5s,
+  'longTimeAnimation': 3s,
+);
+$animation-delay: (
+  'delayAnimation': 0.8s,
+);

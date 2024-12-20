@@ -11,6 +11,8 @@ import 'normalize.css';
 import './scss/app.scss';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import useFadeAnimation from './hooks/useFadeAnimation';
+import useHandleScrollbar from './hooks/useHandleScrollbar';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -20,45 +22,20 @@ export default function App(): React.ReactNode {
 
   const headerRef = useRef<HTMLDivElement | null>(null);
 
+  useHandleScrollbar(headerRef, popup);
   useAnchorHandlers(popup);
+  useFadeAnimation();
 
   const handleResize = () => {
     setClientWidth(window.innerWidth);
     setClientHeight(window.innerHeight);
   };
-
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    const hasScrollbar = () => {
-      return document.body.scrollHeight > window.innerHeight;
-    };
-
-    if (!headerRef.current || !hasScrollbar()) {
-      document.body.style.cssText = '';
-      return;
-    }
-
-    if (popup !== 'hidden') {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-
-      const headerWidth = headerRef.current.getBoundingClientRect().width - scrollbarWidth;
-      headerRef.current.style.width = `${headerWidth}px`;
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      headerRef.current.style.width = `100%`;
-    }
-  }, [popup]);
 
   return (
     <>
