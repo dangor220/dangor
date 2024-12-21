@@ -34,4 +34,7 @@
   @media (max-width: 425px) {
     margin: 10px;
   }
+  @media (max-width: 425px) {
+    max-height: calc(100dvh - $header-fixed * 2);
+  }
 }

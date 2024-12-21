@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Worker } from '@react-pdf-viewer/core';
 
@@ -100,9 +100,12 @@ export default function PDFReader({ dataFile, reader }: propsTypes): React.React
                             `;
     }
   };
+  const handleClickViewer = (e) => {
+    console.log(e.target);
+  };
 
   return (
-    <div ref={reader} className={styles.reader}>
+    <div ref={reader} className={styles.reader} onClick={handleClickViewer}>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
         <Viewer
           fileUrl={dataFile}

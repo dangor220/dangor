@@ -9,13 +9,26 @@ export default function useHandleScrollbar(
       return document.body.scrollHeight > window.innerHeight;
     };
 
+    const getScrollbarWidth = () => {
+      const div = document.createElement('div');
+      div.style.width = '100px';
+      div.style.height = '100px';
+      div.style.overflow = 'scroll';
+      div.style.position = 'absolute';
+      div.style.top = '-9999px';
+      document.body.appendChild(div);
+      const scrollbarWidth = div.offsetWidth - div.clientWidth;
+      document.body.removeChild(div);
+      return scrollbarWidth;
+    };
+
     if (!headerRef.current || !hasScrollbar()) {
       document.body.style.cssText = '';
       return;
     }
 
     if (popup !== 'hidden') {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollbarWidth = getScrollbarWidth();
 
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
