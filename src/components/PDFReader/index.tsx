@@ -81,6 +81,8 @@ export default function PDFReader({ dataFile, reader }: propsTypes): React.React
     SwitchSelectionModeMenuItem: () => <></>,
     SwitchViewMode: () => <></>,
     SwitchViewModeMenuItem: () => <></>,
+    Search: () => <></>,
+    ShowSearchPopover: () => <></>,
   });
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin({
@@ -100,12 +102,9 @@ export default function PDFReader({ dataFile, reader }: propsTypes): React.React
                             `;
     }
   };
-  const handleClickViewer = (e) => {
-    console.log(e.target);
-  };
 
   return (
-    <div ref={reader} className={styles.reader} onClick={handleClickViewer}>
+    <div ref={reader} className={styles.reader}>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
         <Viewer
           fileUrl={dataFile}
