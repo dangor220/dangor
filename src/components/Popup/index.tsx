@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import styles from './Popup.module.scss';
 import PDFReader from '../PDFReader';
+import Frame from '../Frame';
 
 type popupData = {
   popup: string;
@@ -22,11 +23,7 @@ export default function Popup({ dataFile, popup, setPopup, link }: popupData): R
   return (
     <div className={styles.popup} onClick={handleClickOutside}>
       {popup === 'pdfReader' && dataFile && <PDFReader dataFile={dataFile} reader={content} />}
-      {popup === 'project' && (
-        <div ref={content}>
-          <iframe className={styles.iframe} src={link}></iframe>
-        </div>
-      )}
+      {popup === 'project' && <Frame projectLink={link} frameRef={content} />}
     </div>
   );
 }

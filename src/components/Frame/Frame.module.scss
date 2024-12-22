@@ -1,0 +1,11 @@
+@use '../../scss/variables' as *;
+
+.iframe {
+  width: 90dvw;
+  height: calc(100dvh - $header-fixed);
+  border: none;
+
+  @media (max-width: 768px) {
+    height: calc(100dvh - $header-fixed * 2);
+  }
+}
