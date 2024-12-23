@@ -115,7 +115,13 @@ export default function useScrollHandler(popup: string) {
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      if (
+        event.key === 'ArrowDown' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'PageUp' ||
+        event.key === 'PageDown' ||
+        event.key === ' '
+      ) {
         if (popup !== 'hidden' || isAnim) return;
         event.preventDefault();
       }
@@ -124,11 +130,11 @@ export default function useScrollHandler(popup: string) {
   );
 
   const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
       setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
-    if (event.key === 'ArrowUp') {
+    if (event.key === 'ArrowUp' || event.key === 'PageUp') {
       setIsAnim(true);
       setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
     }
