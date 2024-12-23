@@ -24,6 +24,8 @@ import dynamicProgrammingCertificate from '../../assets/articles/certificates/NS
 import applicationAICertificate from '../../assets/articles/certificates/SIBFU.pdf';
 
 import sibfuQualification from '../../assets/articles/qualification/SIBFU.pdf';
+import Popup from '../Popup';
+import AdaptiveDescription from '../AdaptiveDescription';
 
 type article = {
   title: string;
@@ -39,6 +41,8 @@ type article = {
 };
 
 type popupType = {
+  popup: string;
+  popupData: string | undefined;
   setPopup: React.Dispatch<React.SetStateAction<string>>;
   setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
   clientWidth: number;
@@ -46,6 +50,8 @@ type popupType = {
 };
 
 export default function Articles({
+  popup,
+  popupData,
   setPopup,
   setPopupData,
   clientWidth,
@@ -116,38 +122,11 @@ export default function Articles({
     setPopupData(data);
   };
 
-  const renderDescription = (article: article) => {
-    const description = t(article.description);
-    const maxSymbols = clientHeight / 2;
-
-    if (description.length > maxSymbols && (clientWidth <= 768 || clientHeight <= 690)) {
-      let shortDescription = description.substring(0, maxSymbols);
-
-      if (shortDescription[shortDescription.length - 1] === '.') {
-        shortDescription += '.. ';
-      } else {
-        shortDescription += '... ';
-      }
-
-      return (
-        <p>
-          {shortDescription}{' '}
-          <a
-            onClick={() => {
-              handleOpenPDF(article.articlePDF);
-            }}
-            className={styles.readMore}>
-            {t('readMore')}
-          </a>
-        </p>
-      );
-    }
-
-    return description;
-  };
-
   return (
     <>
+      {popup === 'description' && (
+        <Popup popup={popup} setPopup={setPopup} fullDescription={popupData} />
+      )}
       <ul className={styles.articles}>
         {articles.map((article, index) => (
           <li
@@ -157,7 +136,15 @@ export default function Articles({
             <div className={styles.title}>{t(article.title)}</div>
             <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
-              <div className={styles.description}>{renderDescription(article)}</div>
+              <div className={styles.description}>
+                <AdaptiveDescription
+                  text={t(article.description)}
+                  clientWidth={clientWidth}
+                  clientHeight={clientHeight}
+                  setPopup={setPopup}
+                  setPopupData={setPopupData}
+                />
+              </div>
               <div className={styles.resources}>
                 {article.youtubeLink && (
                   <button className={styles.icon}>
@@ -208,9 +195,9 @@ export default function Articles({
                   </button>
                 )}
               </div>
-            </div>
+            </div>{' '}
           </li>
-        ))}{' '}
+        ))}
       </ul>
     </>
   );

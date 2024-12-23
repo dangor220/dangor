@@ -17,6 +17,7 @@ import useHandleScrollbar from './hooks/useHandleScrollbar';
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [popup, setPopup] = useState<string>('hidden');
+  const [popupData, setPopupData] = useState<string | undefined>('');
   const [clientWidth, setClientWidth] = useState(window.innerWidth);
   const [clientHeight, setClientHeight] = useState(window.innerHeight);
 
@@ -44,6 +45,8 @@ export default function App(): React.ReactNode {
       <About
         popup={popup}
         setPopup={setPopup}
+        popupData={popupData}
+        setPopupData={setPopupData}
         clientWidth={clientWidth}
         clientHeight={clientHeight}
       />

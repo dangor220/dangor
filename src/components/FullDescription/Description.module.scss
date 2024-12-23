@@ -1,0 +1,20 @@
+@use '../../scss/variables' as *;
+
+.description {
+  max-height: 90dvh;
+  overflow-y: auto;
+  margin: 80px 40px;
+  font-size: 18px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin: 80px 20px;
+  }
+  @media (max-width: 425px) {
+    margin: 80px 15px;
+  }
+}
+.text {
+  margin: 0;
+  color: $white;
+}

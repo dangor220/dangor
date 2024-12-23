@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './About.module.scss';
@@ -8,6 +8,8 @@ import Popup from '../Popup';
 type popupType = {
   popup: string;
   setPopup: React.Dispatch<React.SetStateAction<string>>;
+  popupData: string | undefined;
+  setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
   clientWidth: number;
   clientHeight: number;
 };
@@ -15,10 +17,11 @@ type popupType = {
 export default function About({
   popup,
   setPopup,
+  popupData,
+  setPopupData,
   clientWidth,
   clientHeight,
 }: popupType): React.ReactNode {
-  const [popupData, setPopupData] = useState<string | undefined>('');
   const [t] = useTranslation();
 
   return (
@@ -35,6 +38,8 @@ export default function About({
           </p>
         </div>
         <Articles
+          popup={popup}
+          popupData={popupData}
           setPopup={setPopup}
           setPopupData={setPopupData}
           clientWidth={clientWidth}
