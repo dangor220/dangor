@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useAnchorHandlers(popup: string) {
+export default function useScrollHandler(popup: string) {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [isAnim, setIsAnim] = useState<boolean>(false);
@@ -101,6 +101,11 @@ export default function useAnchorHandlers(popup: string) {
 
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest('header')) {
+        event.preventDefault();
+        return;
+      }
       if (popup !== 'hidden' || isAnim) return;
       event.preventDefault();
       handleDebouncedTouchMove(event);

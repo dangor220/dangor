@@ -1,6 +1,6 @@
 import './i18n/i18n';
 import React, { useEffect, useRef, useState } from 'react';
-import useAnchorHandlers from './hooks/useAnchorHandlers';
+import useScrollHandler from './hooks/useScrollHandler';
 
 import Background from './components/Background';
 import Header from './components/Header';
@@ -24,7 +24,7 @@ export default function App(): React.ReactNode {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   useHandleScrollbar(headerRef, popup);
-  useAnchorHandlers(popup);
+  useScrollHandler(popup);
   useFadeAnimation();
 
   const handleResize = () => {
