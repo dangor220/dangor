@@ -71,17 +71,15 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
     setActiveLang(currentLang);
   }, [i18n]);
 
-  const switchLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-    document.documentElement.lang = lang;
-  };
-
-  const handleSelectLanguage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const selectLang = (e.target as HTMLButtonElement).textContent;
-    if (selectLang) {
-      switchLanguage(selectLang);
-      setActiveLang(selectLang);
+  useEffect(() => {
+    i18n.changeLanguage(activeLang);
+    if (activeLang) {
+      document.documentElement.lang = activeLang;
     }
+  }, [i18n, activeLang]);
+
+  const handleSelectLanguage = () => {
+    setActiveLang((prev) => (prev === 'en' ? 'ru' : 'en'));
   };
 
   const toggleMenu = () => {
@@ -122,19 +120,21 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
               />
             </button>
           </nav>
-          <div className={`${styles.lang} ${menuIsOpen ? styles.langHidden : ''}`}>
-            <button
-              className={`${styles.langBtn} ${activeLang === 'en' ? styles.active : ''}`}
-              onClick={(e) => handleSelectLanguage(e)}>
+          <button
+            className={`${styles.langBtn} ${menuIsOpen ? styles.langHidden : ''}`}
+            onClick={handleSelectLanguage}>
+            <span
+              className={`${styles.lang} ${activeLang === 'en' ? styles.active : ''}`}
+              data-lang="en">
               en
-            </button>
+            </span>
             <span className={styles.separator}>|</span>
-            <button
-              className={`${styles.langBtn} ${activeLang === 'ru' ? styles.active : ''}`}
-              onClick={(e) => handleSelectLanguage(e)}>
+            <span
+              className={`${styles.lang} ${activeLang === 'ru' ? styles.active : ''}`}
+              data-lang="ru">
               ru
-            </button>
-          </div>
+            </span>
+          </button>
         </div>
       </div>
     </header>
