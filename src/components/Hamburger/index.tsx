@@ -16,8 +16,7 @@ export default function Hamburger({
       className={`${styles.ham} ${styles.hamRotate} ${styles.ham8} ${
         menuIsOpen ? styles.active : ''
       }`}
-      viewBox="0 0 100 100"
-      width="50">
+      viewBox="0 0 100 100">
       <path
         className={`${styles.line} ${headerIsFixed && activeItem !== 2 ? styles.lineBlack : ''} ${
           styles.top

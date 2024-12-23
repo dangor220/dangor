@@ -26,7 +26,7 @@
   stroke: $black;
 }
 .ham8 .top {
-  stroke-dasharray: 40 160;
+  stroke-dasharray: 41 160;
 }
 .ham8 .middle {
   stroke-dasharray: 40 142;
@@ -34,7 +34,7 @@
   transition: transform 400ms;
 }
 .ham8 .bottom {
-  stroke-dasharray: 40 85;
+  stroke-dasharray: 41 85;
   transform-origin: 50%;
   transition: transform 400ms, stroke-dashoffset 400ms;
 }
