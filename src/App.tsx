@@ -51,7 +51,13 @@ export default function App(): React.ReactNode {
         clientHeight={clientHeight}
       />
       <Skills />
-      <Projects popup={popup} setPopup={setPopup} />
+      <Projects
+        popup={popup}
+        setPopup={setPopup}
+        setPopupData={setPopupData}
+        clientWidth={clientWidth}
+        clientHeight={clientHeight}
+      />
       <Background />
     </>
   );

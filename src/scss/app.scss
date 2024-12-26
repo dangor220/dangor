@@ -5,6 +5,7 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: rgba(107, 107, 107, 0.512) rgba(0, 0, 0, 0.906);
+  -webkit-tap-highlight-color: transparent;
 }
 
 *::-webkit-scrollbar {

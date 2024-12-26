@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
 
 import styles from './Projects.module.scss';
 import Popup from '../Popup';
@@ -10,10 +11,14 @@ import reactpizza from '../../assets/images/projects/preview/react-pizza.png';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Tech from '../Tech';
+import AdaptiveDescription from '../AdaptiveDescription';
 
 type popupType = {
   popup: string;
   setPopup: React.Dispatch<React.SetStateAction<string>>;
+  clientWidth: number;
+  clientHeight: number;
+  setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 type projectsType = {
@@ -25,12 +30,17 @@ type projectsType = {
   stack: string[];
 };
 
-export default function Projects({ popup, setPopup }: popupType): React.ReactNode {
+export default function Projects({
+  popup,
+  setPopup,
+  clientWidth,
+  clientHeight,
+  setPopupData,
+}: popupType): React.ReactNode {
   const projects: projectsType[] = [
     {
       title: 'JSPlayer',
-      description:
-        'During the training, I became interested in the process of implementing my own audio player. As a result, a small project was written which I plan to rewrite with a fresh look and new technologies.',
+      description: 'projectDescription_1',
       image: jsplayer,
       link: 'https://dangor220.github.io/audio-player/',
       github: 'https://github.com/dangor220/audio-player',
@@ -38,8 +48,7 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
     },
     {
       title: 'React Pizza',
-      description:
-        'This website, Pizza Store, is an online service for ordering pizzas. It features a modern, minimalist design with a user-friendly interface. On the main page, users can browse a catalog of various pizzas with filters by category (e.g., meat, vegetarian, spicy, etc.). There is also an option to sort by popularity.',
+      description: 'projectDescription_2',
       image: reactpizza,
       link: 'https://dangor220.github.io/react-pizza',
       github: 'https://github.com/dangor220/react-pizza',
@@ -56,6 +65,7 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
     },
   ];
 
+  const [t] = useTranslation();
   const [link, setLink] = useState('');
 
   const handleClickProject = (link: string) => {
@@ -79,24 +89,38 @@ export default function Projects({ popup, setPopup }: popupType): React.ReactNod
               }}>
               <img className={styles.image} src={image} alt={title} />
             </div>
-            <div className={styles.info}>
-              <div className={styles.title}>{title}</div>
-              <div className={styles.description}>{description}</div>
+            <div className={styles.about}>
+              <div className={styles.info}>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.description}>
+                  {
+                    <AdaptiveDescription
+                      text={t(description)}
+                      clientWidth={clientWidth}
+                      clientHeight={clientHeight}
+                      setPopup={setPopup}
+                      setPopupData={setPopupData}
+                    />
+                  }
+                </div>
+              </div>
 
-              <Tech data={stack} styles={styles} />
+              <div className={styles.data}>
+                <Tech data={stack} styles={styles} />
 
-              <ul className={styles.links}>
-                <li>
-                  <a className={styles.link} href={link} target="_blank">
-                    <OpenInNewIcon />
-                  </a>
-                </li>
-                <li>
-                  <a className={styles.link} href={github} target="_blank">
-                    <GitHubIcon />
-                  </a>
-                </li>
-              </ul>
+                <ul className={styles.links}>
+                  <li>
+                    <a className={styles.link} href={link} target="_blank">
+                      <OpenInNewIcon />
+                    </a>
+                  </li>
+                  <li>
+                    <a className={styles.link} href={github} target="_blank">
+                      <GitHubIcon />
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         ))}
