@@ -27,7 +27,11 @@ export default function AdaptiveDescription({
   let maxSymbols = clientHeight / 2;
 
   if (contentWidth && contentHeight) {
-    maxSymbols = contentHeight * 0.7;
+    if (document.documentElement.lang === 'ru') {
+      maxSymbols = contentHeight / 2;
+    } else {
+      maxSymbols = contentHeight * 0.7;
+    }
   }
 
   if (description.length > maxSymbols && (clientWidth <= 768 || clientHeight <= 690)) {
