@@ -40,7 +40,7 @@ export default function Projects({
   const projects: projectsType[] = [
     {
       title: 'JSPlayer',
-      description: 'projectDescription_1',
+      description: 'jsplayerDescription',
       image: jsplayer,
       link: 'https://dangor220.github.io/audio-player/',
       github: 'https://github.com/dangor220/audio-player',
@@ -48,7 +48,7 @@ export default function Projects({
     },
     {
       title: 'React Pizza',
-      description: 'projectDescription_2',
+      description: 'reactpizzaDescription',
       image: reactpizza,
       link: 'https://dangor220.github.io/react-pizza',
       github: 'https://github.com/dangor220/react-pizza',
