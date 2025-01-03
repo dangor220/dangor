@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 
@@ -68,6 +68,8 @@ export default function Projects({
   const [t] = useTranslation();
   const [link, setLink] = useState('');
 
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const handleClickProject = (link: string) => {
     setPopup('project');
     setLink(link);
@@ -90,7 +92,7 @@ export default function Projects({
               <img className={styles.image} src={image} alt={title} />
             </div>
             <div className={styles.about}>
-              <div className={styles.info}>
+              <div className={styles.info} ref={contentRef}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.description}>
                   {
@@ -98,6 +100,8 @@ export default function Projects({
                       text={t(description)}
                       clientWidth={clientWidth}
                       clientHeight={clientHeight}
+                      contentWidth={contentRef.current?.getBoundingClientRect().width}
+                      contentHeight={contentRef.current?.getBoundingClientRect().height}
                       setPopup={setPopup}
                       setPopupData={setPopupData}
                     />
