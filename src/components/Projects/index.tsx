@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Projects.module.scss';
@@ -81,7 +80,7 @@ export default function Projects({
         {projects.map(({ title, description, image, link, github, stack }, index) => (
           <div
             className={styles.project}
-            key={uuidv4()}
+            key={index}
             data-tech={stack}
             {...(index !== 0 ? { 'data-anchor': true } : {})}>
             <div
