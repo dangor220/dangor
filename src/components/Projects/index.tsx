@@ -10,7 +10,7 @@ import reactpizza from '../../assets/images/projects/preview/react-pizza.png';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Tech from '../Tech';
-import AdaptiveDescription from '../AdaptiveDescription';
+import DescriptionAdaptive from '../DescriptionAdaptive';
 
 type popupType = {
   popup: string;
@@ -95,7 +95,7 @@ export default function Projects({
                 <div className={styles.title}>{title}</div>
                 <div className={styles.description}>
                   {
-                    <AdaptiveDescription
+                    <DescriptionAdaptive
                       text={t(description)}
                       clientWidth={clientWidth}
                       clientHeight={clientHeight}

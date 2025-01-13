@@ -6,14 +6,18 @@ import handleLinkClick from '../../utils/clickToLinkBehavior';
 export default function Logo({
   headerIsFixed,
   activeItem,
+  transparentSections,
 }: {
   headerIsFixed: boolean;
   activeItem: number | undefined;
+  transparentSections: number[];
 }): React.ReactNode {
   return (
     <a
       className={`${styles.logo} ${
-        headerIsFixed && activeItem !== 2 && activeItem !== 4 ? styles.logoBlack : ''
+        headerIsFixed && activeItem && !transparentSections.includes(activeItem)
+          ? styles.logoBlack
+          : ''
       }`}
       href="#home"
       onClick={handleLinkClick}>

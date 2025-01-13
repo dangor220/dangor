@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './AdaptiveDescription.module.scss';
+import styles from './DescriptionAdaptive.module.scss';
 
 type descriptionProps = {
   text: string;
@@ -13,7 +13,7 @@ type descriptionProps = {
   setPopupData: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-export default function AdaptiveDescription({
+export default function DescriptionAdaptive({
   text,
   clientWidth,
   clientHeight,

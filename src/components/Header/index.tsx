@@ -20,6 +20,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
   const [t, i18n] = useTranslation();
   const [activeLang, setActiveLang] = useState<string | undefined>('en');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
+  const transparentSections = [2, 4];
 
   const menuRef = useRef<HTMLUListElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
@@ -93,11 +94,15 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
   return (
     <header
       className={`${styles.header} ${
-        headerIsFixed && activeItem !== 2 && activeItem !== 4 ? styles.fixed : ''
+        headerIsFixed && activeItem && !transparentSections.includes(activeItem) ? styles.fixed : ''
       } loadAnimation shortTimeAnimation delayAnimation`}
       ref={ref as React.Ref<HTMLDivElement>}>
       <div className={`${styles.wrapper} ${activeItem === 3 ? styles.isProject : 'container'}`}>
-        <Logo headerIsFixed={headerIsFixed} activeItem={activeItem} />
+        <Logo
+          transparentSections={transparentSections}
+          headerIsFixed={headerIsFixed}
+          activeItem={activeItem}
+        />
         <div className={styles.menu}>
           <nav className={styles.nav}>
             <ul className={`${styles.list} ${menuIsOpen ? styles.menuOpen : ''}`} ref={menuRef}>
@@ -117,6 +122,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
                 headerIsFixed={headerIsFixed}
                 menuIsOpen={menuIsOpen}
                 activeItem={activeItem}
+                transparentSections={transparentSections}
               />
             </button>
           </nav>

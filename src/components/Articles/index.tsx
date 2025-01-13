@@ -25,7 +25,7 @@ import applicationAICertificate from '../../assets/articles/certificates/SIBFU.p
 
 import sibfuQualification from '../../assets/articles/qualification/SIBFU.pdf';
 import Popup from '../Popup';
-import AdaptiveDescription from '../AdaptiveDescription';
+import DescriptionAdaptive from '../DescriptionAdaptive';
 
 type article = {
   title: string;
@@ -137,7 +137,7 @@ export default function Articles({
             <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
             <div className={styles.content}>
               <div className={styles.description}>
-                <AdaptiveDescription
+                <DescriptionAdaptive
                   text={t(article.description)}
                   clientWidth={clientWidth}
                   clientHeight={clientHeight}
