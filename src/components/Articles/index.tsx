@@ -125,7 +125,7 @@ export default function Articles({
   return (
     <>
       {popup === 'description' && (
-        <Popup popup={popup} setPopup={setPopup} fullDescription={popupData} />
+        <Popup popup={popup} setPopup={setPopup} description={popupData} />
       )}
       <ul className={styles.articles}>
         {articles.map((article, index) => (

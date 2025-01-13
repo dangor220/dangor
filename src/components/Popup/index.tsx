@@ -3,19 +3,19 @@ import React, { useRef } from 'react';
 import styles from './Popup.module.scss';
 import PDFReader from '../PDFReader';
 import Frame from '../Frame';
-import FullDescription from '../FullDescription';
+import Description from '../Description';
 
 type popupData = {
   popup: string;
   setPopup: React.Dispatch<React.SetStateAction<string>>;
-  fullDescription?: string;
+  description?: string;
   dataFile?: string;
   link?: string;
 };
 
 export default function Popup({
   dataFile,
-  fullDescription,
+  description,
   popup,
   setPopup,
   link,
@@ -32,8 +32,8 @@ export default function Popup({
     <div className={styles.popup} onClick={handleClickOutside}>
       {popup === 'pdfReader' && dataFile && <PDFReader dataFile={dataFile} reader={content} />}
       {popup === 'project' && <Frame projectLink={link} frameRef={content} />}
-      {popup === 'description' && fullDescription && (
-        <FullDescription descriptionRef={content} fullDescription={fullDescription} />
+      {popup === 'description' && description && (
+        <Description descriptionRef={content} description={description} />
       )}
     </div>
   );

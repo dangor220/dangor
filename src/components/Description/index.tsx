@@ -4,16 +4,16 @@ import styles from './Description.module.scss';
 
 type descriptionProps = {
   descriptionRef: React.RefObject<HTMLDivElement>;
-  fullDescription: string | undefined;
+  description: string | undefined;
 };
 
-export default function FullDescription({
+export default function Description({
   descriptionRef,
-  fullDescription = "Something's wrong...",
+  description = "Something's wrong...",
 }: descriptionProps): React.ReactNode {
   return (
     <div className={styles.description} ref={descriptionRef}>
-      <p className={styles.text}>{fullDescription}</p>
+      <p className={styles.text}>{description}</p>
     </div>
   );
 }
