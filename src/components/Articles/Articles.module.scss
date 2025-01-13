@@ -15,8 +15,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100dvh - $header-fixed);
-  padding-top: $header-fixed;
+  height: calc(100dvh - $header-height);
+  padding-top: $header-height;
   overflow: hidden;
 }
 .title {

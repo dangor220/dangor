@@ -13,6 +13,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import useFadeAnimation from './hooks/useFadeAnimation';
 import useHandleScrollbar from './hooks/useHandleScrollbar';
+import Contacts from './components/Contacts';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -58,6 +59,7 @@ export default function App(): React.ReactNode {
         clientWidth={clientWidth}
         clientHeight={clientHeight}
       />
+      <Contacts />
       <Background />
     </>
   );

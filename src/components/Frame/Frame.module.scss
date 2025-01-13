@@ -2,10 +2,10 @@
 
 .iframe {
   width: 90dvw;
-  height: calc(100dvh - $header-fixed);
+  height: calc(100dvh - $header-height);
   border: none;
   border-radius: 20px;
   @media (max-width: 768px) {
-    height: calc(100dvh - $header-fixed * 2);
+    height: calc(100dvh - $header-height * 2);
   }
 }

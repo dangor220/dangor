@@ -1,0 +1,6 @@
+@use '../../scss/variables' as *;
+
+.contacts {
+  padding-top: $header-padding;
+  height: calc(100dvh - $header-padding);
+}

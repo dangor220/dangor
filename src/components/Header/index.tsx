@@ -16,7 +16,7 @@ interface HeaderProps {
 }
 
 const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsOpen }, ref) => {
-  const navList: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
+  const navList: string[] = ['home', 'about', 'skills', 'projects', 'contacts'];
   const [t, i18n] = useTranslation();
   const [activeLang, setActiveLang] = useState<string | undefined>('en');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
@@ -93,7 +93,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
   return (
     <header
       className={`${styles.header} ${
-        headerIsFixed && activeItem !== 2 ? styles.fixed : ''
+        headerIsFixed && activeItem !== 2 && activeItem !== 4 ? styles.fixed : ''
       } loadAnimation shortTimeAnimation delayAnimation`}
       ref={ref as React.Ref<HTMLDivElement>}>
       <div className={`${styles.wrapper} ${activeItem === 3 ? styles.isProject : 'container'}`}>

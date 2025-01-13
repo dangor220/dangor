@@ -20,8 +20,8 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  padding-top: $header-fixed;
-  height: calc(100dvh - $header-fixed);
+  padding-top: $header-height;
+  height: calc(100dvh - $header-height);
 
   &:nth-child(2) {
     .item {

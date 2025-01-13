@@ -21,12 +21,12 @@
   top: 0;
   left: 0;
   flex: 45%;
-  padding-top: $header-fixed;
-  height: calc(100dvh - $header-fixed);
+  padding-top: $header-height;
+  height: calc(100dvh - $header-height);
 
   @media (max-width: 768px) {
-    top: $header-fixed;
-    height: calc(100dvh - $header-fixed);
+    top: $header-height;
+    height: calc(100dvh - $header-height);
     flex: auto;
     position: static;
   }
@@ -42,8 +42,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: $header-fixed;
-      height: calc(100dvh - $header-fixed);
+      padding-top: $header-height;
+      height: calc(100dvh - $header-height);
       margin: 0;
     }
   }

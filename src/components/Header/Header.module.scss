@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   padding-top: 34px;
-  height: $header-main;
+  height: $header-height;
   transition: top 0.3s ease;
   z-index: 1;
   opacity: 0;
@@ -17,7 +17,6 @@
   &.fixed {
     top: -34px;
     background-color: #fff;
-    height: $header-fixed;
     border-bottom: 1px solid #f0f0f0;
 
     .menuOpen {
@@ -156,7 +155,7 @@
     flex-direction: column;
     gap: 10px;
     position: absolute;
-    top: calc($header-fixed + 34px);
+    top: $header-padding;
     left: 10px;
     width: calc(100% - 20px);
     opacity: 0;

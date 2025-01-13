@@ -12,7 +12,9 @@ export default function Logo({
 }): React.ReactNode {
   return (
     <a
-      className={`${styles.logo} ${headerIsFixed && activeItem !== 2 ? styles.logoBlack : ''}`}
+      className={`${styles.logo} ${
+        headerIsFixed && activeItem !== 2 && activeItem !== 4 ? styles.logoBlack : ''
+      }`}
       href="#home"
       onClick={handleLinkClick}>
       <svg xmlns="http://www.w3.org/2000/svg" height="35px" width="150px" version="1.1">
