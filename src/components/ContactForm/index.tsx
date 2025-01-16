@@ -26,21 +26,21 @@ export default function ContactForm({ setIsFormFocus }: ContactFormProps): React
   const formRef = useRef<HTMLFormElement>(null);
   const [t] = useTranslation();
 
-  const apiOpenKey = import.meta.env.VITE_API_KEY;
-
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (!formRef.current) return;
 
     const formData = new FormData(formRef.current);
-    const url = `https://formhub.dev/io/${apiOpenKey}`;
 
     setMessageStatus(MessageStatus.Loading);
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch('/api/submitForm', {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify({ formData: Object.fromEntries(formData) }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.ok) {
