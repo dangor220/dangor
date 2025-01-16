@@ -14,6 +14,8 @@ export default async function submitForm(req: VercelRequest, res: VercelResponse
   try {
     const { formData } = req.body;
 
+    console.log('API_KEY:', process.env.API_KEY);
+
     const response = await fetch(`https://formhub.dev/io/${API_KEY}`, {
       method: 'POST',
       body: JSON.stringify(formData),
