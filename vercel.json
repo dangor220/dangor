@@ -1,0 +1,3 @@
+{
+    "buildCommand": "expo export -p web && sed -i 's/\"type\": \"module\"/\"type\": \"commonjs\"/' package.json"
+}
