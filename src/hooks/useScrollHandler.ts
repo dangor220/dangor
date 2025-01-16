@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useScrollHandler(popup: string) {
+export default function useScrollHandler(popup: string, isFormFocus: boolean) {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [isAnim, setIsAnim] = useState<boolean>(false);
@@ -115,6 +115,7 @@ export default function useScrollHandler(popup: string) {
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
+      if (isFormFocus && event.key === ' ') return;
       if (
         event.key === 'ArrowDown' ||
         event.key === 'ArrowUp' ||
@@ -126,7 +127,7 @@ export default function useScrollHandler(popup: string) {
         event.preventDefault();
       }
     },
-    [popup, isAnim],
+    [popup, isAnim, isFormFocus],
   );
 
   const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {

@@ -17,6 +17,7 @@ import Contacts from './components/Contacts';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [isFormFocus, setIsFormFocus] = useState<boolean>(false);
   const [popup, setPopup] = useState<string>('hidden');
   const [popupData, setPopupData] = useState<string | undefined>('');
   const [clientWidth, setClientWidth] = useState(window.innerWidth);
@@ -25,7 +26,7 @@ export default function App(): React.ReactNode {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   useHandleScrollbar(headerRef, popup);
-  useScrollHandler(popup);
+  useScrollHandler(popup, isFormFocus);
   useFadeAnimation();
 
   const handleResize = () => {
@@ -59,7 +60,7 @@ export default function App(): React.ReactNode {
         clientWidth={clientWidth}
         clientHeight={clientHeight}
       />
-      <Contacts />
+      <Contacts setIsFormFocus={setIsFormFocus} />
       <Background />
     </>
   );

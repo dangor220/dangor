@@ -1,0 +1,58 @@
+@use '../../scss/variables' as *;
+
+.contact {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.data,
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.data {
+  gap: 10px;
+}
+
+.name,
+.email,
+.message {
+  &:focus {
+    outline: 2px solid #8f8f8f;
+  }
+  &::placeholder {
+    color: #b6b5b5;
+  }
+}
+
+.name,
+.email,
+.message,
+.submit {
+  flex: 1;
+  border: none;
+  color: $white;
+  background-color: rgba(249, 249, 249, 0.0941176471);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.message {
+  height: calc(100dvh / 3);
+  resize: none;
+}
+.submit {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  cursor: pointer;
+  color: #b6b5b5;
+  transition: all 0.2s linear;
+  &:hover {
+    color: $white;
+    background-color: rgba(221, 221, 221, 0.136);
+  }
+}
