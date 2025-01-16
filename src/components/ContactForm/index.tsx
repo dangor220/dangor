@@ -35,7 +35,7 @@ export default function ContactForm({ setIsFormFocus }: ContactFormProps): React
     setMessageStatus(MessageStatus.Loading);
 
     try {
-      const response = await fetch('/api/submitForm', {
+      const response = await fetch('../../../api/submitForm', {
         method: 'POST',
         body: JSON.stringify({ formData: Object.fromEntries(formData) }),
         headers: {
