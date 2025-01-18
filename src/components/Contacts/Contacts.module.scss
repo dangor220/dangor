@@ -11,6 +11,10 @@
   justify-content: center;
   height: 100%;
   gap: 20px;
+
+  @media (max-width: 425px) {
+    gap: 10px;
+  }
 }
 
 span {

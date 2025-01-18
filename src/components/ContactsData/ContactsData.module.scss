@@ -22,7 +22,22 @@
     font-size: 3rem;
   }
 
+  span {
+    color: inherit;
+  }
+
   &:hover {
     color: $white;
+  }
+
+  @media (max-width: 425px) {
+    min-width: 50px;
+
+    svg {
+      font-size: 3rem;
+    }
+    span {
+      display: none;
+    }
   }
 }

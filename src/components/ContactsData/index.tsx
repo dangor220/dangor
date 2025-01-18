@@ -21,7 +21,7 @@ export default function ContactsData(): React.ReactNode {
         <li className={styles.contact}>
           <a className={styles.link} href={data} target="_blank">
             {image}
-            {t(name)}
+            {<span>{t(name)}</span>}
           </a>
         </li>
       ))}
