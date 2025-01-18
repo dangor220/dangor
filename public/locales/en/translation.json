@@ -44,5 +44,9 @@
     "submitForm": "Submit",
     "messageSent": "Message sent ✓",
     "loading": "Sending",
-    "messageFailed": "Error sending ❌"
+    "messageFailed": "Error sending ❌",
+    "telegram": "Telegram",
+    "email": "Email",
+    "phone": "Phone",
+    "or": "or"
   }

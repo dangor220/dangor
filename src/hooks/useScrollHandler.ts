@@ -115,7 +115,11 @@ export default function useScrollHandler(popup: string, isFormFocus: boolean) {
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (isFormFocus && event.key === ' ') return;
+      if (
+        isFormFocus &&
+        (event.key === ' ' || event.key === 'ArrowDown' || event.key === 'ArrowUp')
+      )
+        return;
       if (
         event.key === 'ArrowDown' ||
         event.key === 'ArrowUp' ||
@@ -131,6 +135,8 @@ export default function useScrollHandler(popup: string, isFormFocus: boolean) {
   );
 
   const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
+    if (isFormFocus && (event.key === ' ' || event.key === 'ArrowDown' || event.key === 'ArrowUp'))
+      return;
     if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
       setIsAnim(true);
       setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));

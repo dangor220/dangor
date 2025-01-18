@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import styles from './ContactForm.module.scss';
+import styles from './ContactsForm.module.scss';
 
 type ContactFormProps = {
   setIsFormFocus: React.Dispatch<React.SetStateAction<boolean>>;
+  contactsRef: React.RefObject<HTMLDivElement>;
 };
 
 enum MessageStatus {
@@ -17,7 +18,10 @@ enum MessageStatus {
   Failed = 'failed',
 }
 
-export default function ContactForm({ setIsFormFocus }: ContactFormProps): React.ReactNode {
+export default function ContactsForm({
+  setIsFormFocus,
+  contactsRef,
+}: ContactFormProps): React.ReactNode {
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -90,6 +94,28 @@ export default function ContactForm({ setIsFormFocus }: ContactFormProps): React
     }
   };
 
+  const scrollToForm = () => {
+    if (contactsRef && contactsRef.current) {
+      const scrollToForm = contactsRef.current?.getBoundingClientRect().y + window.scrollY;
+
+      window.scrollTo({
+        top: scrollToForm,
+      });
+    }
+  };
+
+  const handleFocus: React.FocusEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    setIsFormFocus(true);
+    scrollToForm();
+  };
+
+  const handleUnfocus: React.FocusEventHandler<HTMLFormElement> = (event) => {
+    if (!formRef.current?.contains(event.relatedTarget as Node)) {
+      setIsFormFocus(false);
+    }
+  };
+
   return (
     <form
       className={styles.contact}
@@ -98,9 +124,8 @@ export default function ContactForm({ setIsFormFocus }: ContactFormProps): React
       method="POST"
       ref={formRef}
       onSubmit={handleSubmit}
-      onClick={() => {
-        setIsFormFocus(true);
-      }}>
+      onFocus={handleFocus}
+      onBlur={handleUnfocus}>
       <div className={styles.data}>
         <input
           className={styles.name}

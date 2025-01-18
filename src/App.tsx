@@ -33,6 +33,7 @@ export default function App(): React.ReactNode {
     setClientWidth(window.innerWidth);
     setClientHeight(window.innerHeight);
   };
+
   useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {

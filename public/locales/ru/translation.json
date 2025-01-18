@@ -44,5 +44,9 @@
     "submitForm": "Отправить",
     "messageSent": "Сообщение отправлено ✓",
     "loading": "Отправка",
-    "messageFailed": "Ошибка при отправке ❌"
+    "messageFailed": "Ошибка при отправке ❌",
+    "telegram": "Телеграм",
+    "email": "Почта",
+    "phone": "Телефон",
+    "or": "или"
   }
