@@ -167,6 +167,16 @@
       }
     }
   }
+
+  @media (max-height: 480px) {
+    display: none;
+  }
+  @media (min-height: 590px) {
+    display: none;
+  }
+  @media (min-height: 650px) {
+    display: block;
+  }
 }
 
 @-webkit-keyframes arrowAction {

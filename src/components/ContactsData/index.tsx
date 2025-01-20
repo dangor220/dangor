@@ -17,8 +17,8 @@ export default function ContactsData(): React.ReactNode {
 
   return (
     <ul className={styles.contacts}>
-      {contacts.map(({ name, data, image }) => (
-        <li className={styles.contact}>
+      {contacts.map(({ name, data, image }, index) => (
+        <li className={styles.contact} key={index}>
           <a className={styles.link} href={data} target="_blank">
             {image}
             {<span>{t(name)}</span>}
