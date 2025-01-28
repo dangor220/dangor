@@ -45,10 +45,16 @@
       margin-right: 0;
     }
   }
+  span {
+    transition: all 0.3s ease-in-out;
+  }
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
+    span {
+      color: $white;
+    }
   }
 
   @media (max-width: 768px) {

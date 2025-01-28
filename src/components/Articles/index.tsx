@@ -1,5 +1,4 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useRef } from 'react';
 
 import styles from './Articles.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -58,6 +57,7 @@ export default function Articles({
   clientHeight,
 }: popupType): React.ReactNode {
   const [t] = useTranslation();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const articles: article[] = [
     {
@@ -131,71 +131,75 @@ export default function Articles({
         {articles.map((article, index) => (
           <li
             className={styles.article}
-            key={uuidv4()}
+            key={article.title}
             {...(clientWidth <= 768 || index !== 0 ? { 'data-anchor': true } : {})}>
-            <div className={styles.title}>{t(article.title)}</div>
-            <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
-            <div className={styles.content}>
-              <div className={styles.description}>
-                <DescriptionAdaptive
-                  text={t(article.description)}
-                  clientWidth={clientWidth}
-                  clientHeight={clientHeight}
-                  setPopup={setPopup}
-                  setPopupData={setPopupData}
-                />
+            <div ref={contentRef} className={styles.wrapper}>
+              <div className={styles.title}>{t(article.title)}</div>
+              <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>
+              <div className={styles.content}>
+                <div className={styles.description}>
+                  <DescriptionAdaptive
+                    text={t(article.description)}
+                    type={'articles'}
+                    content={contentRef}
+                    clientWidth={clientWidth}
+                    clientHeight={clientHeight}
+                    setPopup={setPopup}
+                    setPopupData={setPopupData}
+                  />
+                </div>
+                <div className={styles.resources}>
+                  {article.youtubeLink && (
+                    <button className={styles.icon}>
+                      <a href={article.youtubeLink} target="_blank" rel="noopener noreferrer">
+                        <YouTubeIcon />
+                      </a>
+                    </button>
+                  )}
+                  {article.articlePDF && (
+                    <button
+                      className={styles.icon}
+                      onClick={() => {
+                        handleOpenPDF(article.articlePDF);
+                      }}>
+                      <PictureAsPdfIcon />
+                    </button>
+                  )}
+                  {article.certificate && (
+                    <button
+                      className={styles.icon}
+                      onClick={() => {
+                        handleOpenPDF(article.certificate);
+                      }}>
+                      <EmojiEventsIcon />
+                    </button>
+                  )}
+                  {article.qualification && (
+                    <button
+                      className={styles.icon}
+                      onClick={() => {
+                        handleOpenPDF(article.qualification);
+                      }}>
+                      <SchoolIcon />
+                    </button>
+                  )}
+                  {article.githubLink && (
+                    <button className={styles.icon}>
+                      <a href={article.githubLink} target="_blank" rel="noopener noreferrer">
+                        <GitHubIcon />
+                      </a>
+                    </button>
+                  )}
+                  {article.libraryLink && (
+                    <button className={styles.icon}>
+                      <a href={article.libraryLink} target="_blank" rel="noopener noreferrer">
+                        <LinkIcon />
+                      </a>
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className={styles.resources}>
-                {article.youtubeLink && (
-                  <button className={styles.icon}>
-                    <a href={article.youtubeLink} target="_blank" rel="noopener noreferrer">
-                      <YouTubeIcon />
-                    </a>
-                  </button>
-                )}
-                {article.articlePDF && (
-                  <button
-                    className={styles.icon}
-                    onClick={() => {
-                      handleOpenPDF(article.articlePDF);
-                    }}>
-                    <PictureAsPdfIcon />
-                  </button>
-                )}
-                {article.certificate && (
-                  <button
-                    className={styles.icon}
-                    onClick={() => {
-                      handleOpenPDF(article.certificate);
-                    }}>
-                    <EmojiEventsIcon />
-                  </button>
-                )}
-                {article.qualification && (
-                  <button
-                    className={styles.icon}
-                    onClick={() => {
-                      handleOpenPDF(article.qualification);
-                    }}>
-                    <SchoolIcon />
-                  </button>
-                )}
-                {article.githubLink && (
-                  <button className={styles.icon}>
-                    <a href={article.githubLink} target="_blank" rel="noopener noreferrer">
-                      <GitHubIcon />
-                    </a>
-                  </button>
-                )}
-                {article.libraryLink && (
-                  <button className={styles.icon}>
-                    <a href={article.libraryLink} target="_blank" rel="noopener noreferrer">
-                      <LinkIcon />
-                    </a>
-                  </button>
-                )}
-              </div>
-            </div>{' '}
+            </div>
           </li>
         ))}
       </ul>

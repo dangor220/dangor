@@ -97,10 +97,10 @@ export default function Projects({
                   {
                     <DescriptionAdaptive
                       text={t(description)}
+                      type={'projects'}
+                      content={contentRef}
                       clientWidth={clientWidth}
                       clientHeight={clientHeight}
-                      contentWidth={contentRef.current?.getBoundingClientRect().width}
-                      contentHeight={contentRef.current?.getBoundingClientRect().height}
                       setPopup={setPopup}
                       setPopupData={setPopupData}
                     />

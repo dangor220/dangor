@@ -24,6 +24,10 @@
   padding-top: $header-height;
   height: calc(100dvh - $header-height);
 
+  p {
+    margin: 0;
+  }
+
   @media (max-width: 768px) {
     top: $header-height;
     height: calc(100dvh - $header-height);
@@ -38,7 +42,7 @@
   }
 
   @media (max-height: 884px) {
-    p {
+    div {
       display: flex;
       justify-content: center;
       align-items: center;

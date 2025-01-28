@@ -50,17 +50,15 @@
   }
 }
 .description {
-  flex: 5;
   margin-bottom: 15px;
-
   p {
+    min-height: 100px;
     margin: 0;
   }
 }
 .resources {
   display: flex;
   gap: 20px;
-  flex: 1;
   @media (max-width: 768px) {
     gap: 10px;
   }

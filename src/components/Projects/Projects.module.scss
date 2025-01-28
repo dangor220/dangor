@@ -178,6 +178,9 @@
       margin-right: 0;
     }
   }
+  span {
+    color: $black;
+  }
 
   @media (max-width: 668px) {
     justify-content: center;
@@ -186,6 +189,7 @@
     }
     svg {
       font-size: 25px;
+      margin: 0;
     }
   }
 }
