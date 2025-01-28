@@ -18,6 +18,7 @@
   flex-direction: column;
   justify-content: center;
   position: sticky;
+  gap: 30px;
   top: 0;
   left: 0;
   flex: 45%;
@@ -42,6 +43,7 @@
   }
 
   @media (max-height: 884px) {
+    gap: 0;
     div {
       display: flex;
       justify-content: center;
