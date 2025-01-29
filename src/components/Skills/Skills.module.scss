@@ -15,12 +15,14 @@
   list-style: none;
   gap: 30px;
   padding: 0;
-
-  @media (max-width: 568px) {
+  @media (max-width: 768px) or (max-height: 632px) {
+    justify-content: space-evenly;
+  }
+  @media (max-width: 568px) or (max-height: 632px) {
     gap: 15px;
   }
-  @media (max-width: 768px) {
-    justify-content: space-evenly;
+  @media (max-width: 375px) or (max-height: 632px) {
+    justify-content: center;
   }
 }
 .item {
@@ -57,18 +59,23 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) or (max-height: 632px) {
     width: calc((100%) / 3);
   }
-  @media (max-width: 375px) {
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    min-height: auto;
-    min-width: auto;
+  @media (max-width: 375px) or (max-height: 632px) {
+    flex: none;
+    width: calc((100%) / 5);
+    min-width: min-content;
+
     .hidden {
       display: none;
+    }
+    a {
+      padding: 10px;
+      justify-content: center;
+    }
+    svg {
+      margin-right: 0;
     }
   }
 }

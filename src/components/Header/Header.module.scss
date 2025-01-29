@@ -80,6 +80,11 @@
   list-style: none;
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
+
+  @media (orientation: landscape) and (max-height: 475px) {
+    height: 100dvh;
+    gap: 5px;
+  }
 }
 
 .item {
@@ -184,10 +189,17 @@
       @media (max-width: 425px) {
         padding: 5px 15px;
       }
+      @media (orientation: landscape) and (max-height: 475px) {
+        padding: 5px 30px;
+      }
     }
 
     &:first-child {
       margin-top: 20px;
+
+      @media (orientation: landscape) and (max-height: 475px) {
+        margin-top: 0;
+      }
     }
     &:last-child {
       margin-bottom: 20px;

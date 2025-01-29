@@ -35,7 +35,10 @@ export default function Preview({ menuIsOpen }: { menuIsOpen: boolean }): React.
 
       <div className={`${styles.info} loadAnimation shortTimeAnimation delayAnimation`}>
         <div className={`${styles.title} ${menuIsOpen ? styles.titleHidden : ''}`}>{t('name')}</div>
-        <div className={`${styles.subtitle} ${isVisible ? styles.visible : ''}`}>
+        <div
+          className={`${styles.subtitle} ${menuIsOpen ? styles.titleHidden : ''} ${
+            isVisible ? styles.visible : ''
+          }`}>
           {subtitleText[currentIndex]}
         </div>
       </div>
