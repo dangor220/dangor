@@ -90,9 +90,10 @@
     font-size: 35px;
   }
 }
+
 .titleHidden {
   @media (max-height: 710px) {
-    opacity: 0;
+    opacity: 0 !important;
     transition: opacity 0.3s ease-in-out;
   }
 }

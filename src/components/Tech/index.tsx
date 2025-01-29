@@ -16,6 +16,7 @@ import { BsFiletypeScss } from 'react-icons/bs';
 type stackTypes = {
   data: string[];
   styles: CSSModuleClasses;
+  menuIsOpen?: boolean;
   isSkills?: boolean;
 };
 
@@ -25,7 +26,7 @@ type techTypes = {
 };
 type technologiesTypes = techTypes[];
 
-export default function Tech({ data, styles, isSkills }: stackTypes): React.ReactNode {
+export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes): React.ReactNode {
   let technologies: technologiesTypes = [
     { tech: 'HTML', image: <FaHtml5 fill="#d35c33" /> },
     { tech: 'CSS', image: <TbBrandCss3 color="#3570b2" /> },
@@ -74,7 +75,7 @@ export default function Tech({ data, styles, isSkills }: stackTypes): React.Reac
   };
 
   return (
-    <ul className={styles.list}>
+    <ul className={`${styles.list} ${menuIsOpen ? styles.titleHidden : ''}`}>
       {technologies.map(({ tech, image }) => (
         <li className={styles.item} key={uuidv4()}>
           {isSkills ? (

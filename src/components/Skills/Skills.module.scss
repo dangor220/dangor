@@ -88,14 +88,27 @@
   padding: 10px 10px;
   font-size: calc(12px + 5 * (100dvw / 1190));
   font-weight: bold;
-  color: $white;
+  color: $transparent-white;
   text-decoration: none;
   line-height: 0;
+
+  &:hover {
+    span {
+      color: $white;
+    }
+  }
 
   @media (max-width: 375px) {
     justify-content: center;
   }
   @media (max-width: 425px) {
     padding: 0 5px;
+  }
+}
+
+.titleHidden {
+  @media (max-height: 710px) {
+    opacity: 0 !important;
+    transition: opacity 0.3s ease-in-out;
   }
 }

@@ -53,7 +53,7 @@ export default function App(): React.ReactNode {
         clientWidth={clientWidth}
         clientHeight={clientHeight}
       />
-      <Skills />
+      <Skills menuIsOpen={menuIsOpen} />
       <Projects
         popup={popup}
         setPopup={setPopup}

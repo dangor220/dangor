@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Skills.module.scss';
 import Tech from '../Tech';
 
-export default function Skills(): React.ReactNode {
+export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.ReactNode {
   const data: string[] = [
     'HTML',
     'CSS',
@@ -21,7 +21,7 @@ export default function Skills(): React.ReactNode {
   return (
     <div className={styles.skills} id="skills" data-anchor>
       <div className={`${styles.wrapper} container`}>
-        <Tech data={data} styles={styles} isSkills />
+        <Tech data={data} styles={styles} menuIsOpen={menuIsOpen} isSkills />
       </div>
     </div>
   );

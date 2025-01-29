@@ -184,10 +184,16 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
     setCoors(anchorCoords);
   }, [currentBlock]);
 
+  const handleOrientation = () => {
+    location.reload();
+  };
+
   useEffect(() => {
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleOrientation);
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientation);
     };
   }, [coords, handleResize]);
 

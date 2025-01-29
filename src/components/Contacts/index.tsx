@@ -16,7 +16,7 @@ export default function Contacts({ setIsFormFocus }: ContactsProps): React.React
     <div className={`${styles.contacts}`} id="contacts" ref={contactsRef} data-anchor>
       <div className={`${styles.wrapper} container`}>
         <ContactsData />
-        <span>{t('or')}</span>
+        <span className={`${styles.separator}`}>{t('or')}</span>
         <ContactsForm setIsFormFocus={setIsFormFocus} contactsRef={contactsRef} />
       </div>
     </div>
