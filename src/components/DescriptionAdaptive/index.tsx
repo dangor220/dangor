@@ -42,7 +42,8 @@ export default function DescriptionAdaptive({
           case 'articles':
             return (clientHeight - HEADER_PADDING) / 2;
           case 'projects':
-            return contentRect.height - 30;
+            return (clientHeight - HEADER_PADDING) / 2;
+          // return contentRect.height - 30;
           default:
             return clientHeight - HEADER_PADDING;
         }
