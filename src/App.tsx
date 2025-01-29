@@ -1,6 +1,5 @@
 import './i18n/i18n';
 import React, { useEffect, useRef, useState } from 'react';
-import useScrollHandler from './hooks/useScrollHandler';
 
 import Background from './components/Background';
 import Header from './components/Header';
@@ -14,6 +13,7 @@ import Projects from './components/Projects';
 import useFadeAnimation from './hooks/useFadeAnimation';
 import useHandleScrollbar from './hooks/useHandleScrollbar';
 import Contacts from './components/Contacts';
+import useCustomScroll from './hooks/useCustomScroll';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -26,7 +26,7 @@ export default function App(): React.ReactNode {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   useHandleScrollbar(headerRef, popup);
-  useScrollHandler(popup, isFormFocus);
+  useCustomScroll(popup, isFormFocus);
   useFadeAnimation();
 
   const handleResize = () => {

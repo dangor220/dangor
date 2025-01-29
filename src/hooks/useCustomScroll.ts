@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useScrollHandler(popup: string, isFormFocus: boolean) {
+export default function useCustomScroll(popup: string, isFormFocus: boolean) {
   const [coords, setCoors] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [isAnim, setIsAnim] = useState<boolean>(false);
