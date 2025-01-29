@@ -78,6 +78,9 @@
       margin-right: 0;
     }
   }
+  @media (max-width: 768px) and (max-height: 432px) {
+    width: calc((100%) / 7);
+  }
 }
 
 .techLink {
