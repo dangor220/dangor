@@ -36,7 +36,9 @@ export default function About({
             <div
               ref={contentRef}
               key={index}
-              {...(clientHeight <= 884 && clientWidth <= 768 ? { 'data-anchor': true } : {})}>
+              {...(clientHeight <= 884 && clientWidth <= 768 && index !== 0
+                ? { 'data-anchor': true }
+                : {})}>
               <DescriptionAdaptive
                 text={t(info)}
                 content={contentRef}
