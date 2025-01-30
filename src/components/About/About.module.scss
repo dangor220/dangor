@@ -35,14 +35,17 @@
     flex: auto;
     position: static;
   }
+  @media (max-width: 1024px) and (max-height: 625px) {
+    font-size: 16px;
+  }
 
-  @media (max-height: 884px) {
+  @media (max-height: 915px) {
     top: 0;
     padding-top: 0;
     height: 100%;
   }
 
-  @media (max-height: 884px) {
+  @media (max-height: 915px) {
     gap: 0;
     div {
       display: flex;
