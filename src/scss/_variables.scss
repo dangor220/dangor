@@ -1,4 +1,4 @@
-$black: #0e0d0dca;
+$black: #000;
 $white: #ffffff;
 
 $transparent-white: rgba($white, 0.71);
@@ -18,3 +18,70 @@ $animation-durations: (
 $animation-delay: (
   'delayAnimation': 0.8s,
 );
+
+:root {
+  --background-color: ;
+  --background-filter: rgba(0, 0, 0, 0.4);
+
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --gray-color: ;
+
+  --main-color: ;
+  --title-color: ;
+  --subtitle-color: ;
+  --active-color: ;
+
+  --logo-color: ;
+  --logo-fixed-color: ;
+
+  --header-border-color: ;
+  --header-list-color: ;
+
+  --hamburger-color: ;
+  --hamburger-fixed-color: ;
+  // --background-color: #ffffff;
+
+  // --main-color: #000000bb;
+  // --second-color: #757575;
+
+  // --header-border-color: #f0f0f0;
+  // --header-active-color: #ffffff;
+  // --header-list-open: #ffffff;
+  // --header-transparent-color: #ffffffaf;
+
+  // --hamburger-color: #eaeaeaeb;
+  // --hamburger-active-color: #000000bb;
+
+  // --logo-color: #ffffff;
+  // --logo-active-color: #000000bb;
+
+  // --linear-gradient-background: rgba(0, 0, 0, 0.4);
+
+  // --active-color: #48b14d;
+}
+
+[data-theme='dark'] {
+  --background-color: #191b21;
+  --background-filter: rgba(0, 0, 0, 0.7);
+
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --transparent-color: rgba(255, 255, 255, 0.7);
+
+  --main-color: #f6f7f9;
+  --title-color: #f6f7f9;
+  --subtitle-color: #cfcfcf;
+
+  --active-color: #ffffff;
+  --active-fixed-color: #8cb4ff;
+
+  --logo-color: #191b21;
+  --logo-fixed-color: #f6f7f9;
+
+  --header-border-color: #f6f7f90d;
+  --header-list-color: #191b21;
+
+  --hamburger-color: #f6f7f9;
+  --hamburger-fixed-color: #f6f7f9;
+}

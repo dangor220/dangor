@@ -2,8 +2,8 @@
 
 .about {
   position: relative;
-  color: $black;
-  background-color: $white;
+  color: var(--main-color);
+  background-color: var(--background-color);
 }
 .wrapper {
   display: flex;

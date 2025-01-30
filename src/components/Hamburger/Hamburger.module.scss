@@ -18,12 +18,12 @@
 .line {
   fill: none;
   transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
-  stroke: $transparent-white;
+  stroke: var(--hamburger-color);
   stroke-width: 5.5;
   stroke-linecap: round;
 }
 .lineBlack {
-  stroke: $black;
+  stroke: var(--hamburger-fixed-color);
 }
 .ham8 .top {
   stroke-dasharray: 41 160;

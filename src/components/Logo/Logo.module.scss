@@ -5,9 +5,9 @@
   align-items: center;
   svg {
     scale: 1;
-    fill: $active;
+    fill: var(--logo-color);
     path {
-      fill: $active;
+      fill: var(--logo-fixed-color);
     }
   }
 }
@@ -19,7 +19,7 @@
     transition: all 0.3s ease-in-out;
     g path,
     g:last-child path {
-      fill: $black;
+      fill: var(--logo-fixed-color);
     }
   }
 }

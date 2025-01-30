@@ -8,6 +8,9 @@
   align-items: center;
   height: 100dvh;
   color: $transparent-white;
+  // @media (max-height: 600px) and (min-width: 768px) {
+  //   padding-top: $header-height;
+  // }
 }
 
 .author {
@@ -48,6 +51,10 @@
 }
 .info {
   opacity: 0;
+
+  @media (max-height: 600px) and (max-width: 768px) {
+    padding-top: $header-height;
+  }
 }
 
 .image {

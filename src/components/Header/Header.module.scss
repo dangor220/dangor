@@ -16,28 +16,28 @@
 
   &.fixed {
     top: -34px;
-    background-color: #fff;
-    border-bottom: 1px solid #f0f0f0;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--header-border-color);
 
     .menuOpen {
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid var(--header-border-color);
     }
 
     .item a,
     .lang,
     .separator {
-      color: $black;
+      color: var(--main-color);
     }
     .item a,
     .lang {
       transition: color 0.3s ease, transform 0.3s ease;
       &:hover {
-        color: $active-green;
+        color: var(--active-fixed-color);
       }
     }
     .active,
     .active a {
-      color: $active-green;
+      color: var(--active-fixed-color);
       transition: all 0.3s ease-in;
     }
   }
@@ -85,7 +85,7 @@
 .item {
   a {
     display: inline-block;
-    color: $transparent-white;
+    color: var(--transparent-color);
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
 
@@ -99,7 +99,7 @@
   border: none;
   background-color: transparent;
   padding: 0;
-  color: $transparent-white;
+  color: var(--transparent-color);
   cursor: pointer;
 }
 .lang {
@@ -107,7 +107,7 @@
   @include linkHover;
 }
 .separator {
-  color: $transparent-white;
+  color: var(--transparent-color);
   margin: 0 5px;
 }
 .burger {
@@ -115,11 +115,11 @@
   padding: 0;
   background-color: transparent;
   border: none;
-  color: $transparent-white;
+  color: var(--hamburger-color);
 }
 .active,
 .active a {
-  color: $active;
+  color: var(--active-color);
   transition: all 0.3s ease-in;
 }
 @media (max-width: 425px) {
@@ -170,24 +170,26 @@
     );
     transition: all 0.3s ease-in-out;
 
-    @media (orientation: landscape) and (max-height: 325px) {
-      justify-content: space-between;
-      padding-top: $header-height;
-      flex-direction: row;
-    }
     @media (orientation: landscape) and (max-height: 475px) {
+      width: calc(100% - 40px);
       height: 100dvh;
       gap: 5px;
-      padding-top: 0;
+      padding: 20px 20px 0 20px;
+      left: 0;
       overflow: hidden;
+    }
+    @media (orientation: landscape) and (max-height: 325px) {
+      justify-content: space-between;
+      padding-top: calc(50dvh - $header-padding);
+      flex-direction: row;
     }
   }
   .item {
     a {
-      color: $transparent-white;
+      color: var(--transparent-color);
       padding: 10px 30px;
       &:hover {
-        color: $active;
+        color: var(--active-color);
         transform: scale(1);
       }
 
@@ -199,6 +201,9 @@
       }
       @media (orientation: landscape) and (max-height: 475px) {
         padding: 5px 30px;
+      }
+      @media (orientation: landscape) and (max-height: 325px) {
+        padding: 10px 10px;
       }
     }
 
@@ -221,7 +226,7 @@
   }
   .active,
   .active a {
-    color: $active;
+    color: var(--active-color);
   }
 
   .menuOpen {
@@ -237,15 +242,16 @@
       & .list {
         left: 0;
         width: 100%;
-        background: linear-gradient(to bottom, $active, $active);
+        background: linear-gradient(to bottom, var(--header-list-color), var(--header-list-color));
         transition: all 0.3s ease-out;
 
         @media (orientation: landscape) and (max-height: 475px) {
-          padding-top: calc($header-height / 2);
+          width: calc(100% - 40px);
+          padding: calc(50dvh - $header-height) 20px 0 20px;
         }
       }
       .burger {
-        color: $black;
+        color: var(--main-color);
       }
     }
   }

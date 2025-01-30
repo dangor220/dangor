@@ -22,6 +22,7 @@
 .title {
   font-size: 20px;
   font-weight: bold;
+  color: var(--white-color);
   margin-bottom: 5px;
   @media (max-width: 768px) {
     font-size: 17px;
@@ -32,7 +33,7 @@
   font-size: 16px;
   font-weight: bold;
   font-style: italic;
-  color: $transparent-black;
+  color: var(--subtitle-color);
   margin-bottom: 10px;
   @media (max-width: 768px) {
     font-size: 14px;
@@ -73,11 +74,11 @@
   }
   svg {
     font-size: 40px;
-    color: $transparent-black;
+    color: var(--transparent-color);
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      color: $active-green;
+      color: var(--active-fixed-color);
       transform: scale(1.05);
     }
 
