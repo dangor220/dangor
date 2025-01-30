@@ -7,13 +7,18 @@ import { useTranslation } from 'react-i18next';
 
 type ContactsProps = {
   setIsFormFocus: React.Dispatch<React.SetStateAction<boolean>>;
+  menuIsOpen: boolean;
 };
 
-export default function Contacts({ setIsFormFocus }: ContactsProps): React.ReactNode {
+export default function Contacts({ menuIsOpen, setIsFormFocus }: ContactsProps): React.ReactNode {
   const [t] = useTranslation();
   const contactsRef = useRef<HTMLDivElement>(null);
   return (
-    <div className={`${styles.contacts}`} id="contacts" ref={contactsRef} data-anchor>
+    <div
+      className={`${styles.contacts} ${menuIsOpen ? styles.contactsHidden : ''}`}
+      id="contacts"
+      ref={contactsRef}
+      data-anchor>
       <div className={`${styles.wrapper} container`}>
         <ContactsData />
         <span className={`${styles.separator}`}>{t('or')}</span>

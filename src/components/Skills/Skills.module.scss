@@ -118,8 +118,6 @@
 }
 
 .titleHidden {
-  @media (max-height: 710px) {
-    opacity: 0 !important;
-    transition: opacity 0.3s ease-in-out;
-  }
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out !important;
 }

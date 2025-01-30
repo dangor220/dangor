@@ -61,7 +61,7 @@ export default function App(): React.ReactNode {
         clientWidth={clientWidth}
         clientHeight={clientHeight}
       />
-      <Contacts setIsFormFocus={setIsFormFocus} />
+      <Contacts menuIsOpen={menuIsOpen} setIsFormFocus={setIsFormFocus} />
       <Background />
     </>
   );

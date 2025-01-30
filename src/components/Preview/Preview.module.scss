@@ -48,11 +48,17 @@
   @media (max-height: 600px) and (min-width: 768px) {
     display: none;
   }
+  @media (max-height: 768px) {
+    display: none;
+  }
 }
 .info {
   opacity: 0;
 
   @media (max-height: 600px) and (max-width: 768px) {
+    padding-top: $header-height;
+  }
+  @media (max-height: 355px) and (min-width: 768px) {
     padding-top: $header-height;
   }
 }
@@ -96,13 +102,15 @@
     margin-bottom: 10px;
     font-size: 35px;
   }
+  @media (max-height: 500px) and (min-width: 768px) {
+    margin-bottom: 10px;
+    font-size: 40px;
+  }
 }
 
 .titleHidden {
-  @media (max-height: 710px) {
-    opacity: 0 !important;
-    transition: opacity 0.3s ease-in-out;
-  }
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out !important;
 }
 
 .subtitle {
@@ -134,6 +142,11 @@
   }
 
   @media (max-height: 368px) and (max-width: 768px) {
+    font-size: 20px;
+    line-height: 35px;
+    height: 80px;
+  }
+  @media (max-height: 500px) and (min-width: 768px) {
     font-size: 20px;
     line-height: 35px;
     height: 80px;
@@ -173,6 +186,10 @@
       @media (max-height: 368px) and (max-width: 768px) {
         width: 25px;
         height: 25px;
+      }
+      @media (max-height: 500px) and (min-width: 768px) {
+        width: 30px;
+        height: 30px;
       }
     }
   }
