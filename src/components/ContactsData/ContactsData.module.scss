@@ -10,6 +10,14 @@
   @media (max-width: 425px) {
     justify-content: space-between;
   }
+  @media (max-height: 500px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-height: 325px) {
+    height: 100%;
+    gap: 0;
+  }
 }
 .contact {
   cursor: pointer;
@@ -40,6 +48,16 @@
     svg {
       font-size: 3rem;
     }
+    span {
+      display: none;
+    }
+  }
+  @media (max-height: 500px) {
+    svg {
+      font-size: 2rem;
+    }
+  }
+  @media (max-height: 325px) {
     span {
       display: none;
     }

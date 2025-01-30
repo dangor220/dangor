@@ -5,6 +5,11 @@
   justify-content: center;
   flex-direction: column;
   gap: 10px;
+  height: calc(100dvh / 2);
+
+  @media (max-height: 500px) {
+    width: 100%;
+  }
 }
 
 .data,
@@ -14,6 +19,11 @@
 }
 .data {
   gap: 10px;
+
+  @media (max-height: 325px) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
 }
 
 .name,
@@ -31,17 +41,23 @@
 .email,
 .message,
 .submit {
-  flex: 1;
+  width: 100%;
   border: none;
   color: $white;
   background-color: rgba(249, 249, 249, 0.0941176471);
   backdrop-filter: blur(2px);
   border-radius: 10px;
   padding: 10px 15px;
-}
 
+  @media (max-height: 325px) {
+    font-size: 15px;
+    padding: 5px 10px;
+  }
+}
+.content {
+  flex: 1;
+}
 .message {
-  height: calc(100dvh / 3);
   resize: none;
 }
 .submit {

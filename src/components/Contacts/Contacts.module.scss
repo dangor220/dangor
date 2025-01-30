@@ -15,10 +15,22 @@
   @media (max-width: 425px) {
     gap: 10px;
   }
+  @media (max-height: 500px) {
+    gap: 10px;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (max-height: 325px) {
+    font-size: 15px;
+  }
 }
 
 .separator {
   text-align: center;
   color: $transparent-white;
   opacity: 0.7;
+  @media (max-height: 500px) {
+    display: none;
+  }
 }
