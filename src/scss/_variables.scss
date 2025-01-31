@@ -64,6 +64,12 @@ $animation-delay: (
 [data-theme='dark'] {
   --background-color: #191b21;
   --background-filter: rgba(0, 0, 0, 0.7);
+  --project-preview-filter: 0.8;
+  --project-preview-filter-hover: 0.9;
+
+  --icon-color: #23272f;
+  --icon-border-color: hsla(0, 0%, 100%, 0.05);
+  --icon-css-modules: #f6f7f9;
 
   --white-color: #ffffff;
   --black-color: #000000;

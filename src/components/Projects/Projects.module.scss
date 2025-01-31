@@ -1,7 +1,7 @@
 @use '../../scss/variables' as *;
 
 .projects {
-  background-color: $white;
+  background-color: var(--background-color);
 }
 
 .wrapper {
@@ -22,12 +22,13 @@
   gap: 20px;
   padding-top: $header-height;
   height: calc(100dvh - $header-height);
+  color: var(--main-color);
 
   &:nth-child(2) {
     .item {
       &:nth-child(5) {
         svg {
-          fill: rgb(0, 0, 0);
+          fill: var(--icon-css-modules);
         }
       }
     }
@@ -66,9 +67,22 @@
   justify-content: center;
   flex: 2;
   height: calc(90dvh - $header-height);
+
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
+
+  -webkit-transition: -webkit-filter 300ms ease-in;
+  -webkit-filter: brightness(var(--project-preview-filter));
+  filter: brightness(var(--project-preview-filter));
+
+  &:hover {
+    -webkit-filter: brightness(var(--project-preview-filter-hover));
+    filter: brightness(var(--project-preview-filter-hover));
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--icon-border-color);
+  }
 
   @media (max-width: 1024px) {
     flex: 60%;
@@ -153,12 +167,12 @@
 .link {
   svg {
     font-size: 30px;
-    fill: $transparent-black;
+    fill: var(--transparent-color);
 
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      fill: $black;
+      fill: var(--active-fixed-color);
     }
   }
 }
@@ -175,15 +189,18 @@
   flex: auto;
   align-items: center;
 
-  background-color: #55545417;
+  background-color: var(--icon-color);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   padding: 10px 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--icon-border-color);
   border-radius: 10px;
 
   font-size: calc(10px + 2 * (100dvw / 1190));
   font-weight: bold;
-  color: $black;
+  color: var(--transparent-color);
   text-decoration: none;
   line-height: 0;
 
@@ -200,7 +217,7 @@
     }
   }
   span {
-    color: $black;
+    color: var(--transparent-color);
   }
 
   @media (max-width: 500px) {
