@@ -20,10 +20,14 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
 
     if (!hasRun.current) {
       setCurrentBlock(Number(sessionStorage.getItem('userView')));
-      window.scrollTo({
-        top: anchorCoords[Number(sessionStorage.getItem('userView'))],
-        behavior: 'smooth',
-      });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: anchorCoords[Number(sessionStorage.getItem('userView'))],
+          behavior: 'smooth',
+        });
+      }, 0);
+
       hasRun.current = true;
     }
   }, []);
