@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function useCustomScroll(popup: string, isFormFocus: boolean) {
-  const [coords, setCoors] = useState<number[]>([]);
+  const [coords, setCoords] = useState<number[]>([]);
   const [currentBlock, setCurrentBlock] = useState<number>(0);
   const [isAnim, setIsAnim] = useState<boolean>(false);
   const hasRun = useRef<boolean>(false);
@@ -16,7 +16,7 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
     const anchorCoords = anchorData.map(
       (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
     );
-    setCoors(anchorCoords);
+    setCoords(anchorCoords);
 
     if (!hasRun.current) {
       setCurrentBlock(Number(sessionStorage.getItem('userView')));
@@ -185,7 +185,7 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
       top: anchorCoords[currentBlock],
       behavior: 'instant',
     });
-    setCoors(anchorCoords);
+    setCoords(anchorCoords);
   }, [currentBlock]);
 
   const handleOrientation = () => {
