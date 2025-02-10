@@ -19,7 +19,8 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
     setCoords(anchorCoords);
 
     if (!hasRun.current) {
-      setCurrentBlock(Number(sessionStorage.getItem('userView')));
+      const storedView = sessionStorage.getItem('userView');
+      setCurrentBlock(storedView ? Number(storedView) : 0);
 
       setTimeout(() => {
         window.scrollTo({
@@ -177,15 +178,20 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
   }, [handleDebouncedScroll]);
 
   const handleResize = useCallback(() => {
-    const anchorData = [...document.querySelectorAll('[data-anchor]')];
-    const anchorCoords = anchorData.map(
-      (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
-    );
-    window.scrollTo({
-      top: anchorCoords[currentBlock],
-      behavior: 'instant',
-    });
-    setCoords(anchorCoords);
+    setTimeout(() => {
+      const anchorData = [...document.querySelectorAll('[data-anchor]')];
+      const anchorCoords = anchorData.map(
+        (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
+      );
+      setCoords(anchorCoords);
+
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: anchorCoords[currentBlock] || 0,
+          behavior: 'instant',
+        });
+      });
+    }, 100);
   }, [currentBlock]);
 
   const handleOrientation = () => {
@@ -199,7 +205,7 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleOrientation);
     };
-  }, [coords, handleResize]);
+  }, [handleResize]);
 
   useEffect(() => {
     document.addEventListener('touchstart', handleTouchStart, { passive: false });
