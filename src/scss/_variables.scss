@@ -20,45 +20,37 @@ $animation-delay: (
 );
 
 :root {
-  --background-color: ;
-  --background-filter: rgba(0, 0, 0, 0.4);
+  --background-color: #ffffff;
+  --background-filter: rgba(0, 0, 0, 0.5);
+  --project-preview-filter: 1;
+  --project-preview-filter-hover: 0.9;
+
+  --icon-color: rgba(249, 249, 249, 0.0941176471);
+  --icon-border-color: #23232323;
+  --icon-text-color: #515151;
+  --icon-css-modules: #000000;
+  --icon-article-color: #707070;
 
   --white-color: #ffffff;
   --black-color: #000000;
-  --gray-color: ;
+  --transparent-color: rgba(255, 255, 255, 0.7);
 
-  --main-color: ;
-  --title-color: ;
-  --subtitle-color: ;
-  --active-color: ;
+  --main-color: #2a2a2a;
+  --title-color: #131313;
+  --subtitle-color: #606060;
 
-  --logo-color: ;
-  --logo-fixed-color: ;
+  --active-color: #ffffff;
+  --active-fixed-color: #333333;
 
-  --header-border-color: ;
-  --header-list-color: ;
+  --logo-color: #f6f7f9;
+  --logo-fixed-color: #2a2a2a;
 
-  --hamburger-color: ;
-  --hamburger-fixed-color: ;
-  // --background-color: #ffffff;
+  --header-border-color: #2323230d;
+  --header-list-color: #ffffff;
+  --header-item-color: #666666;
 
-  // --main-color: #000000bb;
-  // --second-color: #757575;
-
-  // --header-border-color: #f0f0f0;
-  // --header-active-color: #ffffff;
-  // --header-list-open: #ffffff;
-  // --header-transparent-color: #ffffffaf;
-
-  // --hamburger-color: #eaeaeaeb;
-  // --hamburger-active-color: #000000bb;
-
-  // --logo-color: #ffffff;
-  // --logo-active-color: #000000bb;
-
-  // --linear-gradient-background: rgba(0, 0, 0, 0.4);
-
-  // --active-color: #48b14d;
+  --hamburger-color: rgba(255, 255, 255, 0.7);
+  --hamburger-fixed-color: #2a2a2a;
 }
 
 [data-theme='dark'] {
@@ -69,6 +61,8 @@ $animation-delay: (
 
   --icon-color: #23272f;
   --icon-border-color: hsla(0, 0%, 100%, 0.05);
+  --icon-text-color: rgba(255, 255, 255, 0.7);
+  --icon-article-color: rgba(255, 255, 255, 0.7);
   --icon-css-modules: #f6f7f9;
 
   --white-color: #ffffff;
@@ -82,11 +76,12 @@ $animation-delay: (
   --active-color: #ffffff;
   --active-fixed-color: #8cb4ff;
 
-  --logo-color: #191b21;
+  --logo-color: #f6f7f9;
   --logo-fixed-color: #f6f7f9;
 
   --header-border-color: #f6f7f90d;
   --header-list-color: #191b21;
+  --header-item-color: rgba(255, 255, 255, 0.7);
 
   --hamburger-color: #f6f7f9;
   --hamburger-fixed-color: #f6f7f9;

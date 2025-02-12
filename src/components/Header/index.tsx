@@ -9,6 +9,7 @@ import Hamburger from '../Hamburger';
 import styles from './Header.module.scss';
 import useActiveSection from '../../hooks/useActiveSection';
 import handleLinkClick from '../../utils/clickToLinkBehavior';
+import Theme from '../Theme';
 
 interface HeaderProps {
   menuIsOpen: boolean;
@@ -126,6 +127,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
               />
             </button>
           </nav>
+          <Theme headerIsFixed={headerIsFixed} />
           <button
             className={`${styles.langBtn} ${menuIsOpen ? styles.langHidden : ''}`}
             onClick={handleSelectLanguage}>

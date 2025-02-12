@@ -167,7 +167,7 @@
 .link {
   svg {
     font-size: 30px;
-    fill: var(--transparent-color);
+    fill: var(--icon-article-color);
 
     transition: all 0.3s ease-in-out;
 
@@ -217,7 +217,7 @@
     }
   }
   span {
-    color: var(--transparent-color);
+    color: var(--icon-text-color);
   }
 
   @media (max-width: 500px) {

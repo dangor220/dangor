@@ -22,7 +22,7 @@
 .title {
   font-size: 20px;
   font-weight: bold;
-  color: var(--white-color);
+  color: var(--title-color);
   margin-bottom: 5px;
   @media (max-width: 1024px) and (max-height: 625px) {
     font-size: 15px;
@@ -80,17 +80,15 @@
   }
 }
 .icon {
+  padding: 0;
   border: none;
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 
-  @media (max-width: 768px) {
-    padding: 0;
-  }
   svg {
     font-size: 40px;
-    color: var(--transparent-color);
+    color: var(--icon-article-color);
     transition: all 0.3s ease-in-out;
 
     &:hover {

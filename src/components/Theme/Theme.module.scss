@@ -1,0 +1,68 @@
+@use '../../scss/variables' as *;
+
+.container {
+  background-color: transparent;
+  border: none;
+}
+.icon-container {
+  position: relative;
+}
+.icons {
+  --rotation: 0;
+  position: absolute;
+  left: calc(50% - 20px);
+  top: -157px;
+  margin: auto;
+  transition: 1.2s;
+  width: 40px;
+  text-align: center;
+  transform: rotate(calc(var(--rotation) * 1deg));
+}
+.icon {
+  font-size: 2em;
+  padding: 40px 0;
+  color: hsla(50, 85%, 55%, 80%);
+  transition: color 1.2s, transform 0.3s ease-in-out;
+
+  &:hover {
+    color: hsla(50, 85%, 55%, 100%);
+    transform: scale(1.1);
+  }
+}
+.fixed {
+  color: hsla(50, 85%, 55%, 100%);
+}
+
+.dark {
+  .icon {
+    color: #ccc;
+  }
+}
+.icon1 {
+  transform: rotate(180deg);
+}
+
+.btn-container {
+  text-align: center;
+}
+.swap-btn {
+  margin: auto;
+  padding: 10px 20px;
+  background: #848484;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  color: #eee;
+  outline: none;
+  cursor: pointer;
+  line-height: 1.5em;
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .container {
+    background-color: transparent;
+    border: none;
+    order: -2;
+  }
+}
