@@ -18,6 +18,11 @@ export default function Theme({ headerIsFixed }: { headerIsFixed: boolean }): Re
       container.current.classList.add(styles.dark);
       icons.current.style.setProperty('--rotation', String(180));
     }
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'dark' ? '#191b21' : '#ffffff');
+    }
 
     localStorage.setItem('theme', theme);
   }, [theme]);
