@@ -42,7 +42,7 @@
     height: 150px;
     margin-bottom: 15px;
   }
-  @media (max-height: 568px) and (max-width: 768px) {
+  @media (max-height: 600px) and (max-width: 768px) {
     display: none;
   }
   @media (max-height: 490px) and (min-width: 768px) {
@@ -204,14 +204,11 @@
     }
   }
 
-  @media (max-height: 480px) {
-    display: none;
-  }
-  @media (min-height: 590px) {
-    display: none;
-  }
   @media (min-height: 650px) {
     display: block;
+  }
+  @media (max-height: 668px) {
+    display: none;
   }
 }
 

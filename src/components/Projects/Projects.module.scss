@@ -210,11 +210,6 @@
     font-size: 25px;
     margin-right: 5px;
     transition: all 0.3s ease-in-out;
-
-    @media (max-width: 375px) {
-      font-size: calc(24px + 26 * (100dvw / 369));
-      margin-right: 0;
-    }
   }
   span {
     color: var(--icon-text-color);
@@ -239,6 +234,13 @@
     }
     span {
       display: none;
+    }
+  }
+  @media (max-width: 375px) {
+    padding: 5px 5px;
+    svg {
+      font-size: calc(16px + 2 * (100dvw / 375));
+      margin-right: 0;
     }
   }
 }
