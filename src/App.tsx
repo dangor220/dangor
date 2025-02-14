@@ -44,7 +44,7 @@ export default function App(): React.ReactNode {
   return (
     <>
       <Header ref={headerRef} menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
-      {/* <Preview menuIsOpen={menuIsOpen} />
+      <Preview menuIsOpen={menuIsOpen} />
       <About
         popup={popup}
         setPopup={setPopup}
@@ -52,7 +52,7 @@ export default function App(): React.ReactNode {
         setPopupData={setPopupData}
         clientWidth={clientWidth}
         clientHeight={clientHeight}
-      /> */}
+      />
       <Skills menuIsOpen={menuIsOpen} />
       <Projects
         popup={popup}

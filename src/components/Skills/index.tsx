@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styles from './Skills.module.scss';
 import Tech from '../Tech';
+import Progress from '../Progress';
 
 export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.ReactNode {
   const data: string[] = [
@@ -17,20 +18,19 @@ export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.R
     'React Router',
     'TypeScript',
   ];
-
-  // const leetCodeApi = 'https://alfa-leetcode-api.onrender.com/dangor220/solved';
-  // const codeWarsAPI = 'https://www.codewars.com/api/v1/users/dangor220';
-  // const gitHubAPI = 'https://api.github.com/users/dangor220';
+  const progressRef = useRef<HTMLDivElement>(null);
 
   return (
     <div id="skills">
-      {/* <div className={styles.skills} data-anchor>
+      <div className={styles.skills} data-anchor>
         <div className={`${styles.wrapper} container`}>
           <Tech data={data} styles={styles} menuIsOpen={menuIsOpen} isSkills />
         </div>
-      </div> */}
-      <div className={styles.skills} data-anchor>
-        <div className={`${styles.wrapper} container`}></div>
+      </div>
+      <div ref={progressRef} className={styles.skills} data-anchor>
+        <div className={`${styles.wrapper} container`}>
+          <Progress progressRef={progressRef} />
+        </div>
       </div>
     </div>
   );

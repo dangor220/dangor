@@ -48,5 +48,8 @@
   "telegram": "Telegram",
   "email": "Email",
   "phone": "Phone",
-  "or": "or"
+  "or": "or",
+  "on": "on",
+  "projectProgress": "Project,Projects",
+  "taskProgress": "Completed task,Completed tasks"
 }
