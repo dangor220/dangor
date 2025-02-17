@@ -77,3 +77,8 @@
     font-size: 14px;
   }
 }
+
+.progressHidden {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out !important;
+}

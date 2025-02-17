@@ -17,9 +17,10 @@ const API_ENDPOINTS: Record<string, string> = {
 };
 type ProgressProps = {
   progressRef: React.RefObject<HTMLDivElement>;
+  menuIsOpen: boolean;
 };
 
-export default function Progress({ progressRef }: ProgressProps) {
+export default function Progress({ progressRef, menuIsOpen }: ProgressProps) {
   const [countCompletedTasks, setCountCompletedTasks] = useState<
     [string, number, React.ReactNode][]
   >([
@@ -88,7 +89,7 @@ export default function Progress({ progressRef }: ProgressProps) {
   }, [data, isVisible, hasAnimated]);
 
   return (
-    <div className={styles.data}>
+    <div className={`${styles.data} ${menuIsOpen ? styles.progressHidden : ''}`}>
       <ul className={styles.list}>
         {}
         {countCompletedTasks.map(([platform, amount, logo]) => (

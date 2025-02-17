@@ -29,7 +29,7 @@ export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.R
       </div>
       <div ref={progressRef} className={styles.skills} data-anchor>
         <div className={`${styles.wrapper} container`}>
-          <Progress progressRef={progressRef} />
+          <Progress progressRef={progressRef} menuIsOpen={menuIsOpen} />
         </div>
       </div>
     </div>
