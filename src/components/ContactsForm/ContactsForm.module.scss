@@ -50,9 +50,14 @@
   padding: 10px 15px;
   line-height: 1.4;
 
-  @media (max-height: 325px) {
+  @media (max-width: 375px) {
     font-size: 15px;
+  }
+  @media (max-height: 475px) {
     padding: 5px 10px;
+  }
+  @media (max-height: 390px) {
+    font-size: 14px;
   }
 }
 .content {

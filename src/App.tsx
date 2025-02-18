@@ -14,6 +14,7 @@ import useFadeAnimation from './hooks/useFadeAnimation';
 import useHandleScrollbar from './hooks/useHandleScrollbar';
 import Contacts from './components/Contacts';
 import useCustomScroll from './hooks/useCustomScroll';
+import Footer from './components/Footer';
 
 export default function App(): React.ReactNode {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -62,6 +63,7 @@ export default function App(): React.ReactNode {
         clientHeight={clientHeight}
       />
       <Contacts menuIsOpen={menuIsOpen} setIsFormFocus={setIsFormFocus} />
+      <Footer />
       <Background />
     </>
   );
