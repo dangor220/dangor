@@ -19,7 +19,7 @@ interface HeaderProps {
 const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsOpen }, ref) => {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contacts'];
   const [t, i18n] = useTranslation();
-  const [activeLang, setActiveLang] = useState<string | undefined>('en');
+  const [activeLang, setActiveLang] = useState<string | undefined>('ru');
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
   const transparentSections = [2, 4];
 
@@ -78,6 +78,10 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
     if (activeLang) {
       document.documentElement.lang = activeLang;
     }
+    document.title =
+      activeLang === 'ru'
+        ? 'Данил Гордеев (dangor) – Фронтенд-разработчик | React, TypeScript'
+        : 'Danil Gordeev (dangor) – Frontend Developer | React, TypeScript';
   }, [i18n, activeLang]);
 
   const handleSelectLanguage = () => {
