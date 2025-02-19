@@ -132,7 +132,9 @@ export default function Articles({
           <li
             className={styles.article}
             key={article.title}
-            {...(clientWidth <= 768 || index !== 0 ? { 'data-anchor': true } : {})}>
+            {...(clientHeight <= 500 || clientWidth <= 768 || index !== 0
+              ? { 'data-anchor': true }
+              : {})}>
             <div ref={contentRef} className={styles.wrapper}>
               <div className={styles.title}>{t(article.title)}</div>
               <div className={styles.subtitle}>{t(article.subtitle) + ' ' + t(article.info)}</div>

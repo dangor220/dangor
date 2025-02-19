@@ -19,7 +19,7 @@ interface HeaderProps {
 const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsOpen }, ref) => {
   const navList: string[] = ['home', 'about', 'skills', 'projects', 'contacts'];
   const [t, i18n] = useTranslation();
-  const [activeLang, setActiveLang] = useState<string | undefined>('ru');
+  const [activeLang, setActiveLang] = useState<string | undefined>();
   const [headerIsFixed, setHeaderIsFixed] = useState<boolean>(false);
   const transparentSections = [2, 4];
 
@@ -67,6 +67,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
   useEffect(() => {
     const currentLang = i18n.use(LanguageDetector).resolvedLanguage;
     const pageLang = document.documentElement.lang;
+
     if (pageLang && currentLang) {
       document.documentElement.lang = currentLang;
     }
@@ -77,15 +78,15 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
     i18n.changeLanguage(activeLang);
     if (activeLang) {
       document.documentElement.lang = activeLang;
+      document.title =
+        activeLang === 'ru'
+          ? 'Данил Гордеев | dangor – Фронтенд-разработчик | React, TypeScript'
+          : 'Danil Gordeev | dangor – Frontend Developer | React, TypeScript';
     }
-    document.title =
-      activeLang === 'ru'
-        ? 'Данил Гордеев | dangor – Фронтенд-разработчик | React, TypeScript'
-        : 'Danil Gordeev | dangor – Frontend Developer | React, TypeScript';
   }, [i18n, activeLang]);
 
   const handleSelectLanguage = () => {
-    setActiveLang((prev) => (prev === 'en' ? 'ru' : 'en'));
+    setActiveLang((prev) => (prev === 'ru' ? 'en' : 'ru'));
   };
 
   const toggleMenu = () => {
