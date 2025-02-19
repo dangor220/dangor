@@ -40,7 +40,6 @@
   }
   @media (max-width: 768px) {
     flex-direction: column;
-    justify-content: start;
   }
 
   &:nth-child(2n) {
@@ -93,7 +92,6 @@
     height: 40dvh;
     min-height: 40dvh;
     max-height: 40dvh;
-    margin-top: 10px;
   }
   @media (min-width: 320px) and (max-height: 500px) {
     height: calc(90dvh - $header-height);
@@ -120,6 +118,7 @@
     flex: 40%;
   }
   @media (max-width: 768px) {
+    flex: none;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -129,6 +128,10 @@
     flex-direction: column;
     flex: 60%;
   }
+
+  @media (max-width: 375px) {
+    gap: 5px;
+  }
 }
 .info {
   @media (min-width: 320px) {
@@ -136,6 +139,12 @@
   }
 }
 .data {
+  @media (max-width: 768px) and (min-height: 360px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+  }
   @media (min-width: 320px) {
     flex: 40%;
   }
@@ -168,6 +177,11 @@
   list-style: none;
   padding: 0;
 
+  li {
+    display: flex;
+    align-items: center;
+  }
+
   @media (max-height: 360px) {
     flex-direction: column;
     justify-content: space-between;
@@ -175,8 +189,12 @@
     padding: 0;
     margin: 0;
   }
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 }
 .link {
+  display: flex;
   svg {
     font-size: 30px;
     fill: var(--icon-article-color);
@@ -201,6 +219,9 @@
   @media (max-height: 360px) {
     margin: 0;
     flex: 1;
+  }
+  @media (max-width: 375px) and (max-height: 635px) {
+    gap: calc(8 * (100dvh / 635));
   }
 }
 
@@ -235,7 +256,7 @@
     color: var(--icon-text-color);
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     justify-content: center;
     span {
       display: none;
@@ -256,10 +277,10 @@
       display: none;
     }
   }
-  @media (max-width: 375px) {
-    padding: 5px 5px;
+  @media (max-width: 375px) and (max-height: 635px) {
+    padding: calc(8 * (100dvh / 635)) calc(8 * (100dvh / 635));
     svg {
-      font-size: calc(16px + 2 * (100dvw / 375));
+      font-size: calc(17px + 7 * (100dvh / 635));
       margin-right: 0;
     }
   }
