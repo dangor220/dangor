@@ -80,8 +80,8 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ menuIsOpen, setMenuIsO
     }
     document.title =
       activeLang === 'ru'
-        ? 'Данил Гордеев (dangor) – Фронтенд-разработчик | React, TypeScript'
-        : 'Danil Gordeev (dangor) – Frontend Developer | React, TypeScript';
+        ? 'Данил Гордеев | dangor – Фронтенд-разработчик | React, TypeScript'
+        : 'Danil Gordeev | dangor – Frontend Developer | React, TypeScript';
   }, [i18n, activeLang]);
 
   const handleSelectLanguage = () => {
