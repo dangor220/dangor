@@ -126,7 +126,7 @@
   color: var(--active-color);
   transition: all 0.3s ease-in;
 }
-@media (max-width: 425px) {
+@media (max-width: 768px) {
   .langBtn {
     position: absolute;
     top: 108px;
