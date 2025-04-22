@@ -44,7 +44,7 @@ export default function Projects({
       image: mathwithsonya,
       link: 'https://www.mathwithsonya.ru/',
       github: 'https://github.com/dangor220/mathwithsonya',
-      stack: ['NextJS', 'TypeScript', 'SCSS', 'AXIOS', 'Git'],
+      stack: ['NextJS', 'TypeScript', 'SCSS', 'CSS Modules', 'AXIOS', 'Git'],
     },
     {
       title: 'JSPlayer',

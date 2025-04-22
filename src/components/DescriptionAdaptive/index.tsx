@@ -66,7 +66,7 @@ export default function DescriptionAdaptive({
       if (
         !maxSymbols ||
         maxSymbols >= text.length ||
-        (clientWidth >= 1024 && clientHeight >= 768)
+        (clientWidth >= 1024 && clientHeight >= 800)
       ) {
         setIsShortText(false);
         return text;
