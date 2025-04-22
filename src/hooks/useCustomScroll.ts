@@ -12,25 +12,35 @@ export default function useCustomScroll(popup: string, isFormFocus: boolean) {
   }, [coords, currentBlock]);
 
   useEffect(() => {
-    const anchorData = [...document.querySelectorAll('[data-anchor]')];
-    const anchorCoords = anchorData.map(
-      (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
-    );
-    setCoords(anchorCoords);
+    const handleLoad = () => {
+      const anchorData = [...document.querySelectorAll('[data-anchor]')];
+      const anchorCoords = anchorData.map(
+        (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
+      );
+      setCoords(anchorCoords);
 
-    if (!hasRun.current) {
-      const storedView = sessionStorage.getItem('userView');
-      setCurrentBlock(storedView ? Number(storedView) : 0);
+      if (!hasRun.current) {
+        const storedView = sessionStorage.getItem('userView');
+        setCurrentBlock(storedView ? Number(storedView) : 0);
 
-      setTimeout(() => {
-        window.scrollTo({
-          top: anchorCoords[Number(sessionStorage.getItem('userView'))],
-          behavior: 'smooth',
-        });
-      }, 0);
+        setTimeout(() => {
+          window.scrollTo({
+            top: anchorCoords[Number(sessionStorage.getItem('userView'))],
+            behavior: 'smooth',
+          });
+        }, 0);
 
-      hasRun.current = true;
+        hasRun.current = true;
+      }
+    };
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
     }
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
   }, []);
 
   useEffect(() => {
