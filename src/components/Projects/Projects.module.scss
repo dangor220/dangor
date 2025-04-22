@@ -24,15 +24,7 @@
   height: calc(100dvh - $header-height);
   color: var(--main-color);
 
-  &:nth-child(2) {
-    .item {
-      &:nth-child(5) {
-        svg {
-          fill: var(--icon-css-modules);
-        }
-      }
-    }
-
+  &:last-child {
     .image {
       -webkit-filter: brightness(0.95);
       filter: brightness(0.95);

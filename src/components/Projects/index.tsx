@@ -6,6 +6,7 @@ import Popup from '../Popup';
 
 import jsplayer from '../../assets/images/projects/preview/JSPlayer.png';
 import reactpizza from '../../assets/images/projects/preview/react-pizza.png';
+import mathwithsonya from '../../assets/images/projects/preview/mathwithsonya.png';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -37,6 +38,14 @@ export default function Projects({
   setPopupData,
 }: popupType): React.ReactNode {
   const projects: projectsType[] = [
+    {
+      title: 'Math with Sonya',
+      description: 'mathwithsonyaDescription',
+      image: mathwithsonya,
+      link: 'https://www.mathwithsonya.ru/',
+      github: 'https://github.com/dangor220/mathwithsonya',
+      stack: ['NextJS', 'TypeScript', 'SCSS', 'AXIOS', 'Git'],
+    },
     {
       title: 'JSPlayer',
       description: 'jsplayerDescription',

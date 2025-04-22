@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { FaReact, FaGitAlt, FaHtml5 } from 'react-icons/fa';
-import { TbBrandCss3 } from 'react-icons/tb';
+import { TbBrandCss3, TbBrandNextjs } from 'react-icons/tb';
 import {
   SiRedux,
   SiJavascript,
@@ -31,7 +31,10 @@ export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes)
     { tech: 'HTML', image: <FaHtml5 fill="#d35c33" /> },
     { tech: 'CSS', image: <TbBrandCss3 color="#3570b2" /> },
     { tech: 'SCSS', image: <BsFiletypeScss color="#c06f98" /> },
-    { tech: 'CSS Modules', image: <SiCssmodules color="#fff" /> },
+    {
+      tech: 'CSS Modules',
+      image: <SiCssmodules style={{ color: isSkills ? '#fff' : 'var(--css-modules-tech-icon)' }} />,
+    },
     { tech: 'JavaScript', image: <SiJavascript fill="#eddc68" /> },
     { tech: 'AXIOS', image: <SiAxios fill="#5232dd" /> },
     { tech: 'Git', image: <FaGitAlt color="#df6643" /> },
@@ -39,6 +42,10 @@ export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes)
     { tech: 'Redux Toolkit', image: <SiRedux color="#7455b9" /> },
     { tech: 'React Router', image: <SiReactrouter color="#c03121" /> },
     { tech: 'TypeScript', image: <SiTypescript color="#4a7bc4" /> },
+    {
+      tech: 'NextJS',
+      image: <TbBrandNextjs style={{ color: isSkills ? '#fff' : 'var(--nextjs-tech-icon)' }} />,
+    },
   ];
 
   if (data) {

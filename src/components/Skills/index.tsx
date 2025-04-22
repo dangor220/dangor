@@ -17,6 +17,7 @@ export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.R
     'Redux Toolkit',
     'React Router',
     'TypeScript',
+    'NextJS',
   ];
   const progressRef = useRef<HTMLDivElement>(null);
 
