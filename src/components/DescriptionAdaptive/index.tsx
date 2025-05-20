@@ -77,7 +77,18 @@ export default function DescriptionAdaptive({
       return `${truncatedText}... `;
     };
 
-    setAdaptiveText(generateShortText());
+    const waitLoadPage = () => {
+      setAdaptiveText(generateShortText());
+    };
+
+    if (document.readyState === 'complete') {
+      waitLoadPage();
+    } else {
+      window.addEventListener('load', waitLoadPage);
+    }
+    return () => {
+      window.removeEventListener('load', waitLoadPage);
+    };
   }, [clientHeight, clientWidth, content, text, type, i18n.language]);
 
   return (
