@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const API_ENDPOINTS: Record<string, string> = {
-  leetCode: 'https://leetcode-stats-api.herokuapp.com/dangor220',
+  leetCode: 'https://alfa-leetcode-api.onrender.com/dangor220/solved',
   codeWars: 'https://www.codewars.com/api/v1/users/dangor220',
   gitHub: 'https://api.github.com/users/dangor220',
 };
@@ -24,7 +24,7 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps) {
   const [countCompletedTasks, setCountCompletedTasks] = useState<
     [string, number, React.ReactNode][]
   >([
-    ['LeetCode', 39, <SiLeetcode key="leetcode" />],
+    ['LeetCode', 44, <SiLeetcode key="leetcode" />],
     ['CodeWars', 37, <SiCodewars key="codewars" />],
     ['GitHub', 33, <SiGithub key="github" />],
   ]);
@@ -79,7 +79,7 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps) {
   useEffect(() => {
     if (Object.entries(data).length && isVisible && hasAnimated) {
       const tasks: [string, number, React.ReactNode][] = [
-        ['LeetCode', data?.leetCode?.totalSolved || 39, <SiLeetcode />],
+        ['LeetCode', data?.leetCode?.solvedProblem || 44, <SiLeetcode />],
         ['CodeWars', data?.codeWars?.codeChallenges?.totalCompleted || 37, <SiCodewars />],
         ['GitHub', data?.gitHub?.public_repos || 33, <SiGithub />],
       ];
@@ -101,7 +101,7 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps) {
                   <CircularProgress size={30} color={'inherit'} />
                 </Stack>
               ) : (
-                animatedCounts[platform] ?? 0
+                (animatedCounts[platform] ?? 0)
               )}
             </span>
             <span className={styles.info}>

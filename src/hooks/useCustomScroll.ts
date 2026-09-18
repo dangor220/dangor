@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-const ANIMATION_MS = 500; // 0 = мгновенное переключение
+const ANIMATION_MS: number = 500; // 0 = мгновенное переключение
 const GESTURE_GAP_MS = 100; // пауза между событиями колеса, после которой начинается новый жест
 const POST_ANIMATION_MS = 120; // короткая «глушилка» после анимации, чтобы отсечь хвост инерции
 const WHEEL_THRESHOLD = 30; // суммарный путь колеса (px) в рамках одного жеста, после которого переключаем блок
