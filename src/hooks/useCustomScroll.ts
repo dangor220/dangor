@@ -1,237 +1,239 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+
+const ANIMATION_MS = 500; // 0 = мгновенное переключение
+const GESTURE_GAP_MS = 100; // пауза между событиями колеса, после которой начинается новый жест
+const POST_ANIMATION_MS = 120; // короткая «глушилка» после анимации, чтобы отсечь хвост инерции
+const WHEEL_THRESHOLD = 30; // суммарный путь колеса (px) в рамках одного жеста, после которого переключаем блок
+const SWIPE_THRESHOLD = 40;
+
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+// на время анимации отключаем нативные механизмы, которые перебивают программный скролл
+const setNativeScroll = (enabled: boolean) => {
+  [document.documentElement, document.body].forEach((el) => {
+    el.style.scrollSnapType = enabled ? '' : 'none';
+    el.style.scrollBehavior = enabled ? '' : 'auto';
+  });
+};
+
+const FORWARD_KEYS = ['ArrowDown', 'PageDown', ' '];
+const BACKWARD_KEYS = ['ArrowUp', 'PageUp'];
+const FORM_KEYS = [' ', 'ArrowDown', 'ArrowUp'];
 
 export default function useCustomScroll(popup: string, isFormFocus: boolean) {
-  const [coords, setCoords] = useState<number[]>([]);
-  const [currentBlock, setCurrentBlock] = useState<number>(0);
-  const [isAnim, setIsAnim] = useState<boolean>(false);
-  const hasRun = useRef<boolean>(false);
-  const mobileScrollY = useRef<number>(0);
+  const coords = useRef<number[]>([]);
+  const current = useRef(0);
+  const locked = useRef(false);
+  const rafId = useRef(0);
+  const lastWheel = useRef(0);
+  const wheelAcc = useRef(0);
+  const wheelHandled = useRef(false);
+  const unlockedAt = useRef(0);
+  const touchStartY = useRef(0);
 
-  const getCoords = useCallback(() => {
-    return coords[currentBlock];
-  }, [coords, currentBlock]);
-
+  // актуальные значения пропсов доступны обработчикам без пересоздания слушателей
+  const popupRef = useRef(popup);
+  const formFocusRef = useRef(isFormFocus);
   useEffect(() => {
-    const handleLoad = () => {
-      const anchorData = [...document.querySelectorAll('[data-anchor]')];
-      const anchorCoords = anchorData.map(
-        (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
-      );
-      setCoords(anchorCoords);
+    popupRef.current = popup;
+    formFocusRef.current = isFormFocus;
+  }, [popup, isFormFocus]);
 
-      if (!hasRun.current) {
-        const storedView = sessionStorage.getItem('userView');
-        setCurrentBlock(storedView ? Number(storedView) : 0);
-
-        setTimeout(() => {
-          window.scrollTo({
-            top: anchorCoords[Number(sessionStorage.getItem('userView'))],
-            behavior: 'smooth',
-          });
-        }, 0);
-
-        hasRun.current = true;
-      }
-    };
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-    }
-    return () => {
-      window.removeEventListener('load', handleLoad);
-    };
+  const measure = useCallback(() => {
+    coords.current = Array.from(document.querySelectorAll<HTMLElement>('[data-anchor]')).map(
+      (el) => el.getBoundingClientRect().top + window.scrollY,
+    );
   }, []);
 
-  useEffect(() => {
-    if (isAnim) {
-      const start = window.scrollY;
-      const end = getCoords();
-      const duration = 0;
-      const startTime = performance.now();
+  const jump = (top: number) => window.scrollTo({ top, behavior: 'instant' });
 
-      const animateScroll = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const scrollTo = start + (end - start) * progress;
+  const goTo = useCallback((index: number, animate = true) => {
+    const list = coords.current;
+    if (!list.length) return;
 
-        window.scrollTo(0, scrollTo);
+    const next = Math.max(0, Math.min(index, list.length - 1));
+    const from = window.scrollY;
+    const to = list[next];
 
-        if (progress < 1) {
-          requestAnimationFrame(animateScroll);
-        } else {
-          setIsAnim(false);
-        }
-      };
+    current.current = next;
+    sessionStorage.setItem('userView', String(next));
+    cancelAnimationFrame(rafId.current);
 
-      requestAnimationFrame(animateScroll);
-    }
-  }, [isAnim, getCoords]);
-
-  const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
-    let timeout: NodeJS.Timeout;
-    return (...args: Parameters<T>) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleDebounceWheel = debounce((event: WheelEvent) => {
-    if (event.deltaY > 0) {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
-    } else {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-    }
-  }, 300);
-
-  const handleWheel = useCallback(
-    (event: WheelEvent) => {
-      if (popup !== 'hidden' || isAnim) return;
-      if (event.ctrlKey) return;
-      event.preventDefault();
-      handleDebounceWheel(event);
-    },
-    [handleDebounceWheel, popup, isAnim],
-  );
-
-  const handleTouchStart = (event: TouchEvent) => {
-    mobileScrollY.current = event.touches[0].clientY;
-  };
-
-  const handleDebouncedTouchMove = debounce((event: TouchEvent) => {
-    const currentScroll = event.touches[0].clientY;
-
-    if (mobileScrollY.current - currentScroll > 40) {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
-    }
-
-    if (mobileScrollY.current - currentScroll < 40) {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-    }
-  }, 300);
-
-  const handleTouchMove = useCallback(
-    (event: TouchEvent) => {
-      const target = event.target;
-      if (target instanceof Element && target.closest('header')) {
-        event.preventDefault();
-        return;
-      }
-      if (popup !== 'hidden' || isAnim) return;
-      event.preventDefault();
-      handleDebouncedTouchMove(event);
-    },
-    [handleDebouncedTouchMove, popup, isAnim],
-  );
-
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (
-        isFormFocus &&
-        (event.key === ' ' || event.key === 'ArrowDown' || event.key === 'ArrowUp')
-      )
-        return;
-      if (
-        event.key === 'ArrowDown' ||
-        event.key === 'ArrowUp' ||
-        event.key === 'PageUp' ||
-        event.key === 'PageDown' ||
-        event.key === ' '
-      ) {
-        if (popup !== 'hidden' || isAnim) return;
-        event.preventDefault();
-      }
-    },
-    [popup, isAnim, isFormFocus],
-  );
-
-  const handleDebouncedKeyUp = debounce((event: KeyboardEvent) => {
-    if (isFormFocus && (event.key === ' ' || event.key === 'ArrowDown' || event.key === 'ArrowUp'))
+    if (!animate || ANIMATION_MS === 0 || from === to) {
+      locked.current = false;
+      setNativeScroll(true);
+      jump(to);
       return;
-    if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === coords.length - 1 ? prev : prev + 1));
     }
-    if (event.key === 'ArrowUp' || event.key === 'PageUp') {
-      setIsAnim(true);
-      setCurrentBlock((prev) => (prev === 0 ? prev : prev - 1));
-    }
-  }, 300);
 
-  const handleKeyUp = useCallback(
-    (event: KeyboardEvent) => {
-      if (popup !== 'hidden' || isAnim) return;
-      handleDebouncedKeyUp(event);
+    locked.current = true;
+    setNativeScroll(false);
+    const startTime = performance.now();
+
+    const frame = (now: number) => {
+      // now из rAF может быть чуть меньше startTime, поэтому зажимаем в [0, 1]
+      const t = Math.min(Math.max((now - startTime) / ANIMATION_MS, 0), 1);
+      jump(from + (to - from) * easeInOutCubic(t));
+
+      if (t < 1) {
+        rafId.current = requestAnimationFrame(frame);
+      } else {
+        locked.current = false;
+        unlockedAt.current = performance.now();
+        setNativeScroll(true);
+      }
+    };
+
+    rafId.current = requestAnimationFrame(frame);
+  }, []);
+
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      if (locked.current || popupRef.current !== 'hidden') return;
+      goTo(current.current + dir);
     },
-    [handleDebouncedKeyUp, popup, isAnim],
+    [goTo],
   );
 
-  const handleDebouncedScroll = debounce(() => {
-    if (!coords.length) return;
+  useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout> | undefined;
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
 
-    const closest = coords.reduce((prev, curr) => {
-      const currentScroll = window.scrollY;
-      return Math.abs(curr - currentScroll) < Math.abs(prev - currentScroll) ? curr : prev;
-    });
-    if (!isAnim) {
-      setCurrentBlock(coords.indexOf(closest));
-      sessionStorage.setItem('userView', JSON.stringify(coords.indexOf(closest)));
-    }
-  }, 300);
+    const remeasure = () => {
+      measure();
+      if (!locked.current) jump(coords.current[current.current] ?? 0);
+    };
 
-  const handleScroll = useCallback(() => {
-    handleDebouncedScroll();
-  }, [handleDebouncedScroll]);
+    const init = () => {
+      measure();
+      goTo(Number(sessionStorage.getItem('userView')) || 0, false);
+    };
 
-  const handleResize = useCallback(() => {
-    setTimeout(() => {
-      const anchorData = [...document.querySelectorAll('[data-anchor]')];
-      const anchorCoords = anchorData.map(
-        (elem) => (elem as HTMLElement).getBoundingClientRect().top + window.scrollY,
-      );
-      setCoords(anchorCoords);
+    const onWheel = (e: WheelEvent) => {
+      if (e.ctrlKey || popupRef.current !== 'hidden') return;
+      e.preventDefault();
 
-      requestAnimationFrame(() => {
-        window.scrollTo({
-          top: anchorCoords[currentBlock] || 0,
-          behavior: 'instant',
+      // пока идёт анимация (и сразу после неё) события колеса гасим и сбрасываем жест:
+      // иначе непрерывное кручение «растягивает» жест, и следующий блок не переключается
+      if (locked.current || performance.now() - unlockedAt.current < POST_ANIMATION_MS) {
+        lastWheel.current = 0;
+        wheelAcc.current = 0;
+        wheelHandled.current = false;
+        return;
+      }
+
+      // приводим строки и страницы к пикселям (Firefox и часть мышей отдают deltaMode 1 или 2)
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+      const delta = e.deltaY * unit;
+
+      // одно деление колеса или инерция трекпада = серия событий; считаем их одним жестом
+      const now = performance.now();
+      const isNewGesture = now - lastWheel.current > GESTURE_GAP_MS;
+      lastWheel.current = now;
+
+      if (isNewGesture) {
+        wheelAcc.current = 0;
+        wheelHandled.current = false;
+      }
+      if (wheelHandled.current) return;
+
+      // смена направления внутри жеста сбрасывает накопленное
+      if (wheelAcc.current !== 0 && Math.sign(delta) !== Math.sign(wheelAcc.current)) {
+        wheelAcc.current = 0;
+      }
+      wheelAcc.current += delta;
+
+      if (Math.abs(wheelAcc.current) >= WHEEL_THRESHOLD) {
+        wheelHandled.current = true;
+        step(wheelAcc.current > 0 ? 1 : -1);
+      }
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const target = e.target;
+      if (target instanceof Element && target.closest('header')) {
+        e.preventDefault();
+        return;
+      }
+      if (popupRef.current !== 'hidden') return;
+      e.preventDefault();
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      const delta = touchStartY.current - e.changedTouches[0].clientY;
+      if (delta > SWIPE_THRESHOLD) step(1);
+      else if (delta < -SWIPE_THRESHOLD) step(-1);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      const forward = FORWARD_KEYS.includes(e.key);
+      const backward = BACKWARD_KEYS.includes(e.key);
+      if (!forward && !backward) return;
+      if (formFocusRef.current && FORM_KEYS.includes(e.key)) return;
+      if (popupRef.current !== 'hidden') return;
+
+      e.preventDefault();
+      if (!e.repeat) step(forward ? 1 : -1);
+    };
+
+    // пользователь потянул за полосу прокрутки или сработал якорь: синхронизируем текущий блок
+    const onScroll = () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        if (locked.current || !coords.current.length) return;
+        const y = window.scrollY;
+        let idx = 0;
+        let best = Infinity;
+        coords.current.forEach((c, i) => {
+          const d = Math.abs(c - y);
+          if (d < best) {
+            best = d;
+            idx = i;
+          }
         });
-      });
-    }, 100);
-  }, [currentBlock]);
-
-  const handleOrientation = () => {
-    location.reload();
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleOrientation);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleOrientation);
+        current.current = idx;
+        sessionStorage.setItem('userView', String(idx));
+      }, 150);
     };
-  }, [handleResize]);
 
-  useEffect(() => {
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
-    document.addEventListener('scroll', handleScroll);
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(remeasure, 150);
+    };
+
+    if (document.readyState === 'complete') init();
+    else window.addEventListener('load', init, { once: true });
+
+    // контент мог догрузиться (шрифты, переводы, картинки), поэтому следим за высотой страницы
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(document.body);
+
+    window.addEventListener('resize', onResize);
+    document.addEventListener('wheel', onWheel, { passive: false });
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd, { passive: true });
+    document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('scroll', onScroll);
 
     return () => {
-      document.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-      document.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
+      cancelAnimationFrame(rafId.current);
+      setNativeScroll(true);
+      clearTimeout(scrollTimer);
+      clearTimeout(resizeTimer);
+      resizeObserver.disconnect();
+      window.removeEventListener('load', init);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('wheel', onWheel);
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('scroll', onScroll);
     };
-  }, [coords, handleWheel, handleKeyDown, handleKeyUp, handleScroll, handleTouchMove]);
+  }, [goTo, measure, step]);
 }
