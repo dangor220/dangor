@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# dangor — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
 
-Currently, two official plugins are available:
+### Данил Гордеев — Frontend Developer
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Персональный сайт-портфолио, созданный для презентации профессионального опыта, технических навыков и реализованных проектов.
 
-## Expanding the ESLint configuration
+[Открыть сайт](https://www.dangor.ru/) · [Исходный код](https://github.com/dangor220/dangor)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+</div>
 
-- Configure the top-level `parserOptions` property like this:
+## Preview
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![Portfolio Preview](assets/readme/preview.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## About
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+**dangor** — персональное веб-портфолио, разработанное на React и TypeScript с использованием Vite.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Сайт представляет профессиональный профиль разработчика, включая информацию об образовании, опыте работы, технических навыках и реализованных проектах.
+
+Интерфейс поддерживает русский и английский языки, светлую и тёмную темы оформления, адаптивную верстку и интерактивную навигацию между секциями.
+
+## Tech Stack
+
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-20232A?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite)](https://vite.dev/)
+[![SCSS](https://img.shields.io/badge/SCSS-20232A?style=for-the-badge&logo=sass)](https://sass-lang.com/)
+
+- React Router
+- i18next
+- Material UI
+- CSS Modules
+- PDF.js
