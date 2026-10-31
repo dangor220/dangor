@@ -54,5 +54,8 @@
   "repoProgress": "Project,Projects",
   "taskProgress": "Completed task,Completed tasks",
   "code": "CODING ACTIVITY",
-  "achievements": "My development activity and achievements."
+  "achievements": "My development activity and achievements.",
+  "skillsEyebrow": "MY TOOLKIT",
+  "skillsTitle": "Technologies I work with",
+  "skillsDescription": "Tools and technologies I use to build modern web applications."
 }

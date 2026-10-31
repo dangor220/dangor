@@ -1,55 +1,16 @@
 @use '../../scss/variables' as *;
 
 .data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   min-width: 0;
+  min-height: calc(100dvh - #{$header-height} - 48px);
+
   box-sizing: border-box;
-
-  // Высота доступной области с учетом Header
-  min-height: calc(100dvh - #{$header-height} - 70px);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: clamp(18px, 4vh, 45px);
-
   color: $transparent-white;
-}
-
-// Heading
-
-.heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-
-  text-align: center;
-}
-
-.eyebrow {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-}
-
-.title {
-  margin: 0;
-
-  color: $white;
-  font-size: clamp(26px, 3.5vw, 42px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-}
-
-.description {
-  margin: 0;
-
-  color: rgba(255, 255, 255, 0.55);
-  font-size: 15px;
-  line-height: 1.5;
 }
 
 // Cards
@@ -57,10 +18,12 @@
 .list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(10px, 1.6vw, 20px);
+  gap: clamp(12px, 2vw, 24px);
 
   width: 100%;
-  margin: 0;
+  max-width: 1000px;
+
+  margin: 0 auto;
   padding: 0;
 
   list-style: none;
@@ -73,11 +36,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
+
   gap: clamp(12px, 2vh, 20px);
 
   min-width: 0;
-  min-height: clamp(140px, 25vh, 230px);
-  padding: clamp(14px, 2vw, 26px);
+  min-height: clamp(150px, 25vh, 220px);
+  padding: clamp(16px, 2.5vw, 28px);
 
   box-sizing: border-box;
 
@@ -142,6 +107,7 @@
   color: rgba(255, 255, 255, 0.8);
   font-size: clamp(13px, 1.3vw, 16px);
   font-weight: 600;
+
   overflow-wrap: anywhere;
 }
 
@@ -152,6 +118,7 @@
   font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 1.1;
+
   font-variant-numeric: tabular-nums;
 }
 
@@ -162,6 +129,8 @@
   line-height: 1.6;
 }
 
+// Menu state
+
 .progressHidden {
   opacity: 0 !important;
   pointer-events: none;
@@ -169,18 +138,16 @@
   transition: opacity 0.3s ease-in-out !important;
 }
 
-@media (max-width: 768px) {
-  .data {
-    gap: 28px;
-  }
+// Tablet
 
+@media (max-width: 768px) {
   .list {
     gap: 12px;
   }
 
   .item {
+    min-height: 160px;
     padding: 16px;
-    min-height: 170px;
     gap: 14px;
   }
 
@@ -205,36 +172,29 @@
   }
 }
 
+// Mobile
+
 @media (max-width: 540px) {
   .data {
-    gap: clamp(14px, 3vh, 26px);
-  }
-
-  .heading {
-    gap: 7px;
-  }
-
-  .title {
-    font-size: clamp(25px, 7vw, 34px);
-  }
-
-  .description {
-    font-size: 13px;
+    min-height: calc(100dvh - #{$header-height} - 48px);
   }
 
   .list {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 440px;
+    gap: 12px;
   }
 
   .item {
     display: grid;
+
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       'header count'
       'info count';
 
     align-items: center;
+
     column-gap: 12px;
     row-gap: 3px;
 
@@ -265,38 +225,17 @@
 
   .info {
     grid-area: info;
+
     font-size: 12px;
     line-height: 1.35;
   }
 }
 
-@media (max-height: 560px) {
-  .data {
-    gap: 14px;
-  }
+// Landscape and short screens
 
-  .heading {
-    gap: 5px;
-  }
-
-  .eyebrow {
-    font-size: 0.68rem;
-  }
-
-  .title {
-    font-size: clamp(23px, 3vw, 32px);
-  }
-
-  .description {
-    font-size: 12px;
-  }
-
-  .list {
-    gap: 10px;
-  }
-
+@media (max-height: 560px) and (min-width: 541px) {
   .item {
-    min-height: clamp(100px, 25vh, 145px);
+    min-height: clamp(110px, 30vh, 150px);
     padding: 12px;
     gap: 10px;
   }
@@ -311,48 +250,16 @@
 
   .info {
     font-size: 12px;
-    line-height: 1.4;
-  }
-}
-
-@media (max-height: 420px) {
-  .data {
-    gap: 8px;
-  }
-
-  .heading {
-    gap: 3px;
-  }
-
-  .eyebrow {
-    display: none;
-  }
-
-  .title {
-    font-size: 23px;
-  }
-
-  .description {
-    display: none;
-  }
-
-  .item {
-    min-height: 90px;
-    padding: 10px;
-  }
-
-  .count {
-    font-size: 30px;
   }
 }
 
 @media (max-width: 540px) and (max-height: 560px) {
-  .data {
-    gap: 10px;
+  .list {
+    gap: 8px;
   }
 
   .item {
-    min-height: 64px;
+    min-height: 65px;
     padding: 9px 14px;
     border-radius: 12px;
   }
@@ -390,6 +297,8 @@
     font-size: 27px;
   }
 }
+
+// Reduced motion
 
 @media (prefers-reduced-motion: reduce) {
   .item,

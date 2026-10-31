@@ -1,8 +1,8 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { FaReact, FaGitAlt, FaHtml5 } from 'react-icons/fa';
 import { TbBrandCss3, TbBrandNextjs, TbBrandSupabase } from 'react-icons/tb';
+
 import {
   SiRedux,
   SiJavascript,
@@ -11,56 +11,60 @@ import {
   SiCssmodules,
   SiAxios,
 } from 'react-icons/si';
+
 import { BsFiletypeScss } from 'react-icons/bs';
 
-type stackTypes = {
+type StackTypes = {
   data: string[];
   styles: CSSModuleClasses;
   menuIsOpen?: boolean;
   isSkills?: boolean;
 };
 
-type techTypes = {
+type Technology = {
   tech: string;
-  image: JSX.Element;
+  image: React.ReactNode;
 };
-type technologiesTypes = techTypes[];
 
-export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes): React.ReactNode {
-  let technologies: technologiesTypes = [
-    { tech: 'HTML', image: <FaHtml5 fill="#d35c33" /> },
-    { tech: 'CSS', image: <TbBrandCss3 color="#3570b2" /> },
-    { tech: 'SCSS', image: <BsFiletypeScss color="#c06f98" /> },
-    {
-      tech: 'CSS Modules',
-      image: <SiCssmodules style={{ color: isSkills ? '#fff' : 'var(--css-modules-tech-icon)' }} />,
-    },
-    { tech: 'JavaScript', image: <SiJavascript fill="#eddc68" /> },
-    { tech: 'AXIOS', image: <SiAxios fill="#5232dd" /> },
-    { tech: 'Git', image: <FaGitAlt color="#df6643" /> },
-    { tech: 'React', image: <FaReact color="#86d7f8" /> },
-    { tech: 'Supabase', image: <TbBrandSupabase color="#38cd8e" /> },
-    { tech: 'Redux Toolkit', image: <SiRedux color="#7455b9" /> },
-    { tech: 'React Router', image: <SiReactrouter color="#c03121" /> },
-    { tech: 'TypeScript', image: <SiTypescript color="#4a7bc4" /> },
-    {
-      tech: 'NextJS',
-      image: <TbBrandNextjs style={{ color: isSkills ? '#fff' : 'var(--nextjs-tech-icon)' }} />,
-    },
-  ];
+export default function Tech({ data, styles, isSkills, menuIsOpen }: StackTypes): React.ReactNode {
+  const iconByTechnology: Record<string, React.ReactNode> = {
+    HTML: <FaHtml5 fill="#d35c33" />,
+    CSS: <TbBrandCss3 color="#3570b2" />,
+    SCSS: <BsFiletypeScss color="#c06f98" />,
 
-  if (data) {
-    const newTech: technologiesTypes = [];
+    'CSS Modules': (
+      <SiCssmodules
+        style={{
+          color: isSkills ? '#fff' : 'var(--css-modules-tech-icon)',
+        }}
+      />
+    ),
 
-    data.forEach((tech) => {
-      technologies.forEach((item) => {
-        if (item.tech === tech) {
-          newTech.push(item);
-        }
-      });
-    });
-    technologies = newTech;
-  }
+    JavaScript: <SiJavascript fill="#eddc68" />,
+    AXIOS: <SiAxios fill="#5232dd" />,
+    Git: <FaGitAlt color="#df6643" />,
+    React: <FaReact color="#86d7f8" />,
+    Supabase: <TbBrandSupabase color="#38cd8e" />,
+    'Redux Toolkit': <SiRedux color="#7455b9" />,
+    'React Router': <SiReactrouter color="#c03121" />,
+    TypeScript: <SiTypescript color="#4a7bc4" />,
+
+    NextJS: (
+      <TbBrandNextjs
+        style={{
+          color: isSkills ? '#fff' : 'var(--nextjs-tech-icon)',
+        }}
+      />
+    ),
+  };
+
+  const technologies: Technology[] = data.flatMap((tech) => {
+    const image = iconByTechnology[tech];
+
+    return image ? [{ tech, image }] : [];
+  });
+
+  // ЭТУ ФУНКЦИЮ ОСТАВЛЯЕМ БЕЗ ИЗМЕНЕНИЙ
 
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault();
@@ -85,14 +89,14 @@ export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes)
   return (
     <ul className={`${styles.list} ${menuIsOpen ? styles.titleHidden : ''}`}>
       {technologies.map(({ tech, image }) => (
-        <li className={styles.item} key={uuidv4()}>
+        <li className={styles.item} key={tech}>
           {isSkills ? (
             <a
               className={styles.techLink}
               href={`#${tech.toLowerCase()}`}
               onClick={handleLinkClick}>
               {image}
-              <span className={styles.hidden}>{tech}</span>
+              <span className={styles.techName}>{tech}</span>
             </a>
           ) : (
             <>

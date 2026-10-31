@@ -133,11 +133,6 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps): Re
 
   return (
     <div className={`${styles.data} ${menuIsOpen ? styles.progressHidden : ''}`}>
-      <div className={styles.heading}>
-        <span className={styles.eyebrow}> {t('code')}</span>
-        <p className={styles.description}>{t('achievements')}</p>
-      </div>
-
       <ul className={styles.list}>
         {metrics.map(({ platform, amount, logo, translationKey }) => {
           const count = animatedCounts[platform] ?? amount;
