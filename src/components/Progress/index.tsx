@@ -134,8 +134,7 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps): Re
   return (
     <div className={`${styles.data} ${menuIsOpen ? styles.progressHidden : ''}`}>
       <div className={styles.heading}>
-        <span className={styles.title}> {t('code')}</span>
-
+        <span className={styles.eyebrow}> {t('code')}</span>
         <p className={styles.description}>{t('achievements')}</p>
       </div>
 
