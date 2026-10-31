@@ -51,6 +51,8 @@
   "phone": "Phone",
   "or": "or",
   "on": "on",
-  "projectProgress": "Project,Projects",
-  "taskProgress": "Completed task,Completed tasks"
+  "repoProgress": "Project,Projects",
+  "taskProgress": "Completed task,Completed tasks",
+  "code": "CODING ACTIVITY",
+  "achievements": "My development activity and achievements."
 }
