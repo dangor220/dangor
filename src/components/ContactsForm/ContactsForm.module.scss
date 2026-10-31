@@ -2,39 +2,31 @@
 
 .contact {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  gap: 10px;
-  height: calc(100dvh / 2);
+  gap: 14px;
 
-  @media (max-height: 650px) {
-    width: 100%;
-  }
+  width: 100%;
+  padding: clamp(18px, 3vw, 30px);
+  box-sizing: border-box;
+
+  background: rgba(249, 249, 249, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
-.data,
+.data {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .content {
   display: flex;
-  flex-wrap: wrap;
-}
-.data {
-  gap: 10px;
-
-  @media (max-height: 325px) {
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
-}
-
-.name,
-.email,
-.message {
-  &:focus {
-    outline: 2px solid #8f8f8f;
-  }
-  &::placeholder {
-    color: #b6b5b5;
-  }
 }
 
 .name,
@@ -42,39 +34,97 @@
 .message,
 .submit {
   width: 100%;
-  border: none;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+
+  padding: 14px 16px;
+
   color: $white;
-  background-color: rgba(249, 249, 249, 0.0941176471);
-  backdrop-filter: blur(2px);
-  border-radius: 10px;
-  padding: 10px 15px;
+  background: rgba(249, 249, 249, 0.06);
+
+  font: inherit;
   line-height: 1.4;
 
-  @media (max-width: 375px) {
-    font-size: 15px;
-  }
-  @media (max-height: 475px) {
-    padding: 5px 10px;
-  }
-  @media (max-height: 390px) {
-    font-size: 14px;
-  }
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
-.content {
-  flex: 1;
-}
+
+.name,
+.email,
 .message {
-  resize: none;
+  min-width: 0;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.48);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(249, 249, 249, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+  }
 }
+
+.message {
+  min-height: 160px;
+  resize: vertical;
+}
+
 .submit {
   display: flex;
-  gap: 10px;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
+
+  min-height: 50px;
+
+  color: #171717;
+  background: $white;
+  border-color: transparent;
+
+  font-weight: 600;
   cursor: pointer;
-  color: #b6b5b5;
-  transition: all 0.2s linear;
-  &:hover {
-    color: $white;
-    background-color: rgba(221, 221, 221, 0.136);
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #e8e8e8;
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $white;
+    outline-offset: 3px;
+  }
+}
+
+@media (max-width: 500px) {
+  .data {
+    grid-template-columns: 1fr;
+  }
+
+  .message {
+    min-height: 130px;
+  }
+
+  .contact {
+    border-radius: 18px;
   }
 }
