@@ -22,7 +22,7 @@ Personal portfolio website showcasing professional experience, technical skills,
 
 ## Preview
 
-![Portfolio Preview](assets/readme/preview.png)
+![Portfolio Preview](assets/readme/preview-en.png)
 
 ## About
 
