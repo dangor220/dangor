@@ -136,7 +136,7 @@ export default function Progress({ progressRef, menuIsOpen }: ProgressProps): Re
       <div className={styles.heading}>
         <span className={styles.title}> {t('code')}</span>
 
-        <p className={styles.description}>My development activity and achievements.</p>
+        <p className={styles.description}>{t('achievements')}</p>
       </div>
 
       <ul className={styles.list}>
