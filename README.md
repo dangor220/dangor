@@ -1,7 +1,10 @@
-# dangor — Personal Portfolio
-
 <div align="center">
 
+
+<a href="https://github.com/dangor220/dangor/tree/main/src">
+  <img src="assets/readme/logo.svg" alt="Logo" width="80" height="80">
+</a>
+  
 ### Данил Гордеев — Frontend Developer
 
 Персональный сайт-портфолио, созданный для презентации профессионального опыта, технических навыков и реализованных проектов.
