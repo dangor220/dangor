@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { FaReact, FaGitAlt, FaHtml5 } from 'react-icons/fa';
-import { TbBrandCss3, TbBrandNextjs } from 'react-icons/tb';
+import { TbBrandCss3, TbBrandNextjs, TbBrandSupabase } from 'react-icons/tb';
 import {
   SiRedux,
   SiJavascript,
@@ -39,6 +39,7 @@ export default function Tech({ data, styles, isSkills, menuIsOpen }: stackTypes)
     { tech: 'AXIOS', image: <SiAxios fill="#5232dd" /> },
     { tech: 'Git', image: <FaGitAlt color="#df6643" /> },
     { tech: 'React', image: <FaReact color="#86d7f8" /> },
+    { tech: 'Supabase', image: <TbBrandSupabase color="#38cd8e" /> },
     { tech: 'Redux Toolkit', image: <SiRedux color="#7455b9" /> },
     { tech: 'React Router', image: <SiReactrouter color="#c03121" /> },
     { tech: 'TypeScript', image: <SiTypescript color="#4a7bc4" /> },

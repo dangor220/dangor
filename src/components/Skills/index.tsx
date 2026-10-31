@@ -13,6 +13,7 @@ export default function Skills({ menuIsOpen }: { menuIsOpen: boolean }): React.R
     'JavaScript',
     'AXIOS',
     'Git',
+    'Supabase',
     'React',
     'Redux Toolkit',
     'React Router',

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './Projects.module.scss';
 import Popup from '../Popup';
 
-import jsplayer from '../../assets/images/projects/preview/JSPlayer.png';
+import сartly from '../../assets/images/projects/preview/сartly.png';
 import reactpizza from '../../assets/images/projects/preview/react-pizza.png';
 import mathwithsonya from '../../assets/images/projects/preview/mathwithsonya.png';
 
@@ -47,12 +47,12 @@ export default function Projects({
       stack: ['NextJS', 'TypeScript', 'SCSS', 'CSS Modules', 'AXIOS', 'Git'],
     },
     {
-      title: 'JSPlayer',
-      description: 'jsplayerDescription',
-      image: jsplayer,
-      link: 'https://dangor220.github.io/audio-player/',
-      github: 'https://github.com/dangor220/audio-player',
-      stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
+      title: 'Cartly',
+      description: 'cartlyDescription',
+      image: сartly,
+      link: 'https://dangor220.github.io/cartly/',
+      github: 'https://github.com/dangor220/cartly',
+      stack: ['React', 'TypeScript', 'Supabase', 'Git'],
     },
     {
       title: 'React Pizza',
