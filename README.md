@@ -1,5 +1,11 @@
-<div align="center">
+<a id="readme-top"></a>
 
+<!-- PROJECT LOGO -->
+
+[![READMEENG](https://img.shields.io/badge/readme_en-white?style=for-the-badge&logo=en)](https://github.com/dangor220/dangor/blob/main/README.en.md)
+<br />
+
+<div align="center">
 
 <a href="https://github.com/dangor220/dangor/tree/main/src">
   <img src="assets/readme/logo.svg" alt="Logo" width="80" height="80">
