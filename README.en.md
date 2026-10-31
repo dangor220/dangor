@@ -44,7 +44,3 @@ The interface supports English and Russian languages, light and dark themes, res
 - Material UI
 - CSS Modules
 - PDF.js
-
-```
-
-```
